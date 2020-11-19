@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:34e7b3107c711f012c2d9feb6c7116db:f0325410805aa70c556c129eb970bf62:642b438c161378a50bdb0fe7a7b315c5$
+#
+:format=40300
+:texture=HUD_Score.png
+:size=540x44
+:pivotpoints=enabled
+:borders=disabled
+:alphahandling=ClearTransparentPixels
+
+HUD_Score;1;4;535;39; 0.001869158878504673;0.9743589743589743; 0;0;0;0; 4;535;0;0;0;0;39;535;39; 2;1;2;3;0;1;3

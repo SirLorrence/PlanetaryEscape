@@ -1,0 +1,18 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:7360a92dd19337a1d7fda21ad07eb22e:6a3cac001480444345a40a9b052a3ff3:f53521f3483e341d049c1dc9289bfce4$
+#
+:format=40300
+:texture=Settings Button.png
+:size=1024x512
+:pivotpoints=enabled
+:borders=disabled
+:alphahandling=ClearTransparentPixels
+
+Settings_menu-button_0001;1;168;648;128; 0.5;0.390625; 0;0;0;0; 8;255;121;598;112;648;66;603;6;59;7;44;0;0;59;58;128; 6;4;6;7;4;5;6;0;3;4;3;0;1;3;1;2;0;4;7
+Settings_menu-button_0002;1;45;648;121; 0.5;0.36363636363636365; 0;0;0;0; 6;598;106;648;60;603;0;45;0;0;53;59;121; 4;3;4;5;2;3;5;0;1;2;0;2;5
+Settings_menu-button_0004;1;298;644;213; 0.5015527950310559;0.21126760563380287; 0;0;0;0; 10;327;116;597;107;644;62;614;1;45;0;0;53;57;123;70;208;70;213;85;213; 6;4;5;6;0;3;4;3;0;1;3;1;2;0;4;6;7;8;9
