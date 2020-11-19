@@ -30,14 +30,14 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame()
     {
-        GameManager.Instance.ShowPause();
+        //GameManager.Instance.ShowPause();
         Time.timeScale = 0f;
         pause = true;
     }
 
     public void ResumeGame()
     {
-        GameManager.Instance.ShowHUD();
+        //GameManager.Instance.ShowHUD();
         Time.timeScale = 1f;
         pause = false;
     }
