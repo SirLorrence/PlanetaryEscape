@@ -41,30 +41,17 @@ public class GameManager : MonoBehaviour
         Medium,
         Strong
     }
+    //Game Stats
+    [HideInInspector] public GameObject currentLevel;
+    [HideInInspector] public UIManager uiManager;
 
     //Player
-    private GameObject player;
-    private PlayerStats playerStats;
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public PlayerStats playerStats;
 
     //showing remaining enemies
     [HideInInspector] public int enemiesRemaining = 0;
     [HideInInspector] public int enemiesKilled = 0;
-
-    //UI
-    //public GameObject upgradeScreen;
-    //public GameObject hud;
-    //public GameObject pauseMenu;
-    //public GameObject resultsScreen;
-    //ResultScreen results;
-
-    //public Text healthText;
-    //public Text waveText;
-    //public Text ammoText;
-    //public Text enemyRemainText;
-    //public Text scoreText;
-
-
-
     #endregion
 
     #region Singleton
@@ -89,46 +76,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        //scoreText.text = score.ToString();
-        //waveText.text = waveNumber.ToString();
-        //enemyRemainText.text = enemiesRemaining.ToString();
-        //results = resultsScreen.GetComponent<ResultScreen>();
-    }
-
-    public GameObject GetEnemy(EnemyTypes type)
-    {
-        if (EnemyPool.Count == 0) //If list empty, fill
-        {
-            StartCoroutine(InitEnemies());
-        }
-
-        foreach (var Enemy in EnemyPool)
-        {
-            if (Enemy.activeSelf == false && Enemy.GetComponent<EnemyController>().enemyType == type)
-            {
-                return Enemy;
-            }
-        }
-
-        return null;
-    }
-
-    IEnumerator InitEnemies()
-    {
-        for (int enemyType = 0; enemyType <= 2; enemyType++)
-        {
-            for (int i = 0; i < NumberOfEnemies; i++)
-            {
-                GameObject go = Instantiate(typeOfEnemies.SetEnemyType(enemyType), new Vector3(-100, 12, 70),
-                    Quaternion.identity) as GameObject;
-                go.SetActive(false);
-                go.transform.SetParent(gameObject.transform);
-                EnemyPool.Add(go);
-                yield return new WaitForSecondsRealtime(0.01f);
-            }
-        }
-
-        yield return null;
+        uiManager.ResetAllUI();
     }
 
     public void SpawnItem(GameObject go)
@@ -149,93 +97,13 @@ public class GameManager : MonoBehaviour
             temp.SetActive(true);
         }
     }
-    public void SetEnemy(GameObject go) // removes enemies
-    {
-        go.SetActive(false);
-        IncreaseScore(10);
-        enemiesRemaining--;
-        enemiesKilled++;
-
-        //GameManager.Instance.enemyRemainText.text = GameManager.Instance.enemiesRemaining.ToString();
-
-        go.transform.position = Vector3.zero;
-    }
-
-    public GameObject GetPlayerBullet()
-    {
-        if (PlayerBulletPool.Count == 0) //If list empty, fill
-        {
-            StartCoroutine(InitBullets());
-        }
-
-        foreach (var bullet in PlayerBulletPool)
-        {
-            if (!bullet.activeSelf)
-            {
-                return bullet;
-            }
-        }
-
-        return null;
-    }
-
-    IEnumerator InitBullets()
-    { 
-        for (int i = 0; i < NumberOfPlayerBullets; i++)
-        {
-            GameObject go = Instantiate(playerBullet, Vector3.zero, Quaternion.identity) as GameObject;
-            go.SetActive(false);
-            go.transform.SetParent(gameObject.transform);
-            PlayerBulletPool.Add(go);
-            yield return 0;
-        }
-        yield return null;
-    }
-
-    public void SetObjectInPool(GameObject go)
-    {
-        go.SetActive(false);
-        go.transform.position = Vector3.zero;
-    }
-
-    public GameObject GetEnemyBullet()
-    {
-        if (EnemyBulletPool.Count == 0) //If list empty, fill
-        {
-            StartCoroutine(InitEnemyBullets());
-        }
-
-        foreach (var bullet in EnemyBulletPool)
-        {
-            if (!bullet.activeSelf)
-            {
-                return bullet;
-            }
-        }
-
-        return null;
-    }
-
-    IEnumerator InitEnemyBullets()
-    { 
-        for (int i = 0; i < NumberOfEnemyBullets; i++)
-        {
-            GameObject go = Instantiate(enemyBullet, Vector3.zero, Quaternion.identity) as GameObject;
-            go.SetActive(false);
-            go.transform.SetParent(gameObject.transform);
-            EnemyBulletPool.Add(go);
-            yield return 0;
-        }
-        yield return null;
-    }
 
     public void IncreaseScore(int addedScore)
     {
         score += addedScore;
         Debug.Log("Score:  " + score);
 
-        // updating score
-        //scoreText.text = score.ToString();
+        uiManager.UpdateScoreText();
 
     }
 
@@ -248,45 +116,10 @@ public class GameManager : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Player");
         go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         yield return new WaitForSeconds(2);
-        ShowResults();
+        uiManager.ShowResults();
         Time.timeScale = 0;
         yield return null;
     }
-
-    // methods to show UI seperately
-    #region ShowUI
-    public void ShowPause()
-    {
-        //pauseMenu.SetActive(true);
-        //resultsScreen.SetActive(false);
-        //hud.SetActive(false);
-        //upgradeScreen.SetActive(false);
-    }
-
-    public void ShowHUD()
-    {
-        //pauseMenu.SetActive(false);
-        //resultsScreen.SetActive(false);
-        //hud.SetActive(true);
-        //upgradeScreen.SetActive(false);
-    }
-
-    public void ShowUpgrades()
-    {
-        //pauseMenu.SetActive(false);
-        //resultsScreen.SetActive(false);
-        //hud.SetActive(false);
-        //upgradeScreen.SetActive(true);
-    }
-
-    public void ShowResults()
-    {
-        //pauseMenu.SetActive(false);
-        //resultsScreen.SetActive(true);
-        //hud.SetActive(false);
-        //upgradeScreen.SetActive(false);
-    }
-    #endregion
 
     #region Pick Ups
    public void SpawnSatellite()
@@ -357,8 +190,125 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerMovement>().ResetPosition();
         ResetPools();
 
-        ShowHUD();
+        uiManager.ResetAllUI();
         Time.timeScale = 1;
+    }
+
+    #region Object Pooling
+
+    public GameObject GetEnemy(EnemyTypes type)
+    {
+        if (EnemyPool.Count == 0) //If list empty, fill
+        {
+            StartCoroutine(InitEnemies());
+        }
+
+        foreach (var Enemy in EnemyPool)
+        {
+            if (Enemy.activeSelf == false && Enemy.GetComponent<EnemyController>().enemyType == type)
+            {
+                return Enemy;
+            }
+        }
+
+        return null;
+    }
+
+    IEnumerator InitEnemies()
+    {
+        for (int enemyType = 0; enemyType <= 2; enemyType++)
+        {
+            for (int i = 0; i < NumberOfEnemies; i++)
+            {
+                GameObject go = Instantiate(typeOfEnemies.SetEnemyType(enemyType), new Vector3(-100, 12, 70),
+                    Quaternion.identity) as GameObject;
+                go.SetActive(false);
+                go.transform.SetParent(gameObject.transform);
+                EnemyPool.Add(go);
+                yield return new WaitForSecondsRealtime(0.01f);
+            }
+        }
+
+        yield return null;
+    }
+
+    public void SetEnemy(GameObject go) // removes enemies
+    {
+        go.SetActive(false);
+        IncreaseScore(10);
+        enemiesRemaining--;
+        enemiesKilled++;
+
+        uiManager.UpdateEnemyRemainingText();
+        go.transform.position = Vector3.zero;
+    }
+
+    public GameObject GetPlayerBullet()
+    {
+        if (PlayerBulletPool.Count == 0) //If list empty, fill
+        {
+            StartCoroutine(InitBullets());
+        }
+
+        foreach (var bullet in PlayerBulletPool)
+        {
+            if (!bullet.activeSelf)
+            {
+                return bullet;
+            }
+        }
+
+        return null;
+    }
+
+    IEnumerator InitBullets()
+    {
+        for (int i = 0; i < NumberOfPlayerBullets; i++)
+        {
+            GameObject go = Instantiate(playerBullet, Vector3.zero, Quaternion.identity) as GameObject;
+            go.SetActive(false);
+            go.transform.SetParent(gameObject.transform);
+            PlayerBulletPool.Add(go);
+            yield return 0;
+        }
+        yield return null;
+    }
+
+    public void SetObjectInPool(GameObject go)
+    {
+        go.SetActive(false);
+        go.transform.position = Vector3.zero;
+    }
+
+    public GameObject GetEnemyBullet()
+    {
+        if (EnemyBulletPool.Count == 0) //If list empty, fill
+        {
+            StartCoroutine(InitEnemyBullets());
+        }
+
+        foreach (var bullet in EnemyBulletPool)
+        {
+            if (!bullet.activeSelf)
+            {
+                return bullet;
+            }
+        }
+
+        return null;
+    }
+
+    IEnumerator InitEnemyBullets()
+    {
+        for (int i = 0; i < NumberOfEnemyBullets; i++)
+        {
+            GameObject go = Instantiate(enemyBullet, Vector3.zero, Quaternion.identity) as GameObject;
+            go.SetActive(false);
+            go.transform.SetParent(gameObject.transform);
+            EnemyBulletPool.Add(go);
+            yield return 0;
+        }
+        yield return null;
     }
 
     void ResetPools()
@@ -403,4 +353,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    #endregion
 }

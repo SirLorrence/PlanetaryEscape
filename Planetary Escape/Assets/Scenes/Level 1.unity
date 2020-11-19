@@ -267,6 +267,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Generic Base Level
       objectReference: {fileID: 0}
+    - target: {fileID: 6720040965545848285, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7223640051997955294, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -364,6 +369,10 @@ MonoBehaviour:
   NumberOfEnemies: 50
   score: 0
   upgradePoints: 0
+  currentLevel: {fileID: 0}
+  uiManager: {fileID: 0}
+  player: {fileID: 0}
+  playerStats: {fileID: 0}
   enemiesRemaining: 0
   enemiesKilled: 0
 --- !u!4 &1775693958

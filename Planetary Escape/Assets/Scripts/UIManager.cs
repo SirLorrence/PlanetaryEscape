@@ -1,54 +1,136 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    public GameObject MainMenu;
-    public GameObject Settings;
-    public GameObject Terminal;
-    public GameObject HUD;
+    [Header("Screen GameObjects")]
+    public GameObject mainMenuGO;
+    public GameObject settingsGO;
+    public GameObject upgradeTerminalGO;
+    public GameObject resultsScreenGO;
+    public GameObject hudGO;
+    public GameObject pauseMenuGO;
+
+    [Header("Text Objects")]
+    public Text healthText;
+    public Text currentLevelText;
+    public Text shieldText;
+    public Text enemyRemainingText;
+    public Text scoreText;
+
+    [Header("Level Loader")]
     public LevelLoader levelLoader;
+
     private int cost = 1;
+    private GameObject currentScreenGO;
 
-    public void LoadMenu()
+    void Start()
     {
-        Settings.SetActive(false);
-        MainMenu.SetActive(true);
-    }
-
-    public void LoadSettings()
-    {
-        MainMenu.SetActive(false);
-        Settings.SetActive(true);
-    }
-
-    public void Play()
-    {
-        GameManager.Instance.ShowHUD();
+        GameManager.Instance.uiManager = this;
     }
 
     public void LoadGame()
     {
-        MainMenu.SetActive(false);
-        Settings.SetActive(false);
         levelLoader.LoadLevel(1);
     }
+
     public void Quit()
     {
+        #if UNITY_STANDALONE
         Application.Quit();
-    }
-
-    public void UpgradeHealth()
-    {
-        //Debug.Log("Health Before:  " + GameManager.Instance.baseHealth);
-        //if (GameManager.Instance.score > cost)
-        //{
-        //    GameManager.Instance.baseHealth += 1;
-        //    GameManager.Instance.score -= cost;
-        //    Debug.Log("Health Updated:  " + GameManager.Instance.baseHealth);
-        //}
+        #endif
+        
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     public void ResetGame() => GameManager.Instance.ResetLevel();
+
+    #region UpdateUIInGroups
+
+    public void ResetAllUI()
+    {
+        UpdateHealthText();
+        UpdateShieldText();
+        UpdateScoreText();
+        UpdateCurrentLevelText();
+        UpdateEnemyRemainingText();
+    }
+
+    #endregion
+
+    #region UpdateIndividualUI
+    public void UpdateHealthText()
+    {
+        healthText.text = GameManager.Instance.playerStats.Health.ToString();
+    }
+
+    public void UpdateShieldText()
+    {
+        shieldText.text = GameManager.Instance.playerStats.Shield.ToString();
+    }
+
+    public void UpdateScoreText()
+    {
+        scoreText.text = GameManager.Instance.score.ToString();
+    }
+
+    public void UpdateCurrentLevelText()
+    {
+        currentLevelText.text = GameManager.Instance.currentLevel.ToString();
+    }
+
+    public void UpdateEnemyRemainingText()
+    {
+        enemyRemainingText.text = GameManager.Instance.enemiesRemaining.ToString();
+    }
+
+    #endregion
+
+    #region ShowScreens
+
+    public void ShowMainMenu()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = mainMenuGO;
+        currentScreenGO.SetActive(true);
+    }
+    public void ShowSettings()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = settingsGO;
+        currentScreenGO.SetActive(true);
+    }
+
+    public void ShowPause()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = pauseMenuGO;
+        currentScreenGO.SetActive(true);
+    }
+
+    public void ShowHUD()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = hudGO;
+        currentScreenGO.SetActive(true);
+    }
+
+    public void ShowUpgrades()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = upgradeTerminalGO;
+        currentScreenGO.SetActive(true);
+    }
+
+    public void ShowResults()
+    {
+        currentScreenGO.SetActive(false);
+        currentScreenGO = resultsScreenGO;
+        currentScreenGO.SetActive(true);
+    }
+    #endregion
 }
