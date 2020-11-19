@@ -139,9 +139,9 @@ public class EnemyController : Healable
         Gizmos.color = (attackInRange) ? Color.yellow : Color.white;
         Gizmos.DrawWireSphere(transform.position, enemyStats.attackRangeRadius);
 
-
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawSphere(lastKownPos, .5f);
+        //
+        // Gizmos.color = Color.cyan;
+        // Gizmos.DrawSphere(lastKownPos, .5f);
     }
 
     #endregion
