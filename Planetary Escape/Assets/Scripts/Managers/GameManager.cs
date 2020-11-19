@@ -121,8 +121,8 @@ public class GameManager : MonoBehaviour
 
         //Temp
         Debug.Log("Dead");
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
-        Time.timeScale = 0;
         yield return null;
     }
 
