@@ -316,3 +316,64 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 505640420}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1775693956
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1775693958}
+  - component: {fileID: 1775693957}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1775693957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775693956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b571dbfad184fa41b2b1ba7b6400093, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBullet: {fileID: 6064180821234473301, guid: 1ed0437a2303fcd45bc1bbb8e15ef592,
+    type: 3}
+  enemyBullet: {fileID: 1299086504142128769, guid: 7ef89f98454a6244190219203c561919,
+    type: 3}
+  pickUps: []
+  typeOfEnemies:
+    Weak: {fileID: 584470576891805863, guid: 442e7bbad4977c942af0ab6f48c5965e, type: 3}
+    Regular: {fileID: 9170208847893371773, guid: 24bbe9dab2c9cb745acde0218373ef5d,
+      type: 3}
+    Strong: {fileID: 9170208847893371773, guid: 24bbe9dab2c9cb745acde0218373ef5d,
+      type: 3}
+  NumberOfPlayerBullets: 50
+  NumberOfEnemyBullets: 50
+  NumberOfEnemies: 50
+  score: 0
+  upgradePoints: 0
+  enemiesRemaining: 0
+  enemiesKilled: 0
+--- !u!4 &1775693958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775693956}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.1726608, y: 3.260538, z: -7.2025657}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
