@@ -36,6 +36,11 @@ public class UIManager : MonoBehaviour
         levelLoader.LoadLevel(1);
     }
 
+    public void LoadLevel(int index)
+    {
+        levelLoader.LoadLevel(index);
+    }
+
     public void Quit()
     {
         #if UNITY_STANDALONE

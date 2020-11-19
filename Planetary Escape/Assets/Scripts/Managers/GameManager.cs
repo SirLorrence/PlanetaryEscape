@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -116,7 +117,11 @@ public class GameManager : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Player");
         go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         yield return new WaitForSeconds(2);
-        uiManager.ShowResults();
+        //uiManager.ShowResults();
+
+        //Temp
+        Debug.Log("Dead");
+        SceneManager.LoadScene(0);
         Time.timeScale = 0;
         yield return null;
     }
