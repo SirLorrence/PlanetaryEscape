@@ -13,7 +13,8 @@ public class GameManager : MonoBehaviour
     [Header("Prefabs")]
     public GameObject playerBullet;
     public GameObject enemyBullet;
-    public Collectables[] pickUps;
+    public GameObject healthPickup;
+    public GameObject skillPickup;
     public SelectEnemy typeOfEnemies;
 
     [Header("Number of Pooled Objects")]
@@ -130,7 +131,25 @@ public class GameManager : MonoBehaviour
         yield return null;
     }
 
-    public void SetEnemy(GameObject go, bool dropItem) // removes enemies
+    public void SpawnItem(GameObject go)
+    {
+        //Gets a random number between  0 & 1 
+        float rand = UnityEngine.Random.value;
+        //Based on the number and drop a pickup if condition is met
+        if (rand <= 0.1f)
+        {
+            GameObject temp = GetHealthPickup();
+            temp.transform.position = go.transform.position;
+            temp.SetActive(true);
+        }
+        else if (rand <= 0.2f && rand > 0.1f)
+        {
+            GameObject temp = GetSkillPickup();
+            temp.transform.position = go.transform.position;
+            temp.SetActive(true);
+        }
+    }
+    public void SetEnemy(GameObject go) // removes enemies
     {
         go.SetActive(false);
         IncreaseScore(10);
@@ -138,26 +157,6 @@ public class GameManager : MonoBehaviour
         enemiesKilled++;
 
         //GameManager.Instance.enemyRemainText.text = GameManager.Instance.enemiesRemaining.ToString();
-
-        //Move to enemy
-        //if (dropItem)
-        //{
-        //    //Gets a random number between  0 & 1 
-        //    float rand = Random.value;
-        //    //Based on the number and drop a pickup if condition is met
-        //    if (rand <= 0.1f)
-        //    {
-        //        GameObject temp = GameManager.Instance.GetHealthPickup();
-        //        temp.transform.position = go.transform.position;
-        //        temp.SetActive(true);
-        //    }
-        //    else if (rand <= 0.2 && rand > 0.1)
-        //    {
-        //        GameObject temp = GameManager.Instance.GetSkillPickup();
-        //        temp.transform.position = go.transform.position;
-        //        temp.SetActive(true);
-        //    }
-        //}
 
         go.transform.position = Vector3.zero;
     }
@@ -304,7 +303,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < 10; i++)
             {
-                GameObject go = Instantiate(pickUps[0].go, Vector3.zero, Quaternion.identity) as GameObject;
+                GameObject go = Instantiate(healthPickup, Vector3.zero, Quaternion.identity) as GameObject;
                 go.transform.SetParent(gameObject.transform);
                 go.SetActive(false);
                 HealthPickupPool.Add(go);
@@ -328,7 +327,7 @@ public class GameManager : MonoBehaviour
         {
             for (int i = 0; i < 10; i++)
             {
-                GameObject go = Instantiate(pickUps[1].go, Vector3.zero, Quaternion.identity) as GameObject;
+                GameObject go = Instantiate(skillPickup, Vector3.zero, Quaternion.identity) as GameObject;
                 go.SetActive(false);
                 go.transform.SetParent(gameObject.transform);
                 SkillPickupPool.Add(go);

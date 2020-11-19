@@ -87,11 +87,10 @@ public class EnemyController : Healable
 
         if (!IsAlive())
         {
-            GameManager.Instance.SetEnemy(gameObject, true);
+            GameManager.Instance.SpawnItem(gameObject);
+            GameManager.Instance.SetEnemy(gameObject);
             Health = 10;
         }
-
-
 
         //Collider[] colliders = Physics.OverlapSphere(transform.position, enemyStats.detectionRadius);
 

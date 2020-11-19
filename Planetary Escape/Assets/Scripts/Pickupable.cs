@@ -26,7 +26,7 @@ public class Pickupable : MonoBehaviour
 
     void Update()
     {
-        ObjectSpin();
+        //ObjectSpin();
         if (hasLifeSpan)
         {
             if (time + LifeSpan < Time.time)
