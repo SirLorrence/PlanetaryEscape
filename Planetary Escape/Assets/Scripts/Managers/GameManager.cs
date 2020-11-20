@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     //Player
     [HideInInspector] public GameObject player;
     [HideInInspector] public PlayerStats playerStats;
+    [HideInInspector] public PlayerMovement playerMovement;
 
     //showing remaining enemies
     [HideInInspector] public int enemiesRemaining = 0;
@@ -120,9 +121,10 @@ public class GameManager : MonoBehaviour
         //uiManager.ShowResults();
 
         //Temp
+        ResetLevel();
         Debug.Log("Dead");
         SceneManager.LoadScene(0);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         yield return null;
     }
 
@@ -190,9 +192,14 @@ public class GameManager : MonoBehaviour
     public void ResetLevel()
     {
         print("Reset");
+
+        if (player == null) player = GameObject.FindGameObjectWithTag("Player");
+        if (playerStats == null) playerStats = player.GetComponent<PlayerStats>();
+        if (playerMovement == null) playerMovement = player.GetComponent<PlayerMovement>();
+
         playerStats.GetComponentInChildren<Animator>().SetBool("isDead", false);
         playerStats.OnReset();
-        player.GetComponent<PlayerMovement>().ResetPosition();
+        playerMovement.ResetPosition();
         ResetPools();
 
         uiManager.ResetAllUI();

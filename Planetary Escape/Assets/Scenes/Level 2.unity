@@ -229,7 +229,10 @@ MonoBehaviour:
     type: 3}
   enemyBullet: {fileID: 1299086504142128769, guid: 7ef89f98454a6244190219203c561919,
     type: 3}
-  pickUps: []
+  healthPickup: {fileID: 8393640010656268591, guid: a35fae320db1e3a4ca46144ce297fd5d,
+    type: 3}
+  skillPickup: {fileID: 8393640010656268591, guid: a35fae320db1e3a4ca46144ce297fd5d,
+    type: 3}
   typeOfEnemies:
     Weak: {fileID: 584470576891805863, guid: 442e7bbad4977c942af0ab6f48c5965e, type: 3}
     Regular: {fileID: 9170208847893371773, guid: 24bbe9dab2c9cb745acde0218373ef5d,
@@ -241,6 +244,10 @@ MonoBehaviour:
   NumberOfEnemies: 50
   score: 0
   upgradePoints: 0
+  currentLevel: {fileID: 0}
+  uiManager: {fileID: 0}
+  player: {fileID: 0}
+  playerStats: {fileID: 0}
   enemiesRemaining: 0
   enemiesKilled: 0
 --- !u!4 &593955184
@@ -414,6 +421,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1806385581874617413, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 115f453c8c9c08440b92f8e560d5d78e, type: 2}
     - target: {fileID: 2792254391185487453, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -508,6 +520,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Generic Base Level
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720040965545848285, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7223640051997955294, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
