@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:65e0a5b4fc8a19c19f308091fc6aa132:9c47039eb1dd6dac87a6427a3ec124ee:6f10274cda29afdc5243ab63a8eab99b$
+#
+:format=40300
+:texture=HUD_Health.png
+:size=488x148
+:pivotpoints=enabled
+:borders=disabled
+:alphahandling=ClearTransparentPixels
+
+HUD_Health;1;1;486;146; 0.01440329218106996;0.3082191780821918; 0;0;0;0; 11;177;132;207;89;443;89;486;44;444;0;33;0;0;45;50;134;332;138;332;146;340;146; 7;5;6;7;1;4;5;2;3;4;1;2;4;0;1;5;0;5;7;8;9;10
