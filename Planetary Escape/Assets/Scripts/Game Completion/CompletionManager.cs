@@ -20,7 +20,7 @@ public class CompletionManager : MonoBehaviour
             enemies[i] = enemyHolder.transform.GetChild(i).gameObject;
         }
 
-        GameManager.Instance.enemiesRemaining = enemies.Length;
+        //GameManager.Instance.enemiesRemaining = enemies.Length;
     }
 
 
@@ -57,9 +57,9 @@ public class CompletionManager : MonoBehaviour
 
     IEnumerator OpenDoor()
     {
+        var newPos = new Vector3(door.position.x - 4, door.position.y, door.position.z);
         while (true)
         {
-            var newPos = new Vector3(door.position.x - 4, door.position.y, door.position.z);
             door.position = Vector3.Lerp(door.position, newPos, Time.deltaTime * .75f);
             yield return null;
         }

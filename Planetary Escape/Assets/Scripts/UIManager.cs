@@ -85,7 +85,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentLevelText()
     {
-        currentLevelText.text = GameManager.Instance.currentLevel.ToString();
+        //currentLevelText.text = GameManager.Instance.currentLevel.ToString();
     }
 
     public void UpdateEnemyRemainingText()
