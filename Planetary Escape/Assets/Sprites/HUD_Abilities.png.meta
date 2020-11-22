@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: 8cb9fcd8e254fd64988fb7fae608ece3
+guid: 2d6d46a77448b6540a1f8c3446ceb65e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8759934954681182278
-    second: Play_Menu_0
+      213: 1543799902845021991
+    second: HUD_Abilities_0
   - first:
-      213: 2544590314591360335
-    second: Play_Menu_1
-  - first:
-      213: -5186797044248753090
-    second: Play_Menu_2
+      213: -1906140830651238958
+    second: HUD_Abilities_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,13 +117,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Play_Menu_0
+      name: HUD_Abilities_0
       rect:
         serializedVersion: 2
-        x: 5
-        y: 300
-        width: 636
-        height: 121
+        x: 2
+        y: 155
+        width: 81
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +131,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 648ac4ddd6a819970800000000000000
-      internalID: 8759934954681182278
+      spriteID: 72f2c5d05ddac6510800000000000000
+      internalID: 1543799902845021991
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Play_Menu_1
+      name: HUD_Abilities_1
       rect:
         serializedVersion: 2
-        x: 6
-        y: 175
-        width: 635
-        height: 117
+        x: 2
+        y: 52
+        width: 81
+        height: 99
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,29 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f451e18c863305320800000000000000
-      internalID: 2544590314591360335
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Play_Menu_2
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 47
-        width: 635
-        height: 116
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e3cc18fa19bc408b0800000000000000
-      internalID: -5186797044248753090
+      spriteID: 2d53a2183070c85e0800000000000000
+      internalID: -1906140830651238958
       vertices: []
       indices: 
       edges: []
@@ -185,7 +161,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: b9da7b1a1eb29fd43925eec05b20afae
     internalID: 0
     vertices: []
     indices: 

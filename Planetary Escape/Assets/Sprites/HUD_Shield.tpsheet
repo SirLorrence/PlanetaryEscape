@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:0e9bf5b3bb04ac6066eac543685fcd91:4086aea7087f878317146f43de34c575:a02b9f052f9e78372df743862e2170ec$
+#
+:format=40300
+:texture=HUD_Shield.png
+:size=344x148
+:pivotpoints=enabled
+:borders=disabled
+:alphahandling=ClearTransparentPixels
+
+HUD;1;1;340;146; 0.01764705882352941;0.3013698630136986; 0;0;0;0; 11;172;131;216;88;270;87;312;44;270;0;33;0;0;45;50;134;332;138;332;146;340;146; 7;5;6;7;1;4;5;4;1;2;4;2;3;0;1;5;0;5;7;8;9;10
