@@ -4,7 +4,7 @@
 # To import these sprites into your Unity project, download "TexturePackerImporter":
 # https://www.codeandweb.com/texturepacker/unity
 #
-# $TexturePacker:SmartUpdate:2ba14f15c4f2d5c4fe552d50b6160210:6dd711c76d729d1c182a974c97192ee7:6dd4b7b1d0e4385f15afecb1e701ed10$
+# $TexturePacker:SmartUpdate:5be3de04743923a73b3f07819efa6e9c:4316a80d30d45ae9cfbf97e43d5ba1b1:6dd4b7b1d0e4385f15afecb1e701ed10$
 #
 :format=40300
 :texture=Counters.png
@@ -14,4 +14,4 @@
 :alphahandling=ClearTransparentPixels
 
 ENEMY COUNTER;1;95;841;160; 0.007134363852556481;0.5; 0;0;0;0; 7;841;82;756;0;70;0;0;82;69;157;752;157;755;160; 5;2;4;5;2;3;4;1;2;5;0;1;5;0;5;6
-WAVE_COUNTER;1;2;501;91; 0.00998003992015968;0.5274725274725275; 0;0;0;0; 6;501;43;450;0;41;0;0;47;41;88;447;91; 4;2;4;5;2;3;4;1;2;5;0;1;5
+LEVEL_COUNTER;1;2;501;91; 0.007984031936127744;0.5274725274725275; 0;0;0;0; 6;501;43;450;0;41;0;0;47;41;88;447;91; 4;2;4;5;2;3;4;1;2;5;0;1;5
