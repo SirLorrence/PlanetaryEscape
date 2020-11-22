@@ -373,6 +373,7 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   player: {fileID: 0}
   playerStats: {fileID: 0}
+  playerMovement: {fileID: 0}
   enemiesRemaining: 0
   enemiesKilled: 0
 --- !u!4 &1775693958
