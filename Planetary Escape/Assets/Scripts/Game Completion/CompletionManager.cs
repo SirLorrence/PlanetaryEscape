@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 public class CompletionManager : MonoBehaviour
@@ -8,6 +9,7 @@ public class CompletionManager : MonoBehaviour
     public GameObject[] enemies;
     public GameObject enemyHolder;
     public GameObject doorCollider;
+    public Transform door;
 
     private void OnEnable()
     {
@@ -20,6 +22,7 @@ public class CompletionManager : MonoBehaviour
 
         GameManager.Instance.enemiesRemaining = enemies.Length;
     }
+
 
     void FixedUpdate()
     {
@@ -39,6 +42,26 @@ public class CompletionManager : MonoBehaviour
         //Put Advanced Level Code Here
         Debug.Log("AdvancedLevel");
         doorCollider.SetActive(true);
+        StartCoroutine(DoorAction());
+        // gameObject.SetActive(false);
+    }
+
+    private IEnumerator DoorAction()
+    {
+        StartCoroutine("OpenDoor");
+        yield return new WaitForSeconds(.25f);
+        StopCoroutine("OpenDoor");
         gameObject.SetActive(false);
+
+    }
+
+    IEnumerator OpenDoor()
+    {
+        while (true)
+        {
+            var newPos = new Vector3(door.position.x - 4, door.position.y, door.position.z);
+            door.position = Vector3.Lerp(door.position, newPos, Time.deltaTime * .75f);
+            yield return null;
+        }
     }
 }
