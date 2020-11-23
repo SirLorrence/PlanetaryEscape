@@ -468,6 +468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 436123395926504350, guid: 29e51de5a0da225449d5092f2761ca13,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2462743411225379319, guid: 29e51de5a0da225449d5092f2761ca13,
         type: 3}
       propertyPath: m_LocalPosition.x

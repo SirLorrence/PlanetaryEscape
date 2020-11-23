@@ -1,0 +1,16 @@
+#
+# Sprite sheet data for Unity.
+#
+# To import these sprites into your Unity project, download "TexturePackerImporter":
+# https://www.codeandweb.com/texturepacker/unity
+#
+# $TexturePacker:SmartUpdate:7361dc98e29b2a49dc5f9e220e025fac:56e718288e1ccbd5c7b97847aae74aa8:e7fb8c6e59478320dd441955bc7cc94d$
+#
+:format=40300
+:texture=ResultsV2.0.png
+:size=892x724
+:pivotpoints=enabled
+:borders=disabled
+:alphahandling=ClearTransparentPixels
+
+ResultTabsV2.0;1;4;890;719; 0.5752808988764045;0.4186369958275382; 0;0;0;0; 36;890;19;720;1;249;0;66;38;186;88;718;92;866;160;696;142;225;141;42;179;162;229;694;233;879;275;709;257;238;256;55;294;175;344;707;348;850;395;680;377;208;374;29;416;143;465;675;469;851;522;681;504;210;503;27;541;147;591;679;595;821;645;651;627;179;624;0;666;114;715;646;719; 24;2;4;5;2;3;4;1;2;5;0;1;5;8;10;11;8;9;10;7;8;11;6;7;11;14;16;17;14;15;16;13;14;17;12;13;17;20;22;23;20;21;22;19;20;23;18;19;23;26;28;29;26;27;28;25;26;29;24;25;29;32;34;35;32;33;34;31;32;35;30;31;35

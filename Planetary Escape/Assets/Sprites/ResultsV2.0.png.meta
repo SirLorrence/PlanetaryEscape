@@ -1,16 +1,25 @@
 fileFormatVersion: 2
-guid: 4da926735ec43e349825e87cd57f0393
+guid: 8d601717ae30de94295f437002b7e4db
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7024422136413330523
-    second: Settings Button_0
+      213: -7021285673236312261
+    second: ResultsV2.0_0
   - first:
-      213: 802780075576890888
-    second: Settings Button_1
+      213: -9039314021286597025
+    second: ResultsV2.0_1
   - first:
-      213: 7837810497150587803
-    second: Settings Button_2
+      213: 2646514707222878916
+    second: ResultsV2.0_2
+  - first:
+      213: -5046410806131215904
+    second: ResultsV2.0_3
+  - first:
+      213: -5618819366468292595
+    second: ResultsV2.0_4
+  - first:
+      213: -6160307878933151808
+    second: ResultsV2.0_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settings Button_0
+      name: ResultsV2.0_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 298
-        width: 636
-        height: 125
+        x: 11
+        y: 632
+        width: 797
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a361bea84d348e90800000000000000
-      internalID: -7024422136413330523
+      spriteID: b3fc53c61e16f8e90800000000000000
+      internalID: -7021285673236312261
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Settings Button_1
+      name: ResultsV2.0_1
       rect:
         serializedVersion: 2
-        x: 6
-        y: 175
-        width: 635
-        height: 117
+        x: 41
+        y: 509
+        width: 797
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -155,20 +164,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8069585b93c042b00800000000000000
-      internalID: 802780075576890888
+      spriteID: f5e210c3ac7ed8280800000000000000
+      internalID: -9039314021286597025
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Settings Button_2
+      name: ResultsV2.0_2
       rect:
         serializedVersion: 2
-        x: 6
-        y: 47
-        width: 635
-        height: 116
+        x: 41
+        y: 382
+        width: 796
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,8 +185,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b931d73ee1f75cc60800000000000000
-      internalID: 7837810497150587803
+      spriteID: 4caddd8ba1f4ab420800000000000000
+      internalID: 2646514707222878916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ResultsV2.0_3
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 262
+        width: 797
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e13bdddb1c87f9b0800000000000000
+      internalID: -5046410806131215904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ResultsV2.0_4
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 147
+        width: 797
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0072945e81f502b0800000000000000
+      internalID: -5618819366468292595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ResultsV2.0_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 6
+        width: 797
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cf36217f90328aa0800000000000000
+      internalID: -6160307878933151808
       vertices: []
       indices: 
       edges: []
@@ -185,7 +257,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 3325d6d8f69c231498b8df71b5292e10
     internalID: 0
     vertices: []
     indices: 
