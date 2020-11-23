@@ -1,7 +1,16 @@
 fileFormatVersion: 2
 guid: c08d7cc6f3371474fba1fc0b3c26a372
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 6558321661783788950
+    second: Quit_Menu_0
+  - first:
+      213: -7666955904488653294
+    second: Quit_Menu_1
+  - first:
+      213: -7420870723379631730
+    second: Quit_Menu_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -23,7 +32,6 @@ TextureImporter:
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
-  vTOnly: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -41,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -58,7 +66,6 @@ TextureImporter:
   maxTextureSizeSet: 0
   compressionQualitySet: 0
   textureFormatSet: 0
-  ignorePngGamma: 0
   applyGammaDecoding: 0
   platformSettings:
   - serializedVersion: 3
@@ -111,7 +118,70 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Quit_Menu_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 300
+        width: 636
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69d4f5dcdc6d30b50800000000000000
+      internalID: 6558321661783788950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quit_Menu_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 175
+        width: 635
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ebe54e930899590800000000000000
+      internalID: -7666955904488653294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quit_Menu_2
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 47
+        width: 635
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e896cd00565c30990800000000000000
+      internalID: -7420870723379631730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

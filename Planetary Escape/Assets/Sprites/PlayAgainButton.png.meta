@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 4da926735ec43e349825e87cd57f0393
+guid: 52404cfaa5cc785488330cba4c8c8fe6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7024422136413330523
-    second: Settings Button_0
-  - first:
-      213: 802780075576890888
-    second: Settings Button_1
-  - first:
-      213: 7837810497150587803
-    second: Settings Button_2
+      213: 3845639479310911271
+    second: PlayAgainButton_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,13 +114,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Settings Button_0
+      name: PlayAgainButton_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 298
+        x: 5
+        y: 4
         width: 636
-        height: 125
+        height: 119
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,50 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a361bea84d348e90800000000000000
-      internalID: -7024422136413330523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Settings Button_1
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 175
-        width: 635
-        height: 117
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8069585b93c042b00800000000000000
-      internalID: 802780075576890888
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Settings Button_2
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 47
-        width: 635
-        height: 116
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b931d73ee1f75cc60800000000000000
-      internalID: 7837810497150587803
+      spriteID: 7278b8a3bb47e5530800000000000000
+      internalID: 3845639479310911271
       vertices: []
       indices: 
       edges: []
@@ -185,7 +137,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 06b6445d78417c442b48a88e023ab879
     internalID: 0
     vertices: []
     indices: 
