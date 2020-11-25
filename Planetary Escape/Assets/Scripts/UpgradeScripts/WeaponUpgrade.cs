@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponUpgrade : Upgrade
 {
@@ -7,6 +7,6 @@ public class WeaponUpgrade : Upgrade
     {
         // PlayerStats.Instance.Damage *= level;
         // PlayerGameStats.Instance.playerBulletSpeed *= level / 2;
-        
+
     }
 }

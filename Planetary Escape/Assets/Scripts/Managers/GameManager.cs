@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Game Information")]
     public int score = 0;
-    public float upgradePoints;
+    public float upgradePoints = 10;
     
     //List of the objects that have been pooled
     List<GameObject> PlayerBulletPool = new List<GameObject>();
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
         Strong
     }
     //Game Stats
-    [HideInInspector] public GameObject currentLevel;
+    [HideInInspector] public int currentLevel;
     [HideInInspector] public UIManager uiManager;
 
     //Player
@@ -55,6 +55,16 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int enemiesRemaining = 0;
     [HideInInspector] public int enemiesKilled = 0;
     #endregion
+
+    public int PlayerHealth
+    {
+        get
+        {
+            if (player == null) player = GameObject.FindWithTag("Player");
+            if (playerStats == null) playerStats = player.GetComponent<PlayerStats>();
+            return playerStats.Health;
+        }
+    }
 
     #region Singleton
 
@@ -75,11 +85,6 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
-
-    void Start()
-    {
-        uiManager.ResetAllUI();
-    }
 
     public void SpawnItem(GameObject go)
     {
@@ -118,13 +123,9 @@ public class GameManager : MonoBehaviour
         GameObject go = GameObject.FindGameObjectWithTag("Player");
         go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         yield return new WaitForSeconds(2);
-        //uiManager.ShowResults();
-
-        //Temp
-        ResetLevel();
+        uiManager.ShowResults();
+        Time.timeScale = 0;
         Debug.Log("Dead");
-        SceneManager.LoadScene(0);
-        //Time.timeScale = 0;
         yield return null;
     }
 
@@ -202,7 +203,10 @@ public class GameManager : MonoBehaviour
         playerMovement.ResetPosition();
         ResetPools();
 
-        uiManager.ResetAllUI();
+        score = 0;
+        enemiesKilled = 0;
+        
+        uiManager.ResetAllHUDUI();
         Time.timeScale = 1;
     }
 

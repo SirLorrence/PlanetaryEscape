@@ -36,6 +36,7 @@ public class PlayerStats : Healable
         set
         {
             health = value;
+            GameManager.Instance.uiManager.UpdateHealthText();
             if (health <= 0 && !hasDied)
             {
                 //Removes the need for it to be called in update
@@ -76,7 +77,7 @@ public class PlayerStats : Healable
 
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         OnReset();
     }
@@ -85,18 +86,12 @@ public class PlayerStats : Healable
     {
         if (!hasDied)
         {
-            UpdateUI();
             if (UpgradeEnable)
             {
                 OnReset();
                 UpgradeEnable = false;
             }
         }
-    }
-
-    void UpdateUI()
-    {
-        //GameManager.Instance.healthText.text = Health.ToString();
     }
 
     public void OnReset()

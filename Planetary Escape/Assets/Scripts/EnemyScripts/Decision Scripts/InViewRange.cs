@@ -10,7 +10,7 @@ public class InViewRange : Decision
         RaycastHit hitInfo;
         if (controller.playerInRange)
         {
-            Debug.Log("Player Spotted");
+            //Debug.Log("Player Spotted");
             if (Physics.Raycast(controller.transform.position + new Vector3(0, 2, 0),
                 (controller.targetTransform.transform.position - (controller.transform.position + new Vector3(0, 2, 0)))
                 .normalized, out hitInfo, controller.enemyStats.detectionRadius))

@@ -5,12 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    public Slider slider;
-    public Text text;
+    //public Slider slider;
+    //public Text text;
 
     public void LoadLevel(int levelIndex)
     {
-        slider.gameObject.SetActive(true);
+        //slider.gameObject.SetActive(true);
         StartCoroutine(LoadAsync(levelIndex));
     }
 
@@ -20,8 +20,8 @@ public class LevelLoader : MonoBehaviour
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f) * 100;
-            slider.value = progress;
-            text.text = progress + "%";
+            //slider.value = progress;
+            //text.text = progress + "%";
             yield return null;
         }
     }

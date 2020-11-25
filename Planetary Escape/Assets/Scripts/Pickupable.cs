@@ -40,6 +40,7 @@ public class Pickupable : MonoBehaviour
     {
         if (c.CompareTag("Player"))
         {
+            GameManager.Instance.Heal(1);
             GameManager.Instance.SetObjectInPool(gameObject);
         }
     }

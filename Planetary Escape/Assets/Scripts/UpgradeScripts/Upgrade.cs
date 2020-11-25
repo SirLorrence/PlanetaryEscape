@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,12 +29,14 @@ public abstract class Upgrade : MonoBehaviour
             {
                 level += 1;
                 LevelStats(level);
-                cost = (int) Mathf.Floor(cost * 2); // check this later
+                cost = (int)Mathf.Floor(cost * 2); // check this later
                 PlayerStats.UpgradeEnable = true;
+                GameManager.Instance.upgradePoints -= cost;
+                GameManager.Instance.uiManager.UpdateUpgradeCostText();
             }
         }
         else print("dont have enough points");
     }
-    
+
     protected abstract void LevelStats(int level);
 }

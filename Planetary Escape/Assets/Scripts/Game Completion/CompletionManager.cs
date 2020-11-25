@@ -20,9 +20,8 @@ public class CompletionManager : MonoBehaviour
             enemies[i] = enemyHolder.transform.GetChild(i).gameObject;
         }
 
-        //GameManager.Instance.enemiesRemaining = enemies.Length;
+        GameManager.Instance.enemiesRemaining = enemyHolder.transform.childCount;
     }
-
 
     void FixedUpdate()
     {

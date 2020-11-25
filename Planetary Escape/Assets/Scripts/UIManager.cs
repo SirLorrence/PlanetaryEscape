@@ -19,6 +19,10 @@ public class UIManager : MonoBehaviour
     public Text shieldText;
     public Text enemyRemainingText;
     public Text scoreText;
+    public Text resultsScoreText;
+    public Text resultsEnemiesKilledText;
+    public Text resultsLevelsClearedText;
+    public Text upgradePointsText;
 
     [Header("Level Loader")]
     public LevelLoader levelLoader;
@@ -28,16 +32,27 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+        currentScreenGO = hudGO;
         GameManager.Instance.uiManager = this;
+        ResetAllHUDUI();
+        ShowHUD();
+    }
+
+    public void LoadMenu()
+    {
+        levelLoader.LoadLevel(0);
     }
 
     public void LoadGame()
     {
+        GameManager.Instance.ResetLevel();
+        GameManager.Instance.currentLevel = 1;
         levelLoader.LoadLevel(1);
     }
 
     public void LoadLevel(int index)
     {
+        GameManager.Instance.currentLevel = index;
         levelLoader.LoadLevel(index);
     }
 
@@ -56,7 +71,7 @@ public class UIManager : MonoBehaviour
 
     #region UpdateUIInGroups
 
-    public void ResetAllUI()
+    public void ResetAllHUDUI()
     {
         UpdateHealthText();
         UpdateShieldText();
@@ -65,12 +80,17 @@ public class UIManager : MonoBehaviour
         UpdateEnemyRemainingText();
     }
 
+    public void UpdateResultsUI() {
+        resultsLevelsClearedText.text = GameManager.Instance.currentLevel.ToString();
+        resultsScoreText.text = GameManager.Instance.score.ToString();
+        resultsEnemiesKilledText.text = GameManager.Instance.enemiesKilled.ToString();
+}
     #endregion
 
     #region UpdateIndividualUI
     public void UpdateHealthText()
     {
-        healthText.text = GameManager.Instance.playerStats.Health.ToString();
+        healthText.text = GameManager.Instance.PlayerHealth.ToString();
     }
 
     public void UpdateShieldText()
@@ -85,12 +105,17 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentLevelText()
     {
-        //currentLevelText.text = GameManager.Instance.currentLevel.ToString();
+        currentLevelText.text = GameManager.Instance.currentLevel.ToString();
     }
 
     public void UpdateEnemyRemainingText()
     {
         enemyRemainingText.text = GameManager.Instance.enemiesRemaining.ToString();
+    }
+    
+    public void UpdateUpgradeCostText()
+    {
+        upgradePointsText.text = "Upgrade Points: " + GameManager.Instance.upgradePoints;
     }
 
     #endregion
@@ -129,6 +154,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = upgradeTerminalGO;
         currentScreenGO.SetActive(true);
+        UpdateUpgradeCostText();
     }
 
     public void ShowResults()
@@ -136,6 +162,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = resultsScreenGO;
         currentScreenGO.SetActive(true);
+        UpdateResultsUI();
     }
     #endregion
 }
