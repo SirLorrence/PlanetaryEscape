@@ -36,6 +36,7 @@ public class PlayerStats : Healable
         set
         {
             health = value;
+            if (health >= MAX_HEALTH) health = MAX_HEALTH;
             GameManager.Instance.uiManager.UpdateHealthText();
             if (health <= 0 && !hasDied)
             {
