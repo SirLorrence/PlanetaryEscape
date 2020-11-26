@@ -434,9 +434,9 @@ MonoBehaviour:
       type: 3}
     Strong: {fileID: 9170208847893371773, guid: 24bbe9dab2c9cb745acde0218373ef5d,
       type: 3}
-  NumberOfPlayerBullets: 50
-  NumberOfEnemyBullets: 50
-  NumberOfEnemies: 50
+  NumberOfPlayerBullets: 0
+  NumberOfEnemyBullets: 0
+  NumberOfEnemies: 0
   score: 0
   upgradePoints: 10
   currentLevel: 0

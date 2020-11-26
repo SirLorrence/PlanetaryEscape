@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d53b5315f47d147b9ff3599887d5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 1299086504142128769, guid: 7ef89f98454a6244190219203c561919, type: 3}
 --- !u!114 &3074892542897949771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 0
   shield: 0
+  fireRate: 0
   movementSpeed: 0
+  bulletSpeed: 0
   damage: 1
 --- !u!136 &752331496256339839
 CapsuleCollider:
@@ -497,6 +498,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 4172256284338775833, guid: bd0b06fc305da524ebe51321e1f63f7a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 91fd6893ce8f5a64aad23b115603a932, type: 2}
     - target: {fileID: 4778912421208914290, guid: bd0b06fc305da524ebe51321e1f63f7a,
         type: 3}
       propertyPath: m_Layer

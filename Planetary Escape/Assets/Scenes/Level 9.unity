@@ -685,7 +685,7 @@ MonoBehaviour:
   NumberOfEnemies: 50
   score: 0
   upgradePoints: 0
-  currentLevel: {fileID: 0}
+  currentLevel: 0
   uiManager: {fileID: 0}
   player: {fileID: 0}
   playerStats: {fileID: 0}
@@ -1391,6 +1391,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 350637548735313799, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2374848549468059334, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.z
