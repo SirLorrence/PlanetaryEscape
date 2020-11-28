@@ -15,7 +15,8 @@ public class EnemyController : Healable
     public GameObject GunBarrel;
     public EnemyInformation enemyStats;
     public float stateTimeElapsed;
-
+    public Material redFlash;
+    public SkinnedMeshRenderer smr;
 
     // public float detectionRadius, attackRangeRadius, fieldOfView = 45, patrolAreaRatio;
     //public LayerMask playerArea;
@@ -53,9 +54,13 @@ public class EnemyController : Healable
     public override int Health
     {
         get => enemyStats.health;
-        set => enemyStats.health = value;
+        set
+        {
+            enemyStats.health = value;
+            StartCoroutine(DamgeFlash());
+        }
     }
-    
+
     public int PlayerAreaMask
     {
         get => playerArea;
@@ -128,6 +133,21 @@ public class EnemyController : Healable
         stateTimeElapsed = 0;
     }
 
+    private IEnumerator DamgeFlash()
+    {
+        Material[] mats = smr.materials;
+        Material[] mats2 = smr.materials;
+
+        for (int i = 0; i < mats.Length; i++)
+        {
+            mats2[i] = redFlash;
+        }
+
+        smr.materials = mats2;
+        yield return new WaitForSeconds(0.15f);
+        smr.materials = mats;
+        yield return null;
+    }
 
     #region Gizmos and Debugging
 

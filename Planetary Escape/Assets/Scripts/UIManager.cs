@@ -27,7 +27,7 @@ public class UIManager : MonoBehaviour
     [Header("Level Loader")]
     public LevelLoader levelLoader;
 
-    private int cost = 1;
+    //Current UI element reference
     private GameObject currentScreenGO;
 
     void Start()

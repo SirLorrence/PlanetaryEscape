@@ -1286,9 +1286,9 @@ MonoBehaviour:
     movementSpeed: 12
     rateOfFire: 0.5
   stateTimeElapsed: 0
-  playerArea:
-    serializedVersion: 2
-    m_Bits: 256
+  redFlash: {fileID: 2100000, guid: 1e98efe433f2cab428c2c996961a41c2, type: 2}
+  smr: {fileID: 676772472603967905}
+  playerArea: 256
   partolPoints: []
   currentPoint: 0
   targetTransform: {fileID: 0}
