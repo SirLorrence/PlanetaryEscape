@@ -135,17 +135,15 @@ public class EnemyController : Healable
 
     private IEnumerator DamgeFlash()
     {
-        Material[] mats = smr.materials;
-        Material[] mats2 = smr.materials;
+        Material[] originalMaterials = smr.materials;
+        Material[] redMaterials = new Material[originalMaterials.Length];
 
-        for (int i = 0; i < mats.Length; i++)
-        {
-            mats2[i] = redFlash;
-        }
+        for (int i = 0; i < originalMaterials.Length; i++)
+            redMaterials[i] = redFlash;
 
-        smr.materials = mats2;
+        smr.materials = redMaterials;
         yield return new WaitForSeconds(0.15f);
-        smr.materials = mats;
+        smr.materials = originalMaterials;
         yield return null;
     }
 
