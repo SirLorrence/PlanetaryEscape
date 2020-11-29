@@ -4,6 +4,7 @@
 public class EnemyInformation
 {
     public int health;
+    public int shield;
     public int damage;
     public float bulletSpeed;
     public float detectionRadius;

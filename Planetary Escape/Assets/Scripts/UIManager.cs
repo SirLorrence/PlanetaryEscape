@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateShieldText()
     {
-        shieldText.text = GameManager.Instance.playerStats.Shield.ToString();
+        shieldText.text = GameManager.Instance.PlayerShield.ToString();
     }
 
     public void UpdateScoreText()

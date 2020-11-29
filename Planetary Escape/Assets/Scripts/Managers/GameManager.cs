@@ -63,6 +63,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int PlayerShield
+    {
+        get
+        {
+            if (player == null) player = GameObject.FindWithTag("Player");
+            if (playerStats == null) playerStats = player.GetComponent<PlayerStats>();
+            return playerStats.Shield;
+        }
+    }
+
     #region Singleton
 
     //Singleton Instantiation
@@ -121,7 +131,12 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDead() => StartCoroutine(Death());
 
-    public void TakeDamage(GameObject hitObject, int damageAmount) => hitObject.GetComponent<Healable>().Health -= damageAmount;
+    public void TakeDamage(GameObject hitObject, int damageAmount)
+    {
+        var objectHealth = hitObject.GetComponent<Healable>();
+        if (objectHealth.Shield > 0) objectHealth.Shield -= damageAmount;
+        else objectHealth.Health -= damageAmount;
+    }
 
     IEnumerator Death()
     {

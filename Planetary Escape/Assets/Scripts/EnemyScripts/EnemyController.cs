@@ -52,6 +52,12 @@ public class EnemyController : Healable
         set => currentPoint = value;
     }
 
+    public override int Shield
+    {
+        get => enemyStats.shield;
+        set => enemyStats.shield = value;
+    }
+
     public override int Health
     {
         get => enemyStats.health;

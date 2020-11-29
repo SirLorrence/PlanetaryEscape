@@ -332,6 +332,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Generic Base Level
       objectReference: {fileID: 0}
+    - target: {fileID: 6245139872451321330, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: shield
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6720040965545848285, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.z

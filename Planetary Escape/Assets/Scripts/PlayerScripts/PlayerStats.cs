@@ -9,7 +9,7 @@ public class PlayerStats : Healable
 // variables
 
     [SerializeField] private int health;
-    [SerializeField] private float shield;
+    [SerializeField] private int shield;
     [SerializeField] private float fireRate;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float bulletSpeed;
@@ -26,7 +26,7 @@ public class PlayerStats : Healable
 
     //base values | called on reset
     public static int MAX_HEALTH = 10;
-    public static float MAX_SHIELD = 0;
+    public static int MAX_SHIELD = 0;
     public static float MAX_SPEED = 3f;
     public static float FIRE_RATE = 1f;
     public static float BULLET_SPEED = 10f;
@@ -49,7 +49,9 @@ public class PlayerStats : Healable
                 StartCoroutine(HealFlash());
 
             if (health >= MAX_HEALTH) health = MAX_HEALTH;
+            
             GameManager.Instance.uiManager.UpdateHealthText();
+           
             if (health <= 0 && !hasDied)
             {
                 //Removes the need for it to be called in update
@@ -59,10 +61,15 @@ public class PlayerStats : Healable
         }
     }
 
-    public float Shield
+    
+    public override int Shield
     {
         get => shield;
-        set => shield = value;
+        set
+        {
+            shield = value;
+            GameManager.Instance.uiManager.UpdateShieldText();;
+        }
     }
 
     public float FireRate
