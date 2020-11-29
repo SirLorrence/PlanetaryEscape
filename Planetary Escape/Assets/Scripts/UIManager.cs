@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Screen GameObjects")]
-    public GameObject mainMenuGO;
+    [Header("Screen GameObjects")] public GameObject mainMenuGO;
     public GameObject settingsGO;
     public GameObject upgradeTerminalGO;
     public GameObject resultsScreenGO;
     public GameObject hudGO;
     public GameObject pauseMenuGO;
 
-    [Header("Text Objects")]
-    public Text healthText;
+    [Header("Text Objects")] public Text healthText;
     public Text currentLevelText;
     public Text shieldText;
     public Text enemyRemainingText;
@@ -24,8 +22,7 @@ public class UIManager : MonoBehaviour
     public Text resultsLevelsClearedText;
     public Text upgradePointsText;
 
-    [Header("Level Loader")]
-    public LevelLoader levelLoader;
+    [Header("Level Loader")] public LevelLoader levelLoader;
 
     //Current UI element reference
     private GameObject currentScreenGO;
@@ -58,13 +55,13 @@ public class UIManager : MonoBehaviour
 
     public void Quit()
     {
-        #if UNITY_STANDALONE
+#if UNITY_STANDALONE
         Application.Quit();
-        #endif
-        
-        #if UNITY_EDITOR
+#endif
+
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
     }
 
     public void ResetGame() => GameManager.Instance.ResetLevel();
@@ -80,14 +77,17 @@ public class UIManager : MonoBehaviour
         UpdateEnemyRemainingText();
     }
 
-    public void UpdateResultsUI() {
+    public void UpdateResultsUI()
+    {
         resultsLevelsClearedText.text = GameManager.Instance.currentLevel.ToString();
         resultsScoreText.text = GameManager.Instance.score.ToString();
         resultsEnemiesKilledText.text = GameManager.Instance.enemiesKilled.ToString();
-}
+    }
+
     #endregion
 
     #region UpdateIndividualUI
+
     public void UpdateHealthText()
     {
         healthText.text = GameManager.Instance.PlayerHealth.ToString();
@@ -112,10 +112,10 @@ public class UIManager : MonoBehaviour
     {
         enemyRemainingText.text = GameManager.Instance.enemiesRemaining.ToString();
     }
-    
+
     public void UpdateUpgradeCostText()
     {
-        upgradePointsText.text = "Upgrade Points: " + GameManager.Instance.upgradePoints;
+        upgradePointsText.text = GameManager.Instance.upgradePoints.ToString();
     }
 
     #endregion
@@ -128,6 +128,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO = mainMenuGO;
         currentScreenGO.SetActive(true);
     }
+
     public void ShowSettings()
     {
         currentScreenGO.SetActive(false);
@@ -164,5 +165,6 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(true);
         UpdateResultsUI();
     }
+
     #endregion
 }

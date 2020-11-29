@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,16 +10,18 @@ public abstract class Upgrade : MonoBehaviour
 
     private int level = 0;
 
-    private Slider levelSlider;
+    public Slider levelSlider;
+    private Text costText;
 
     private void Start()
     {
-        levelSlider = this.gameObject.GetComponentInChildren<Slider>();
+        costText = this.gameObject.GetComponentInChildren<Text>();
     }
 
     private void Update()
     {
         levelSlider.value = level;
+        costText.text = cost.ToString();
     }
 
     public void LevelUp()
