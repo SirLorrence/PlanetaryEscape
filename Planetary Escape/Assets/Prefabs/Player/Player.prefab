@@ -147,6 +147,9 @@ MonoBehaviour:
   movementSpeed: 0
   bulletSpeed: 0
   damage: 1
+  smr: {fileID: 3034227363430807867}
+  greenFlash: {fileID: 2100000, guid: 2d5eff71dc60c944794829204292f4c4, type: 2}
+  redFlash: {fileID: 2100000, guid: 1e98efe433f2cab428c2c996961a41c2, type: 2}
 --- !u!136 &752331496256339839
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -594,6 +597,12 @@ GameObject:
 --- !u!4 &1474876338975947209 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bd0b06fc305da524ebe51321e1f63f7a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1440423223164886562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!137 &3034227363430807867 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4172256284338775833, guid: bd0b06fc305da524ebe51321e1f63f7a,
     type: 3}
   m_PrefabInstance: {fileID: 1440423223164886562}
   m_PrefabAsset: {fileID: 0}

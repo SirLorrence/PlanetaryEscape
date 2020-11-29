@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerStats : Healable
@@ -18,6 +19,11 @@ public class PlayerStats : Healable
     private bool hasDied = false;
     private float playerBulletSpeed = 10;
 
+    [Header("Material Info")] 
+    public SkinnedMeshRenderer smr;
+    public Material greenFlash;
+    public Material redFlash;
+
     //base values | called on reset
     public static int MAX_HEALTH = 10;
     public static float MAX_SHIELD = 0;
@@ -35,7 +41,13 @@ public class PlayerStats : Healable
         get => health;
         set
         {
+            int originalHealth = health;
             health = value;
+            if (originalHealth > health)
+                StartCoroutine(DamageFlash());
+            else
+                StartCoroutine(HealFlash());
+
             if (health >= MAX_HEALTH) health = MAX_HEALTH;
             GameManager.Instance.uiManager.UpdateHealthText();
             if (health <= 0 && !hasDied)
@@ -94,7 +106,6 @@ public class PlayerStats : Healable
             }
         }
     }
-
     public void OnReset()
     {
         hasDied = false;
@@ -103,5 +114,34 @@ public class PlayerStats : Healable
         movementSpeed = MAX_SPEED;
         fireRate = FIRE_RATE;
         bulletSpeed = BULLET_SPEED;
+    }
+
+    private IEnumerator DamageFlash()
+    {
+        Material[] originalMaterials = smr.materials;
+        Material[] redMaterials = new Material[originalMaterials.Length];
+
+        for (int i = 0; i < originalMaterials.Length; i++)
+            redMaterials[i] = redFlash;
+
+        smr.materials = redMaterials;
+
+        yield return new WaitForSeconds(0.15f);
+        smr.materials = originalMaterials;
+        yield return null;
+    }
+    private IEnumerator HealFlash()
+    {
+        Material[] originalMaterials = smr.materials;
+        Material[] greenMaterials = new Material[originalMaterials.Length];
+
+        for (int i = 0; i < originalMaterials.Length; i++)
+            greenMaterials[i] = greenFlash;
+
+        smr.materials = greenMaterials;
+
+        yield return new WaitForSeconds(0.15f);
+        smr.materials = originalMaterials;
+        yield return null;
     }
 }
