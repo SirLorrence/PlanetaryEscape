@@ -23,18 +23,17 @@ public abstract class Upgrade : MonoBehaviour
         levelSlider.value = level;
         costText.text = cost.ToString();
     }
-
     public void LevelUp()
     {
-        if (cost < GameManager.Instance.upgradePoints)
+        if ( GameManager.Instance.upgradePoints >= cost )
         {
             if (level != 5) //max level
             {
                 level += 1;
                 LevelStats(level);
-                cost = (int)Mathf.Floor(cost * 2); // check this later
                 PlayerStats.UpgradeEnable = true;
                 GameManager.Instance.upgradePoints -= cost;
+                cost = (int)Mathf.Floor(cost * 2); // check this later
                 GameManager.Instance.uiManager.UpdateUpgradeCostText();
             }
         }
