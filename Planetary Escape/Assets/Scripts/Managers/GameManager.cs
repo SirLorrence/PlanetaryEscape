@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 public class GameManager : MonoBehaviour
 {
@@ -84,18 +85,22 @@ public class GameManager : MonoBehaviour
 
     public void SpawnItem(GameObject go)
     {
+        GameObject temp = GetSkillPickup();
+        temp.transform.position = go.transform.position + new Vector3(0,0.5f, 0);
+        temp.SetActive(true);
+
         //Gets a random number between  0 & 1 
         float rand = UnityEngine.Random.value;
         //Based on the number and drop a pickup if condition is met
-        if (rand <= 0.1f)
+        if (rand <= 0.5f)
         {
-            GameObject temp = GetHealthPickup();
+            temp = GetHealthPickup();
             temp.transform.position = go.transform.position;
             temp.SetActive(true);
         }
         else if (rand <= 0.2f && rand > 0.1f)
         {
-            GameObject temp = GetSkillPickup();
+            temp = GetSkillPickup();
             temp.transform.position = go.transform.position;
             temp.SetActive(true);
         }
@@ -104,10 +109,14 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int addedScore)
     {
         score += addedScore;
-        Debug.Log("Score:  " + score);
+        Debug.Log("Score: " + score);
 
         uiManager.UpdateScoreText();
-
+    }
+    public void IncreaseUpgradeScore(int addedPoints)
+    {
+        upgradePoints += addedPoints;
+        Debug.Log("Upgrade Points: " + upgradePoints);
     }
 
     public void PlayerDead() => StartCoroutine(Death());

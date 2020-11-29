@@ -426,7 +426,7 @@ MonoBehaviour:
     type: 3}
   healthPickup: {fileID: 8393640010656268591, guid: a35fae320db1e3a4ca46144ce297fd5d,
     type: 3}
-  skillPickup: {fileID: 8393640010656268591, guid: a35fae320db1e3a4ca46144ce297fd5d,
+  skillPickup: {fileID: 1000012946874890, guid: 586acbe765df7c34385298970076297e,
     type: 3}
   typeOfEnemies:
     Weak: {fileID: 584470576891805863, guid: 442e7bbad4977c942af0ab6f48c5965e, type: 3}
@@ -453,8 +453,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1775693956}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.1726608, y: 3.260538, z: -7.2025657}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

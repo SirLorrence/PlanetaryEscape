@@ -154,8 +154,10 @@ MonoBehaviour:
     type: 3}
   enemyBullet: {fileID: 1299086504142128769, guid: 7ef89f98454a6244190219203c561919,
     type: 3}
-  healthPickup: {fileID: 0}
-  skillPickup: {fileID: 0}
+  healthPickup: {fileID: 8393640010656268591, guid: a35fae320db1e3a4ca46144ce297fd5d,
+    type: 3}
+  skillPickup: {fileID: 1000012946874890, guid: 586acbe765df7c34385298970076297e,
+    type: 3}
   typeOfEnemies:
     Weak: {fileID: 584470576891805863, guid: 442e7bbad4977c942af0ab6f48c5965e, type: 3}
     Regular: {fileID: 9170208847893371773, guid: 24bbe9dab2c9cb745acde0218373ef5d,
@@ -167,7 +169,7 @@ MonoBehaviour:
   NumberOfEnemies: 50
   score: 0
   upgradePoints: 0
-  currentLevel: {fileID: 0}
+  currentLevel: 0
   uiManager: {fileID: 0}
   player: {fileID: 0}
   playerStats: {fileID: 0}
@@ -419,6 +421,61 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 350637548230379570, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548230379570, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548443558617, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548443558617, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548483154966, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548483154966, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548669730890, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548669730890, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637548735313799, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637549395934397, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 350637549395934397, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2374848549468059334, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.z

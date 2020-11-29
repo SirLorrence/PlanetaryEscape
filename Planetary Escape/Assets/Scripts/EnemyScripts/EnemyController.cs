@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -56,8 +57,10 @@ public class EnemyController : Healable
         get => enemyStats.health;
         set
         {
+            if (gameObject.activeSelf)
+                StartCoroutine(DamageFlash());
+
             enemyStats.health = value;
-            StartCoroutine(DamgeFlash());
         }
     }
 
@@ -133,7 +136,7 @@ public class EnemyController : Healable
         stateTimeElapsed = 0;
     }
 
-    private IEnumerator DamgeFlash()
+    private IEnumerator DamageFlash()
     {
         Material[] originalMaterials = smr.materials;
         Material[] redMaterials = new Material[originalMaterials.Length];
@@ -141,7 +144,11 @@ public class EnemyController : Healable
         for (int i = 0; i < originalMaterials.Length; i++)
             redMaterials[i] = redFlash;
 
-        smr.materials = redMaterials;
+        //if (gameObject.activeSelf)
+            smr.materials = redMaterials;
+        //else
+        //    yield return null;
+
         yield return new WaitForSeconds(0.15f);
         smr.materials = originalMaterials;
         yield return null;
