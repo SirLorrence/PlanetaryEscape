@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NextLevel : MonoBehaviour
+public class CloseDoor : MonoBehaviour
 {
     public GameObject door;
     private bool activated = false;
@@ -14,22 +14,20 @@ public class NextLevel : MonoBehaviour
             {
                 activated = true;
                 StartCoroutine(DoorAction());
-                GameManager.Instance.LoadNextLevel();
+                GameManager.Instance.UnLoadLastLevel();
             }
         }
     }
     private IEnumerator DoorAction()
     {
-        StartCoroutine(CloseDoor());
+        StartCoroutine(ClosingDoor());
         yield return new WaitForSeconds(.25f);
-        StopCoroutine(CloseDoor());
-        //gameObject.SetActive(false);
-
+        StopCoroutine(ClosingDoor());
     }
 
-    IEnumerator CloseDoor()
+    IEnumerator ClosingDoor()
     {
-        var newPos = new Vector3(door.transform.position.x + 7, door.transform.position.y, door.transform.position.z);
+        var newPos = new Vector3(door.transform.position.x + 4.3f, door.transform.position.y, door.transform.position.z);
         while (true)
         {
             door.transform.position = Vector3.Lerp(door.transform.position, newPos, Time.deltaTime * .75f);

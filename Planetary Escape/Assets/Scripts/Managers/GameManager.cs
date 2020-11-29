@@ -23,7 +23,10 @@ public class GameManager : MonoBehaviour
     [Header("Game Information")]
     public int score = 0;
     public float upgradePoints = 10;
-    
+
+    [Header("Level Information")] 
+    public GameObject[] levels;
+
     //List of the objects that have been pooled
     List<GameObject> PlayerBulletPool = new List<GameObject>();
     List<GameObject> EnemyBulletPool = new List<GameObject>();
@@ -40,7 +43,7 @@ public class GameManager : MonoBehaviour
         Strong
     }
     //Game Stats
-    [HideInInspector] public int currentLevel;
+    [HideInInspector] public int currentLevel = 0;
     [HideInInspector] public UIManager uiManager;
 
     //Player
@@ -93,6 +96,14 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    void Start()
+    {
+        for (int i = 0; i < levels.Length; i++)
+        {
+            if (i != currentLevel)
+                levels[i].SetActive(false);
+        }
+    }
     public void SpawnItem(GameObject go)
     {
         GameObject temp = GetSkillPickup();
@@ -228,6 +239,33 @@ public class GameManager : MonoBehaviour
         
         uiManager.ResetAllHUDUI();
         Time.timeScale = 1;
+    }
+
+    public void LoadNextLevel()
+    {
+        currentLevel++;
+        if (currentLevel == levels.Length)
+        {
+            //Win code
+            print("Win");   
+        }
+        else
+        {
+            levels[currentLevel].SetActive(true);
+        }
+    }
+
+    public void UnLoadLastLevel()
+    {
+        if (currentLevel != 0)
+        {
+            levels[currentLevel - 1].SetActive(false);
+        }
+    }
+
+    public void SaveLevel()
+    {
+        
     }
 
     #region Object Pooling

@@ -7,20 +7,21 @@ using UnityEngine;
 public class CompletionManager : MonoBehaviour
 {
     public GameObject[] enemies;
-    public GameObject enemyHolder;
     public GameObject doorCollider;
     public Transform door;
+
+    private bool activated = false;
 
     private void OnEnable()
     {
         //-------Auto fill array
-        enemies = new GameObject[enemyHolder.transform.childCount];
-        for (int i = 0; i < enemyHolder.transform.childCount; i++)
+        enemies = new GameObject[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
         {
-            enemies[i] = enemyHolder.transform.GetChild(i).gameObject;
+            enemies[i] = transform.GetChild(i).gameObject;
         }
 
-        GameManager.Instance.enemiesRemaining = enemyHolder.transform.childCount;
+        GameManager.Instance.enemiesRemaining = transform.childCount;
     }
 
     void FixedUpdate()
@@ -38,19 +39,23 @@ public class CompletionManager : MonoBehaviour
 
     void AdvanceLevel()
     {
-        //Put Advanced Level Code Here
-        Debug.Log("AdvancedLevel");
-        doorCollider.SetActive(true);
-        StartCoroutine(DoorAction());
-        // gameObject.SetActive(false);
+        if (!activated)
+        {
+            activated = true;
+            //Put Advanced Level Code Here
+            Debug.Log("AdvancedLevel");
+            doorCollider.SetActive(true);
+            StartCoroutine(DoorAction());
+            // gameObject.SetActive(false);
+        }
     }
 
     private IEnumerator DoorAction()
     {
-        StartCoroutine("OpenDoor");
+        StartCoroutine(OpenDoor());
         yield return new WaitForSeconds(.25f);
-        StopCoroutine("OpenDoor");
-        gameObject.SetActive(false);
+        StopCoroutine(OpenDoor());
+        //gameObject.SetActive(false);
 
     }
 
