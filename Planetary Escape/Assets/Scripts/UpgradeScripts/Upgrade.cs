@@ -8,7 +8,9 @@ public abstract class Upgrade : MonoBehaviour
 {
     public int cost;
 
-    private int level = 0;
+    public int level = 0;
+  
+
 
     public Slider levelSlider;
     private Text costText;
@@ -17,6 +19,7 @@ public abstract class Upgrade : MonoBehaviour
     {
         costText = this.gameObject.GetComponentInChildren<Text>();
     }
+
 
     private void Update()
     {
@@ -33,7 +36,7 @@ public abstract class Upgrade : MonoBehaviour
                 LevelStats(level);
                 PlayerStats.UpgradeEnable = true;
                 GameManager.Instance.upgradePoints -= cost;
-                cost = (int)Mathf.Floor(cost * 2); // check this later
+                cost = cost  * 2; // check this later
                 GameManager.Instance.uiManager.UpdateUpgradeCostText();
             }
         }
@@ -42,3 +45,4 @@ public abstract class Upgrade : MonoBehaviour
 
     protected abstract void LevelStats(int level);
 }
+

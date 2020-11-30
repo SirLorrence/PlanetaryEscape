@@ -24,6 +24,13 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public float upgradePoints = 10;
     
+    
+    //Store upgrade level values 
+    public int HEALTH_LEVEL;
+    public int SHIELD_LEVEL;
+    public int SPEED_LEVEL;
+    public int GUN_LEVEL;
+    
     //List of the objects that have been pooled
     List<GameObject> PlayerBulletPool = new List<GameObject>();
     List<GameObject> EnemyBulletPool = new List<GameObject>();
