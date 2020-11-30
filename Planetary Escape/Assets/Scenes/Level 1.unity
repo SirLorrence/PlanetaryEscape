@@ -262,6 +262,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1033081889501197034, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -116.6001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1033081889501197034, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -72.69995
+      objectReference: {fileID: 0}
+    - target: {fileID: 1451568902412122576, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708344415818767275, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 83.69995
+      objectReference: {fileID: 0}
+    - target: {fileID: 1708344415818767275, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -28.400024
+      objectReference: {fileID: 0}
     - target: {fileID: 2792254391185487453, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -327,6 +352,21 @@ PrefabInstance:
       propertyPath: enemies.Array.data[0]
       value: 
       objectReference: {fileID: 723531887}
+    - target: {fileID: 3111907175672729644, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507391199127944891, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3507391199127944895, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4945502716036924135, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_IsActive
@@ -412,6 +452,16 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5142013131463795202, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 42.299805
+      objectReference: {fileID: 0}
+    - target: {fileID: 5142013131463795202, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -98.3999
+      objectReference: {fileID: 0}
     - target: {fileID: 5526713797303795051, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -432,6 +482,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6814445463575567139, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -27.899902
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973524038633141964, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 83.8999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973524038633141964, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -63.599976
+      objectReference: {fileID: 0}
     - target: {fileID: 7176577346917281045, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_IsActive
@@ -441,6 +506,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535317217397739266, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8887471154944815640, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
@@ -563,6 +633,10 @@ MonoBehaviour:
   NumberOfEnemies: 0
   score: 0
   upgradePoints: 10
+  HEALTH_LEVEL: 0
+  SHIELD_LEVEL: 0
+  SPEED_LEVEL: 0
+  GUN_LEVEL: 0
   currentLevel: 0
   uiManager: {fileID: 0}
   player: {fileID: 0}

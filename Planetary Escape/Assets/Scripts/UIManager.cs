@@ -100,7 +100,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = GameManager.Instance.score.ToString();
+        scoreText.text = "Score: "+ GameManager.Instance.score;
     }
 
     public void UpdateCurrentLevelText()
@@ -110,7 +110,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateEnemyRemainingText()
     {
-        enemyRemainingText.text = GameManager.Instance.enemiesRemaining.ToString();
+        enemyRemainingText.text = "Enemies: " +  GameManager.Instance.enemiesRemaining;
     }
 
     public void UpdateUpgradeCostText()
