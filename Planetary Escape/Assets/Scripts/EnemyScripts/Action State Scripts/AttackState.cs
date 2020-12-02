@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "EnemyAI/Action/Attack")]
 public class AttackState : AIState

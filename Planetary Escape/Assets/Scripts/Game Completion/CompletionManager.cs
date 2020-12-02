@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
+﻿using System.Collections;
 using UnityEngine;
 
 public class CompletionManager : MonoBehaviour
@@ -53,6 +50,7 @@ public class CompletionManager : MonoBehaviour
     private IEnumerator DoorAction()
     {
         StartCoroutine(OpenDoor());
+        GameManager.Instance.UnLoadLastLevel();
         GameManager.Instance.LoadNextLevel();
         yield return new WaitForSeconds(.25f);
         StopCoroutine(OpenDoor());

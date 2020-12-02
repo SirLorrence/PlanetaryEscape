@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CloseDoor : MonoBehaviour
@@ -14,7 +13,6 @@ public class CloseDoor : MonoBehaviour
             {
                 activated = true;
                 StartCoroutine(DoorAction());
-                GameManager.Instance.UnLoadLastLevel();
             }
         }
     }
