@@ -87,7 +87,7 @@ public class EnemyController : Healable
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         targetTransform = GameObject.FindWithTag("Player").transform;
-        partolPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("PPoint"));
+        //partolPoints = new List<GameObject>(GameObject.FindGameObjectsWithTag("PPoint"));
     }
 
     private void Start() => agent.speed = enemyStats.movementSpeed;
