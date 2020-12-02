@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 808190c6b8b96244d9b9938fbbd1a660
+  - enabled: 1
+    path: Assets/Scenes/Level 1.unity
+    guid: 1ec232b6b6ffb0543b8a3f3e9a47f2aa
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 9b7109f170529ca4aa81786552fb2f6c
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: e2c2df52c70e80b4ab6482aa555fa917
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: 35637bf2e2af1484a91040aabaeba50c
+  - enabled: 1
+    path: Assets/Scenes/Level 5.unity
+    guid: 61889f04d4d6cfc47ad7af3fedc4e33c
+  - enabled: 1
+    path: Assets/Scenes/Level 6.unity
+    guid: df7188f8485c7c44e81d892bd7b84b54
+  - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: 75c126880ada8514f80bbf649341c4fb
+  - enabled: 1
+    path: Assets/Scenes/Level 8.unity
+    guid: 7a93d0b1f912ce94ebd9f6e1eee02038
+  - enabled: 1
+    path: Assets/Scenes/Level 9.unity
+    guid: 475f90bbe18a97741bfb317b4d274d2e
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: d7cebda744ee842498b8e91adba7ac20
+  m_configObjects: {}
