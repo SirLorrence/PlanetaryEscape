@@ -1,7 +1,4 @@
-﻿using System;
-using TMPro;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public abstract class Upgrade : MonoBehaviour

@@ -1,5 +1,4 @@
 ﻿using UnityEditor;
-using UnityEngine;
 
 [CustomEditor(typeof(GameManager))]
 public class LevelSave : Editor
