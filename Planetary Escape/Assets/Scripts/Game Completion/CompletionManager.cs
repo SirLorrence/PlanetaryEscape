@@ -53,14 +53,16 @@ public class CompletionManager : MonoBehaviour
     private IEnumerator DoorAction()
     {
         StartCoroutine(OpenDoor());
+        GameManager.Instance.LoadNextLevel();
         yield return new WaitForSeconds(.25f);
         StopCoroutine(OpenDoor());
         //gameObject.SetActive(false);
 
     }
-
     IEnumerator OpenDoor()
     {
+                       
+
         var newPos = new Vector3(door.position.x - 4, door.position.y, door.position.z);
         while (true)
         {

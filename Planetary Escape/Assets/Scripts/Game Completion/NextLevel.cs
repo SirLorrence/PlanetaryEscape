@@ -14,7 +14,6 @@ public class NextLevel : MonoBehaviour
             {
                 activated = true;
                 StartCoroutine(DoorAction());
-                GameManager.Instance.LoadNextLevel();
             }
         }
     }
