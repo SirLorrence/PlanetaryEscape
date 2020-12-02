@@ -53,6 +53,7 @@ public class CompletionManager : MonoBehaviour
     private IEnumerator DoorAction()
     {
         StartCoroutine(OpenDoor());
+        GameManager.Instance.UnLoadLastLevel();
         GameManager.Instance.LoadNextLevel();
         yield return new WaitForSeconds(.25f);
         StopCoroutine(OpenDoor());
