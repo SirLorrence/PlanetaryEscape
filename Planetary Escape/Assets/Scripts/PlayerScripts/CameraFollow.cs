@@ -29,21 +29,21 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        rotationX += Input.GetAxis("Mouse Y") * sensitivityX;
-        rotationY += Input.GetAxisRaw("Mouse X") * sensitivityY;
-        rotationX = Mathf.Clamp(rotationX, minX, maxX);
+        //rotationX += Input.GetAxis("Mouse Y") * sensitivityX;
+        //rotationY += Input.GetAxisRaw("Mouse X") * sensitivityY;
+        //rotationX = Mathf.Clamp(rotationX, minX, maxX);
         
-        target.localEulerAngles = new Vector3(0,rotationY,0);
-        gameObject.transform.localEulerAngles =new Vector3(-rotationX,rotationY,0);
+        //target.localEulerAngles = new Vector3(0,rotationY,0);
+        //gameObject.transform.localEulerAngles =new Vector3(-rotationX,rotationY,0);
     }
 
     void LateUpdate()
     {
         //----------------- old
-        // transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y, target.position.z + positionOffset.z),  Time.deltaTime * smooth);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(0, transform.position.y, target.position.z + positionOffset.z),  Time.deltaTime * smooth);
         //----------------
 
         //new (fps)
-        gameObject.transform.position = target.position + positionOffset;
+        //gameObject.transform.position = target.position + positionOffset;
     }
 }
