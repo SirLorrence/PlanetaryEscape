@@ -1273,12 +1273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 978398675a4146038f2e48b27e617f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: 0
+  enemyType: 1
   currentState: {fileID: 11400000, guid: 6d03ed8864a29054892c1d08f369e5a6, type: 2}
   remainState: {fileID: 11400000, guid: a15fd04efdc5a9241ae5eb47f7172ec4, type: 2}
   GunBarrel: {fileID: 7226350222462458687}
   enemyStats:
-    health: 0
+    health: 10
+    shield: 0
     damage: 5
     bulletSpeed: 10
     detectionRadius: 12

@@ -1264,7 +1264,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
@@ -2114,7 +2114,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
@@ -2857,7 +2857,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
@@ -2951,7 +2951,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
@@ -4092,7 +4092,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
@@ -5835,7 +5835,7 @@ PrefabInstance:
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8361197625627918791, guid: 24bbe9dab2c9cb745acde0218373ef5d,
         type: 3}
