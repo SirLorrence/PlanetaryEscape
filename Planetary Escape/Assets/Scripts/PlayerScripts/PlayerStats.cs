@@ -12,7 +12,6 @@ public class PlayerStats : Healable
     [SerializeField] private float fireRate;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private int damage = 1;
 
     private bool autoShoot = false;
     private bool hasDied = false;
@@ -28,6 +27,7 @@ public class PlayerStats : Healable
     public static int MAX_SHIELD = 0;
     public static float MAX_SPEED = 3f;
     public static float FIRE_RATE = 1f;
+    public static int DAMAGE = 1;
     public static float BULLET_SPEED = 10f;
     public static bool UpgradeEnable;
 
@@ -90,8 +90,8 @@ public class PlayerStats : Healable
 
     public int Damage
     {
-        get => damage;
-        set => damage = value;
+        get => DAMAGE;
+        set => DAMAGE = value;
     }
 
     #endregion

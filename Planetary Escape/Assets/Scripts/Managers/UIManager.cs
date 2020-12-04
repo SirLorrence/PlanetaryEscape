@@ -24,6 +24,7 @@ public class UIManager : MonoBehaviour
 
     [Header("Level Loader")] public LevelLoader levelLoader;
 
+    //[Header("Visuals")] public GameObject crosshairTexture;
     //Current UI element reference
     private GameObject currentScreenGO;
 
@@ -100,7 +101,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = "Score: "+ GameManager.Instance.score;
+        scoreText.text = "Upgrade Points: "+ GameManager.Instance.upgradePoints;
     }
 
     public void UpdateCurrentLevelText()
@@ -127,6 +128,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = mainMenuGO;
         currentScreenGO.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void ShowSettings()
@@ -134,6 +136,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = settingsGO;
         currentScreenGO.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void ShowPause()
@@ -141,6 +144,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = pauseMenuGO;
         currentScreenGO.SetActive(true);
+        Cursor.visible = true;
     }
 
     public void ShowHUD()
@@ -148,6 +152,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO.SetActive(false);
         currentScreenGO = hudGO;
         currentScreenGO.SetActive(true);
+        Cursor.visible = false;
     }
 
     public void ShowUpgrades()
@@ -156,6 +161,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO = upgradeTerminalGO;
         currentScreenGO.SetActive(true);
         UpdateUpgradeCostText();
+        Cursor.visible = true;
     }
 
     public void ShowResults()
@@ -164,6 +170,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO = resultsScreenGO;
         currentScreenGO.SetActive(true);
         UpdateResultsUI();
+        Cursor.visible = true;
     }
 
     #endregion

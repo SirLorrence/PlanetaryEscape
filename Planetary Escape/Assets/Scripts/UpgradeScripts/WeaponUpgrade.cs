@@ -19,7 +19,8 @@ public class WeaponUpgrade : Upgrade
     }
     protected override void LevelStats(int level)
     {
-        // PlayerStats.Instance.Damage *= level;
+        PlayerStats.DAMAGE *= level;
+        level = GameManager.Instance.GUN_LEVEL = level;
         // PlayerGameStats.Instance.playerBulletSpeed *= level / 2;
 
     }

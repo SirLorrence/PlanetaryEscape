@@ -82,6 +82,7 @@ public class EnemyController : Healable
 
     private void Awake()
     {
+        CurrentPoint = Random.Range(0, partolPoints.Count); 
         anim = GetComponent<Animator>();
         agent = GetComponent<NavMeshAgent>();
         targetTransform = GameObject.FindWithTag("Player").transform;

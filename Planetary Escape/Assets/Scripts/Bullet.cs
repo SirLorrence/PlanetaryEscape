@@ -33,12 +33,17 @@ public class Bullet : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider c)
     {
-        if (collision.gameObject.CompareTag(targetTag))
-            GameManager.Instance.TakeDamage(collision.gameObject, damage);
-
-
-        GameManager.Instance.SetObjectInPool(gameObject);
+        if (c.gameObject.CompareTag(targetTag))
+            GameManager.Instance.TakeDamage(c.gameObject, damage);
+        else if (c.gameObject.CompareTag("Bullet"))
+        {
+            
+        }
+        else
+        {
+            GameManager.Instance.SetObjectInPool(gameObject);
+        }
     }
 }

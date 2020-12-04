@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 
+    [Header("Editor Settings")] public bool debug;
     [Header("Prefabs")]
     public GameObject playerBullet;
     public GameObject enemyBullet;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     public int SHIELD_LEVEL;
     public int SPEED_LEVEL;
     public int GUN_LEVEL;
+
     
 
     [Header("Level Information")] 
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
     //Player
     [HideInInspector] public GameObject player;
     [HideInInspector] public PlayerStats playerStats;
-    [HideInInspector] public PlayerMovement playerMovement;
+    [HideInInspector] public PlayerController playerMovement;
 
     //showing remaining enemies
     [HideInInspector] public int enemiesRemaining = 0;
@@ -106,10 +108,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        for (int i = 0; i < levels.Length; i++)
+        for (int i = 2; i < levels.Length; i++)
         {
-            if (i != currentLevel)
-                levels[i].SetActive(false);
+            levels[i].SetActive(false);
         }
     }
     public void SpawnItem(GameObject go)
@@ -140,12 +141,13 @@ public class GameManager : MonoBehaviour
         score += addedScore;
         Debug.Log("Score: " + score);
 
-        uiManager.UpdateScoreText();
+        //uiManager.UpdateScoreText();
     }
     public void IncreaseUpgradeScore(int addedPoints)
     {
         upgradePoints += addedPoints;
         Debug.Log("Upgrade Points: " + upgradePoints);
+        uiManager.UpdateScoreText();
     }
 
     public void PlayerDead() => StartCoroutine(Death());
@@ -159,11 +161,13 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Death()
     {
-        GameObject go = GameObject.FindGameObjectWithTag("Player");
-        go.GetComponentInChildren<Animator>().SetBool("isDead", true);
+        //GameObject go = GameObject.FindGameObjectWithTag("Player");
+        //go.GetComponentInChildren<Animator>().SetBool("isDead", true);
+        InputManager.Instance.Freeze();
         yield return new WaitForSeconds(2);
         uiManager.ShowResults();
         Time.timeScale = 0;
+        InputManager.Instance.Unfreeze();
         Debug.Log("Dead");
         yield return null;
     }
@@ -235,9 +239,8 @@ public class GameManager : MonoBehaviour
 
         if (player == null) player = GameObject.FindGameObjectWithTag("Player");
         if (playerStats == null) playerStats = player.GetComponent<PlayerStats>();
-        if (playerMovement == null) playerMovement = player.GetComponent<PlayerMovement>();
+        if (playerMovement == null) playerMovement = player.GetComponent<PlayerController>();
 
-        playerStats.GetComponentInChildren<Animator>().SetBool("isDead", false);
         playerStats.OnReset();
         playerMovement.ResetPosition();
         ResetPools();
@@ -259,7 +262,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            levels[currentLevel].SetActive(true);
+            levels[currentLevel + 1].SetActive(true);
         }
     }
 

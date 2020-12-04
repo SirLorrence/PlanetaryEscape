@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 public class InputManager : MonoBehaviour
 {
     [Header("Required Scripts")]
-    public PlayerMovement playerMovement;
+    public PlayerController playerController;
     public PlayerShoot playerShooting;
     public PlayerStats playerStats;
+    public CameraFollow cameraFollow;
 
     //private GameObject pauseMenu;
     private bool pause;
+    private bool freeze = false;
     private float time = 0;
     #region Singleton
     //Singleton Instantiation
@@ -41,29 +43,17 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-        //{
-        //    if (pause)
-        //    {
-        //        Debug.Log("Hello");
-        //        ResumeGame();
-        //    }
-
-        //    else
-        //    {
-        //        Debug.Log("goodbye");
-        //        PauseGame();
-        //    }
-        //}
+        if (cameraFollow == null) cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+        cameraFollow.CameraMove(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
     
     void FixedUpdate()
     {
-        if (playerMovement == null) playerMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        if (playerController == null) playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         if (playerShooting == null) playerShooting = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerShoot>();
         if (playerStats == null) playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-
-        if (Time.timeScale == 0)
+        
+        if (Time.timeScale == 0 || freeze)
             return;
 
         if (Input.GetMouseButton(0))
@@ -74,6 +64,10 @@ public class InputManager : MonoBehaviour
                 time = Time.time;
             }
         }
-        playerMovement.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        playerController.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
+
+    public void Unfreeze() => freeze = false;
+
+    public void Freeze() => freeze = true;
 }
