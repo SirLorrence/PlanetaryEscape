@@ -193,6 +193,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Generic Base Level
       objectReference: {fileID: 0}
+    - target: {fileID: 6899051305543649435, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899051306342662149, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899051306439384224, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6899051307335028073, guid: cc8cbba070dac1148bf3378163f404dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7223640051997955294, guid: cc8cbba070dac1148bf3378163f404dd,
         type: 3}
       propertyPath: m_LocalScale.z
