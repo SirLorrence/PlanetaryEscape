@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour
         //go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         InputManager.Instance.Freeze();
         yield return new WaitForSeconds(2);
-        uiManager.ShowResults();
+        uiManager.ChangeScreen((int)UIManager.Screens.Results);
         Time.timeScale = 0;
         InputManager.Instance.Unfreeze();
         Debug.Log("Dead");

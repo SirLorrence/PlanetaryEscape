@@ -18,11 +18,6 @@ public class PlayerMovement : MonoBehaviour
     
     public PlayerStats playerStats;
 
-    void Awake()
-    {
-        print("PlayerMovement");
-    }
-    // Start is called before the first frame update
     void Start()
     {
         startPos = transform.position;

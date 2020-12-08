@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,7 +25,12 @@ public class UIManager : MonoBehaviour
 
     [Header("Level Loader")] public LevelLoader levelLoader;
 
-    //[Header("Visuals")] public GameObject crosshairTexture;
+    [Serializable]
+    public enum Screens
+    {
+        Menu = 0, Settings = 1, Pause = 2, Hud = 3, Results = 4, Upgrade = 5
+    }
+
     //Current UI element reference
     private GameObject currentScreenGO;
 
@@ -33,7 +39,7 @@ public class UIManager : MonoBehaviour
         currentScreenGO = hudGO;
         GameManager.Instance.uiManager = this;
         ResetAllHUDUI();
-        ShowHUD();
+        ChangeScreen((int)Screens.Hud);
     }
 
     public void LoadMenu()
@@ -123,55 +129,21 @@ public class UIManager : MonoBehaviour
 
     #region ShowScreens
 
-    public void ShowMainMenu()
+    public void ChangeScreen(int screen)
     {
         currentScreenGO.SetActive(false);
-        currentScreenGO = mainMenuGO;
-        currentScreenGO.SetActive(true);
-        Cursor.visible = true;
-    }
+        
+        switch (screen)
+        {
+            case (int)Screens.Menu: currentScreenGO = mainMenuGO; Cursor.visible = true; break;
+            case (int)Screens.Settings: currentScreenGO = settingsGO; Cursor.visible = true; break;
+            case (int)Screens.Pause: currentScreenGO = pauseMenuGO; Cursor.visible = true; InputManager.Instance.Freeze(); break;
+            case (int)Screens.Hud: currentScreenGO = hudGO; Cursor.visible = false; InputManager.Instance.Unfreeze(); break;
+            case (int)Screens.Results: currentScreenGO = resultsScreenGO; Cursor.visible = true; UpdateResultsUI(); InputManager.Instance.Freeze(); break;
+            case (int)Screens.Upgrade: currentScreenGO = upgradeTerminalGO; Cursor.visible = true; UpdateUpgradeCostText(); break;
+        }
 
-    public void ShowSettings()
-    {
-        currentScreenGO.SetActive(false);
-        currentScreenGO = settingsGO;
         currentScreenGO.SetActive(true);
-        Cursor.visible = true;
     }
-
-    public void ShowPause()
-    {
-        currentScreenGO.SetActive(false);
-        currentScreenGO = pauseMenuGO;
-        currentScreenGO.SetActive(true);
-        Cursor.visible = true;
-    }
-
-    public void ShowHUD()
-    {
-        currentScreenGO.SetActive(false);
-        currentScreenGO = hudGO;
-        currentScreenGO.SetActive(true);
-        Cursor.visible = false;
-    }
-
-    public void ShowUpgrades()
-    {
-        currentScreenGO.SetActive(false);
-        currentScreenGO = upgradeTerminalGO;
-        currentScreenGO.SetActive(true);
-        UpdateUpgradeCostText();
-        Cursor.visible = true;
-    }
-
-    public void ShowResults()
-    {
-        currentScreenGO.SetActive(false);
-        currentScreenGO = resultsScreenGO;
-        currentScreenGO.SetActive(true);
-        UpdateResultsUI();
-        Cursor.visible = true;
-    }
-
     #endregion
 }

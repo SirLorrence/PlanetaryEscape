@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
     private bool pause;
     private bool freeze = false;
     private float time = 0;
+
     #region Singleton
     //Singleton Instantiation
     public static InputManager Instance { get; private set; }
@@ -27,8 +28,6 @@ public class InputManager : MonoBehaviour
             Instance = this;
 
         DontDestroyOnLoad(this);
-
-        print("Input Manager");
     }
     #endregion
 
@@ -43,6 +42,16 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            if (!freeze)
+                GameManager.Instance.uiManager.ChangeScreen((int)UIManager.Screens.Pause);
+            else
+                GameManager.Instance.uiManager.ChangeScreen((int)UIManager.Screens.Hud);
+        }
+        if (Time.timeScale == 0 || freeze)
+            return;
+
         if (cameraFollow == null) cameraFollow = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
         cameraFollow.CameraMove(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
     }
@@ -67,7 +76,15 @@ public class InputManager : MonoBehaviour
         playerController.Move(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
     }
 
-    public void Unfreeze() => freeze = false;
+    public void Unfreeze()
+    {
+        freeze = false;
+        Time.timeScale = 1;
+    }
 
-    public void Freeze() => freeze = true;
+    public void Freeze()
+    {
+        freeze = true;
+        Time.timeScale = 0;
+    }
 }
