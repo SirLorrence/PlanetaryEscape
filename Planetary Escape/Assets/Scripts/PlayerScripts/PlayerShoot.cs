@@ -4,16 +4,12 @@ public class PlayerShoot : MonoBehaviour
 {
     private GameObject GunBarrel;
     private PlayerStats playerStats;
-    
 
-    // Start is called before the first frame update
     void Start()
     {
         playerStats = gameObject.GetComponent<PlayerStats>();
         GunBarrel = GameObject.FindGameObjectWithTag("GunTip");
     }
-
-    // Update is called once per frame
     public void Shoot()
     {
         GameObject go = GameManager.Instance.GetPlayerBullet();
