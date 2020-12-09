@@ -137,9 +137,9 @@ public class UIManager : MonoBehaviour
         {
             case (int)Screens.Menu: currentScreenGO = mainMenuGO; Cursor.visible = true; break;
             case (int)Screens.Settings: currentScreenGO = settingsGO; Cursor.visible = true; break;
-            case (int)Screens.Pause: currentScreenGO = pauseMenuGO; Cursor.visible = true; InputManager.Instance.Freeze(); break;
+            case (int)Screens.Pause: currentScreenGO = pauseMenuGO; Cursor.visible = true; currentScreenGO.SetActive(true); InputManager.Instance.Freeze(); break;
             case (int)Screens.Hud: currentScreenGO = hudGO; Cursor.visible = false; InputManager.Instance.Unfreeze(); break;
-            case (int)Screens.Results: currentScreenGO = resultsScreenGO; Cursor.visible = true; UpdateResultsUI(); InputManager.Instance.Freeze(); break;
+            case (int)Screens.Results: currentScreenGO = resultsScreenGO; Cursor.visible = true; UpdateResultsUI(); currentScreenGO.SetActive(true); InputManager.Instance.Freeze(); break;
             case (int)Screens.Upgrade: currentScreenGO = upgradeTerminalGO; Cursor.visible = true; UpdateUpgradeCostText(); break;
         }
 

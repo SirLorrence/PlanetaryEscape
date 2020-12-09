@@ -85,6 +85,12 @@ public class InputManager : MonoBehaviour
     public void Freeze()
     {
         freeze = true;
+        StartCoroutine(temp());
+    }
+
+    IEnumerator temp()
+    {
+        yield return new WaitForSeconds(0.2f);
         Time.timeScale = 0;
     }
 }

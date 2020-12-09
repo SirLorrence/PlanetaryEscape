@@ -166,10 +166,8 @@ public class GameManager : MonoBehaviour
         //GameObject go = GameObject.FindGameObjectWithTag("Player");
         //go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         InputManager.Instance.Freeze();
-        yield return new WaitForSeconds(2);
-        uiManager.ChangeScreen((int) UIManager.Screens.Results);
-        Time.timeScale = 0;
-        InputManager.Instance.Unfreeze();
+        //yield return new WaitForSeconds(2);
+        uiManager.ChangeScreen((int)UIManager.Screens.Results);
         Debug.Log("Dead");
         yield return null;
     }
