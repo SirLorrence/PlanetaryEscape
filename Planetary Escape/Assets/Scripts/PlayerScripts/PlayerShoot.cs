@@ -5,14 +5,11 @@ public class PlayerShoot : MonoBehaviour
     private GameObject GunBarrel;
     private PlayerStats playerStats;
 
-    // Start is called before the first frame update
     void Start()
     {
         playerStats = gameObject.GetComponent<PlayerStats>();
         GunBarrel = GameObject.FindGameObjectWithTag("GunTip");
     }
-
-    // Update is called once per frame
     public void Shoot()
     {
         GameObject go = GameManager.Instance.GetPlayerBullet();
@@ -22,6 +19,7 @@ public class PlayerShoot : MonoBehaviour
             go.transform.rotation = GunBarrel.transform.rotation;
             go.GetComponent<Bullet>().OnStart(playerStats.BulletSpeed, playerStats.Damage);
             go.SetActive(true);
+            SoundManager.NotifyAudio(SoundManager.Instance.laser);
         }
         else
             Debug.LogWarning("Bullet Is Null");

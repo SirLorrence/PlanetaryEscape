@@ -9,33 +9,28 @@ public class GameManager : MonoBehaviour
     #region Variables
 
     [Header("Editor Settings")] public bool debug;
-    [Header("Prefabs")]
-    public GameObject playerBullet;
+    [Header("Prefabs")] public GameObject playerBullet;
     public GameObject enemyBullet;
     public GameObject healthPickup;
     public GameObject skillPickup;
     public SelectEnemy typeOfEnemies;
 
-    [Header("Number of Pooled Objects")]
-    public int NumberOfPlayerBullets;
+    [Header("Number of Pooled Objects")] public int NumberOfPlayerBullets;
     public int NumberOfEnemyBullets;
     public int NumberOfEnemies;
 
-    [Header("Game Information")]
-    public int score = 0;
+    [Header("Game Information")] public int score = 0;
     public float upgradePoints = 10;
-    
-    
+
+
     //Store upgrade level values 
     public int HEALTH_LEVEL;
     public int SHIELD_LEVEL;
     public int SPEED_LEVEL;
     public int GUN_LEVEL;
 
-    
 
-    [Header("Level Information")] 
-    public GameObject[] levels;
+    [Header("Level Information")] public GameObject[] levels;
 
     //List of the objects that have been pooled
     List<GameObject> PlayerBulletPool = new List<GameObject>();
@@ -48,13 +43,17 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public enum EnemyTypes
     {
-        Weak, 
+        Weak,
         Medium,
         Strong
     }
+
     //Game Stats
     [HideInInspector] public int currentLevel = 0;
     [HideInInspector] public UIManager uiManager;
+
+// Audio
+    [HideInInspector] public SoundManager soundManager;
 
     //Player
     [HideInInspector] public GameObject player;
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour
     //showing remaining enemies
     [HideInInspector] public int enemiesRemaining = 0;
     [HideInInspector] public int enemiesKilled = 0;
+
     #endregion
 
     public int PlayerHealth
@@ -113,10 +113,11 @@ public class GameManager : MonoBehaviour
             levels[i].SetActive(false);
         }
     }
+
     public void SpawnItem(GameObject go)
     {
         GameObject temp = GetSkillPickup();
-        temp.transform.position = go.transform.position + new Vector3(0,0.5f, 0);
+        temp.transform.position = go.transform.position + new Vector3(0, 0.5f, 0);
         temp.SetActive(true);
 
         //Gets a random number between  0 & 1 
@@ -143,6 +144,7 @@ public class GameManager : MonoBehaviour
 
         //uiManager.UpdateScoreText();
     }
+
     public void IncreaseUpgradeScore(int addedPoints)
     {
         upgradePoints += addedPoints;
@@ -165,13 +167,15 @@ public class GameManager : MonoBehaviour
         //go.GetComponentInChildren<Animator>().SetBool("isDead", true);
         InputManager.Instance.Freeze();
         //yield return new WaitForSeconds(2);
+        SoundManager.NotifyAudio(SoundManager.Instance.death);
         uiManager.ChangeScreen((int)UIManager.Screens.Results);
         Debug.Log("Dead");
         yield return null;
     }
 
     #region Pick Ups
-   public void SpawnSatellite()
+
+    public void SpawnSatellite()
     {
     }
 
@@ -245,7 +249,7 @@ public class GameManager : MonoBehaviour
 
         score = 0;
         enemiesKilled = 0;
-        
+
         uiManager.ResetAllHUDUI();
         Time.timeScale = 1;
     }
@@ -256,7 +260,7 @@ public class GameManager : MonoBehaviour
         if (currentLevel == levels.Length)
         {
             //Win code
-            print("Win");   
+            print("Win");
         }
         else
         {
@@ -274,7 +278,6 @@ public class GameManager : MonoBehaviour
 
     public void SaveLevel()
     {
-        
     }
 
     #region Object Pooling
@@ -354,6 +357,7 @@ public class GameManager : MonoBehaviour
             PlayerBulletPool.Add(go);
             yield return 0;
         }
+
         yield return null;
     }
 
@@ -391,6 +395,7 @@ public class GameManager : MonoBehaviour
             EnemyBulletPool.Add(go);
             yield return 0;
         }
+
         yield return null;
     }
 
