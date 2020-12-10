@@ -51,11 +51,13 @@ public class Pickupable : MonoBehaviour
             {
                 GameManager.Instance.Heal(1);
                 GameManager.Instance.SetObjectInPool(gameObject);
+                SoundManager.NotifyAudio(SoundManager.Instance.healthpickUp);
             }
             else if(type == PickUp.skill)
             {
                 GameManager.Instance.IncreaseUpgradeScore(1);
                 GameManager.Instance.SetObjectInPool(gameObject);
+                SoundManager.NotifyAudio(SoundManager.Instance.pointPickUp);
             }
 
         }

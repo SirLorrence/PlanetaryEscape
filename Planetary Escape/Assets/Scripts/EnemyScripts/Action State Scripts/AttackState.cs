@@ -40,6 +40,7 @@ public class AttackState : AIState
             go.transform.position = controller.GunBarrel.transform.position;
             go.transform.rotation = controller.GunBarrel.transform.rotation;
             go.GetComponent<Bullet>().OnStart(controller.enemyStats.bulletSpeed, controller.enemyStats.damage);
+            SoundManager.NotifyAudio(SoundManager.Instance.bullet);
             go.SetActive(true);
         }
     }  
