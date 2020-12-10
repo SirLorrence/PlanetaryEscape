@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerStats : Healable
 {
@@ -17,10 +18,7 @@ public class PlayerStats : Healable
     private bool hasDied = false;
     private float playerBulletSpeed = 10;
 
-    [Header("Material Info")] 
-    public SkinnedMeshRenderer smr;
-    public Material greenFlash;
-    public Material redFlash;
+    [Header("Post Process Information")] public PostProcessProfile HUD_Color;
 
     //base values | called on reset
     public static int MAX_HEALTH = 10;
@@ -48,26 +46,31 @@ public class PlayerStats : Healable
                 StartCoroutine(HealFlash());
 
             if (health >= MAX_HEALTH) health = MAX_HEALTH;
-            
+
             GameManager.Instance.uiManager.UpdateHealthText();
-           
+
             if (health <= 0 && !hasDied)
             {
                 //Removes the need for it to be called in update
+                health = 0;
                 GameManager.Instance.PlayerDead();
                 hasDied = true;
             }
         }
     }
 
-    
+
     public override int Shield
     {
         get => shield;
         set
         {
+            int originalShield = shield;
             shield = value;
-            GameManager.Instance.uiManager.UpdateShieldText();;
+            if (originalShield > shield) StartCoroutine(ShieldFlash());
+            if (shield <= 0) shield = 0;
+            GameManager.Instance.uiManager.UpdateShieldText();
+            
         }
     }
 
@@ -76,6 +79,7 @@ public class PlayerStats : Healable
         get => fireRate;
         set => fireRate = value;
     }
+
     public float BulletSpeed
     {
         get => bulletSpeed;
@@ -112,6 +116,7 @@ public class PlayerStats : Healable
             }
         }
     }
+
     public void OnReset()
     {
         hasDied = false;
@@ -124,30 +129,31 @@ public class PlayerStats : Healable
 
     private IEnumerator DamageFlash()
     {
-        Material[] originalMaterials = smr.materials;
-        Material[] redMaterials = new Material[originalMaterials.Length];
-
-        for (int i = 0; i < originalMaterials.Length; i++)
-            redMaterials[i] = redFlash;
-
-        smr.materials = redMaterials;
+        Color originalColor = HUD_Color.GetSetting<Vignette>().color.value;
+        HUD_Color.GetSetting<Vignette>().color.value = Color.red;
 
         yield return new WaitForSeconds(0.15f);
-        smr.materials = originalMaterials;
+        HUD_Color.GetSetting<Vignette>().color.value = originalColor;
         yield return null;
     }
-    private IEnumerator HealFlash()
+
+    private IEnumerator ShieldFlash()
     {
-        Material[] originalMaterials = smr.materials;
-        Material[] greenMaterials = new Material[originalMaterials.Length];
-
-        for (int i = 0; i < originalMaterials.Length; i++)
-            greenMaterials[i] = greenFlash;
-
-        smr.materials = greenMaterials;
+        Color originalColor = HUD_Color.GetSetting<Vignette>().color.value;
+        HUD_Color.GetSetting<Vignette>().color.value = Color.cyan;
 
         yield return new WaitForSeconds(0.15f);
-        smr.materials = originalMaterials;
+        HUD_Color.GetSetting<Vignette>().color.value = originalColor;
+        yield return null;
+    }
+
+    private IEnumerator HealFlash()
+    {
+        Color originalColor = HUD_Color.GetSetting<Vignette>().color.value;
+        HUD_Color.GetSetting<Vignette>().color.value = Color.green;
+
+        yield return new WaitForSeconds(0.15f);
+        HUD_Color.GetSetting<Vignette>().color.value = originalColor;
         yield return null;
     }
 }
