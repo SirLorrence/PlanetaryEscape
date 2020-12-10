@@ -178,14 +178,6 @@ public class GameManager : MonoBehaviour
 
     #region Pick Ups
 
-    public void SpawnSatellite()
-    {
-    }
-
-    public void SpawnPower()
-    {
-    }
-
     public GameObject GetHealthPickup()
     {
         if (HealthPickupPool.Count == 0) //If list empty, fill
