@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour
     void OnTriggerEnter(Collider c)
     {
         if (c.gameObject.CompareTag(targetTag)) GameManager.Instance.TakeDamage(c.gameObject, damage);
-            GameManager.Instance.SetObjectInPool(gameObject);
+
+        if (!c.gameObject.CompareTag("Bullet")) GameManager.Instance.SetObjectInPool(gameObject);
+
     }
 }

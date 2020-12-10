@@ -100,6 +100,9 @@ public class EnemyController : Healable
 
         if (!IsAlive())
         {
+            GameObject go = GameManager.Instance.GetEnemyDeath();
+            go.transform.position = transform.position;
+            go.SetActive(true);
             GameManager.Instance.SpawnItem(gameObject);
             GameManager.Instance.SetEnemy(gameObject);
             Health = 10;

@@ -13,11 +13,13 @@ public class GameManager : MonoBehaviour
     public GameObject enemyBullet;
     public GameObject healthPickup;
     public GameObject skillPickup;
+    public GameObject enemyDeathPS;
     public SelectEnemy typeOfEnemies;
 
     [Header("Number of Pooled Objects")] public int NumberOfPlayerBullets;
     public int NumberOfEnemyBullets;
     public int NumberOfEnemies;
+    public int NumberOfEnemyDeath;
 
     [Header("Game Information")] public int score = 0;
     public float upgradePoints = 10;
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour
     List<GameObject> EnemyPool = new List<GameObject>();
     List<GameObject> HealthPickupPool = new List<GameObject>();
     List<GameObject> SkillPickupPool = new List<GameObject>();
+    List<GameObject> enemyDeathPool = new List<GameObject>();
 
     //Enemy
     [HideInInspector]
@@ -313,6 +316,39 @@ public class GameManager : MonoBehaviour
                 EnemyPool.Add(go);
                 yield return new WaitForSecondsRealtime(0.01f);
             }
+        }
+
+        yield return null;
+    }
+
+    public GameObject GetEnemyDeath()
+    {
+        if (enemyDeathPool.Count == 0) //If list empty, fill
+        {
+            StartCoroutine(InitEnemyDeath());
+        }
+
+        foreach (var ps in enemyDeathPool)
+        {
+            if (ps.activeSelf == false)
+            {
+                return ps;
+            }
+        }
+
+        return null;
+    }
+
+    IEnumerator InitEnemyDeath()
+    {
+        for (int i = 0; i < NumberOfEnemyDeath; i++)
+        {
+            GameObject go = Instantiate(enemyDeathPS, new Vector3(0,0,0),
+                Quaternion.identity) as GameObject;
+            go.SetActive(false);
+            go.transform.SetParent(gameObject.transform);
+            enemyDeathPool.Add(go);
+            yield return new WaitForSecondsRealtime(0.01f);
         }
 
         yield return null;
