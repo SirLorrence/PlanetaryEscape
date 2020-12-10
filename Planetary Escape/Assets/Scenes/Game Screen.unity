@@ -4374,6 +4374,8 @@ MonoBehaviour:
     type: 3}
   skillPickup: {fileID: 1000012946874890, guid: 586acbe765df7c34385298970076297e,
     type: 3}
+  enemyDeathPS: {fileID: 8161642100084574430, guid: 1159059e9e4f0274683643065c5b8ea9,
+    type: 3}
   typeOfEnemies:
     Weak: {fileID: 0}
     Regular: {fileID: 0}
@@ -4381,6 +4383,7 @@ MonoBehaviour:
   NumberOfPlayerBullets: 100
   NumberOfEnemyBullets: 100
   NumberOfEnemies: 0
+  NumberOfEnemyDeath: 100
   score: 0
   upgradePoints: 10
   HEALTH_LEVEL: 0
