@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviour
 
     public void UnLoadLastLevel()
     {
-        if (currentLevel != 0)
+        if (currentLevel >= 1)
         {
             levels[currentLevel - 1].SetActive(false);
         }
