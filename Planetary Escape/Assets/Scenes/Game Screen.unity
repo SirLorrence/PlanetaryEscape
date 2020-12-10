@@ -4385,7 +4385,7 @@ MonoBehaviour:
   NumberOfEnemies: 0
   NumberOfEnemyDeath: 100
   score: 0
-  upgradePoints: 10
+  upgradePoints: 0
   HEALTH_LEVEL: 0
   SHIELD_LEVEL: 0
   SPEED_LEVEL: 0
@@ -5643,8 +5643,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 4697762834169509100}
   smooth: 5
-  sensitivityX: 10
-  sensitivityY: 10
+  sensitivityX: 5
+  sensitivityY: 5
 --- !u!81 &1496753320
 AudioListener:
   m_ObjectHideFlags: 0
