@@ -187,6 +187,7 @@ MonoBehaviour:
   GunBarrel: {fileID: 2127523862}
   enemyStats:
     health: 1
+    shield: 0
     damage: 1
     bulletSpeed: 10
     detectionRadius: 10
