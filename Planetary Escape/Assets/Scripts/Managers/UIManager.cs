@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [Header("Screen GameObjects")] public GameObject mainMenuGO;
-    public GameObject settingsGO;
     public GameObject upgradeTerminalGO;
     public GameObject resultsScreenGO;
     public GameObject hudGO;
@@ -136,7 +133,6 @@ public class UIManager : MonoBehaviour
         switch (screen)
         {
             case (int)Screens.Menu: currentScreenGO = mainMenuGO; Cursor.visible = true; break;
-            case (int)Screens.Settings: currentScreenGO = settingsGO; Cursor.visible = true; break;
             case (int)Screens.Pause: currentScreenGO = pauseMenuGO; Cursor.visible = true; currentScreenGO.SetActive(true); InputManager.Instance.Freeze(); break;
             case (int)Screens.Hud: currentScreenGO = hudGO; Cursor.visible = false; InputManager.Instance.Unfreeze(); break;
             case (int)Screens.Results: currentScreenGO = resultsScreenGO; Cursor.visible = true; UpdateResultsUI(); currentScreenGO.SetActive(true); InputManager.Instance.Freeze(); break;
