@@ -1,7 +1,5 @@
-# Planetary Escape Redux
+# Project: Impulse (In development)
 
-![Planetary%20Escape%20Redux%20a12dc623a26e44bd8df1920da82e93a1/Title_Screen.png](PlanetaryEscapeReduxREADMEfiles/Title_Screen.png)
+The project in currently in development previous called Planetary Escape. We were not satisfied with the direction our game was heading in so we decided to reiterate on the original idea. We're going to be redesigning the game to a more fluid, movement based shooter.
 
-You play as an alien that is stuck in endless loop. You need to upgrade and fight your way out. Are you up for the task.
-
-This repository is the second and working version of Planetary Escape, you can find the original here [https://github.com/2401lucas/RiddickPlanetaryEscape](https://github.com/2401lucas/RiddickPlanetaryEscape).
+Game Doc/Information: [https://www.notion.so/FPS-Project-4aa5f0f7ebca410686088b78092027fe](https://www.notion.so/FPS-Project-4aa5f0f7ebca410686088b78092027fe)
