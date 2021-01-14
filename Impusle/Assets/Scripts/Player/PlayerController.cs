@@ -66,7 +66,7 @@ public class PlayerController : NetworkBehaviour
 
     //Input
     private float x, y;
-    private bool jumping, sprinting, crouching;
+    private bool jumping, sprinting, crouching, shooting;
 
     //Sliding
     private Vector3 normalVector = Vector3.up;
@@ -106,13 +106,14 @@ public class PlayerController : NetworkBehaviour
         jumping = Input.GetKeyDown(KeyCode.Space);
         crouching = Input.GetKey(KeyCode.LeftControl);
         sprinting = Input.GetKey(KeyCode.LeftShift);
+        shooting = Input.GetKey(KeyCode.Mouse0);
 
         //Crouching
         if (Input.GetKeyDown(KeyCode.LeftControl))
             StartCrouch();
         if (Input.GetKeyUp(KeyCode.LeftControl))
             StopCrouch();
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (shooting)
             playerShoot.Shoot();
 
         cameraFollow.UpdateCamera();
@@ -148,8 +149,8 @@ public class PlayerController : NetworkBehaviour
         if (readyToJump && jumping) Jump();
 
         //Set Max Speed
-        //maxSpeed = sprinting? maxSprintSpeed : maxWalkSpeed;
-        maxSpeed = maxSprintSpeed;
+        maxSpeed = sprinting && !shooting && x == 0? maxSprintSpeed : maxWalkSpeed;
+        //maxSpeed = maxSprintSpeed;
 
 
         //If sliding down a ramp, add force down so player stays grounded and builds speed
