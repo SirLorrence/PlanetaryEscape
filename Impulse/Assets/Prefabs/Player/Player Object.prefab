@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4863694116265943247}
   - component: {fileID: 4863694116265943243}
   - component: {fileID: 4863694116265943242}
-  - component: {fileID: 4863694116265943245}
   - component: {fileID: 4863694116265943244}
   m_Layer: 9
   m_Name: Camera
@@ -86,110 +85,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4863694116265943246}
   m_Enabled: 1
---- !u!114 &4863694116265943245
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4863694116265943246}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 23c1ce4fb46143f46bc5cb5224c934f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Version: 7
-  m_ObsoleteRenderingPath: 0
-  m_ObsoleteFrameSettings:
-    overrides: 0
-    enableShadow: 0
-    enableContactShadows: 0
-    enableShadowMask: 0
-    enableSSR: 0
-    enableSSAO: 0
-    enableSubsurfaceScattering: 0
-    enableTransmission: 0
-    enableAtmosphericScattering: 0
-    enableVolumetrics: 0
-    enableReprojectionForVolumetrics: 0
-    enableLightLayers: 0
-    enableExposureControl: 1
-    diffuseGlobalDimmer: 0
-    specularGlobalDimmer: 0
-    shaderLitMode: 0
-    enableDepthPrepassWithDeferredRendering: 0
-    enableTransparentPrepass: 0
-    enableMotionVectors: 0
-    enableObjectMotionVectors: 0
-    enableDecals: 0
-    enableRoughRefraction: 0
-    enableTransparentPostpass: 0
-    enableDistortion: 0
-    enablePostprocess: 0
-    enableOpaqueObjects: 0
-    enableTransparentObjects: 0
-    enableRealtimePlanarReflection: 0
-    enableMSAA: 0
-    enableAsyncCompute: 0
-    runLightListAsync: 0
-    runSSRAsync: 0
-    runSSAOAsync: 0
-    runContactShadowsAsync: 0
-    runVolumeVoxelizationAsync: 0
-    lightLoopSettings:
-      overrides: 0
-      enableDeferredTileAndCluster: 0
-      enableComputeLightEvaluation: 0
-      enableComputeLightVariants: 0
-      enableComputeMaterialVariants: 0
-      enableFptlForForwardOpaque: 0
-      enableBigTilePrepass: 0
-      isFptlEnabled: 0
-  clearColorMode: 0
-  backgroundColorHDR: {r: 0.025, g: 0.07, b: 0.19, a: 0}
-  clearDepth: 1
-  volumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  volumeAnchorOverride: {fileID: 0}
-  antialiasing: 0
-  SMAAQuality: 2
-  dithering: 0
-  stopNaNs: 0
-  taaSharpenStrength: 0.6
-  physicalParameters:
-    m_Iso: 200
-    m_ShutterSpeed: 0.005
-    m_Aperture: 16
-    m_BladeCount: 5
-    m_Curvature: {x: 2, y: 11}
-    m_BarrelClipping: 0.25
-    m_Anamorphism: 0
-  flipYMode: 0
-  fullscreenPassthrough: 0
-  allowDynamicResolution: 0
-  customRenderingSettings: 0
-  invertFaceCulling: 0
-  probeLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  hasPersistentHistory: 0
-  m_RenderingPathCustomFrameSettings:
-    bitDatas:
-      data1: 70297877217101
-      data2: 4539628425463136256
-    lodBias: 1
-    lodBiasMode: 0
-    lodBiasQualityLevel: 0
-    maximumLODLevel: 0
-    maximumLODLevelMode: 0
-    maximumLODLevelQualityLevel: 0
-    materialQuality: 0
-  renderingPathCustomFrameSettingsOverrideMask:
-    mask:
-      data1: 0
-      data2: 0
-  defaultFrameSettings: 0
 --- !u!114 &4863694116265943244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,7 +193,6 @@ GameObject:
   - component: {fileID: 8386131130376068848}
   - component: {fileID: 1217615438699141644}
   - component: {fileID: 5836873392963178150}
-  - component: {fileID: 4625703157956703281}
   - component: {fileID: 3519943904300425192}
   - component: {fileID: 1475314531616393204}
   m_Layer: 9
@@ -393,8 +287,8 @@ MonoBehaviour:
   capsuleCollider: {fileID: 3519943904300425192}
   playerNum: 0
   cameraFollow: {fileID: 4863694116265943244}
-  playerShoot: {fileID: 4625703157956703281}
   camera: {fileID: 4863694116265943246}
+  gun: {fileID: 8374013341802471165}
   moveSpeed: 15000
   sprintMult: 1.5
   maxWalkSpeed: 5
@@ -424,31 +318,6 @@ MonoBehaviour:
   isWallRunning: 0
   maxCameraTilt: 0
   cameraTilt: 0
---- !u!114 &4625703157956703281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4863694117721605522}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0825d213d33821a4b82a676804e5cd32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  cameraTransform: {fileID: 4863694116265943247}
-  shootingLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  bulletPrefab: {fileID: 7909223726156106770, guid: 60e8ca0efc70991458fad6eacb538d37,
-    type: 3}
-  weaponList:
-  - {fileID: 11400000, guid: 28596a69cc304cb4b8d9ac08efb6cff8, type: 2}
-  gunTip: {fileID: 4138132673657736031}
-  crosshairImage: {fileID: 2800000, guid: 7251bd8650d2a8d428edb29289952851, type: 3}
-  currentWeapon: 0
 --- !u!136 &3519943904300425192
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -475,8 +344,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34c669dad52904d967e929febdbb7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerController: {fileID: 5836873392963178150}
   currentRespawnPointPosition: {x: 0, y: 0, z: 0}
   currentRespawnPointRotation: {x: 0, y: 0, z: 0, w: 0}
+  crosshairImage: {fileID: 2800000, guid: 7251bd8650d2a8d428edb29289952851, type: 3}
 --- !u!1 &5801925537695770115
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,15 +450,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a84f7cae63c64d24bb4293ce87430866, type: 3}
---- !u!4 &5164125489718705203 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 715791975883138018, guid: a84f7cae63c64d24bb4293ce87430866,
+--- !u!1 &8374013341802471165 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4211939889738629420, guid: a84f7cae63c64d24bb4293ce87430866,
     type: 3}
   m_PrefabInstance: {fileID: 5640100784167182289}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4138132673657736031 stripped
+--- !u!4 &5164125489718705203 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 8586165991055119502, guid: a84f7cae63c64d24bb4293ce87430866,
+  m_CorrespondingSourceObject: {fileID: 715791975883138018, guid: a84f7cae63c64d24bb4293ce87430866,
     type: 3}
   m_PrefabInstance: {fileID: 5640100784167182289}
   m_PrefabAsset: {fileID: 0}

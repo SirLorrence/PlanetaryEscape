@@ -29,11 +29,6 @@ public class ObjectPooler : NetworkBehaviour
 
     #endregion
 
-    void Start()
-    {
-        Invoke(nameof(Initialize), 5);
-    }
-
 
     public void Initialize()
     {

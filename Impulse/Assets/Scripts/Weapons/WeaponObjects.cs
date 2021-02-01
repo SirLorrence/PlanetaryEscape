@@ -12,8 +12,8 @@ public class WeaponObjects : ScriptableObject
     [Header("Stats")]
     public float damage;
     public float firerate;
-    public float magasineSize;
-    public float reserveAmmo;
+    public int magasineSize;
+    public int reserveAmmo;
     public float bulletSpeed;
     
 
