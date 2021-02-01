@@ -22,3 +22,5 @@ MonoBehaviour:
   bulletSpeed: 20
   canAds: 1
   isFullauto: 0
+  currentReserveAmmo: 50
+  currentMagasineSize: 20

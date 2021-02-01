@@ -12,8 +12,10 @@ public class PlayerController : NetworkBehaviour
     public CapsuleCollider capsuleCollider;
     public int playerNum = 0;
     public CameraFollow cameraFollow;
-    public PlayerShoot playerShoot;
     public GameObject camera;
+
+    [Header("Gun Info")]
+    public GameObject gun;
 
     [Header("Speed Settings")]
     public float moveSpeed = 4500;
@@ -101,29 +103,23 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Gets User Input from the Input Manager
-    public void Update()
+    public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting, bool startCrouch, bool stopCrouch, bool reload)
     {
-        if (isLocalPlayer)
-        {
+        this.x = x;
+        this.y = y;
+        this.jumping = jumping;
+        this.crouching = crouching;
+        this.sprinting = sprinting;
+        this.shooting = shooting;
 
-            this.x = Input.GetAxis("Horizontal");
-            this.y = Input.GetAxis("Vertical");
-            jumping = Input.GetKeyDown(KeyCode.Space);
-            crouching = Input.GetKey(KeyCode.LeftControl);
-            sprinting = Input.GetKey(KeyCode.LeftShift);
-            shooting = Input.GetKey(KeyCode.Mouse0);
+        //Crouching
+        if (startCrouch) StartCrouch();
+        if (stopCrouch) StopCrouch();
+        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward);
+        if (reload) GlobalShootingSystem.Instance.Reload(gun);
 
-            //Crouching
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-                StartCrouch();
-            if (Input.GetKeyUp(KeyCode.LeftControl))
-                StopCrouch();
-            if (shooting)
-                playerShoot.Shoot();
-
-            cameraFollow.UpdateCamera();
-            Movement();
-        }
+        cameraFollow.UpdateCamera();
+        Movement();
     }
 
     private void StartCrouch()
