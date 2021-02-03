@@ -84,16 +84,18 @@ namespace Enemy.Enemy_Types
 			health -= 1;
 		}
 
+		public void ToggleRagdoll() {
+			if (rigidbodies != null || rigidbodies.Length != 0) {
+				foreach (var rb in rigidbodies) {
+					rb.isKinematic = animator.enabled;
+				}
+			}
+		}
 
 		public virtual void OnDrawGizmosSelected() {
 			Gizmos.color = Color.green;
 			//radius  
 			Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
-			// // Gizmos.DrawLine(transform.position, transform.position + Vector3.right);
-			// var origin = new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z);
-			// var dir = transform.TransformDirection(Vector3.forward) * 5;
-			// Debug.DrawRay(origin, dir, Color.magenta);
 
 			var viewAngleA = DirFromAngle(-fieldOfView / 2);
 			var viewAngleB = DirFromAngle(fieldOfView  / 2);
@@ -106,14 +108,6 @@ namespace Enemy.Enemy_Types
 				Gizmos.DrawWireSphere(targetPlayer.position, combatDonut);
 				Gizmos.color = Color.red;
 				Gizmos.DrawWireSphere(targetPlayer.position, exclusionZone);
-			}
-		}
-
-		public void ToggleRagdoll() {
-			if (rigidbodies != null || rigidbodies.Length != 0) {
-				foreach (var rb in rigidbodies) {
-					rb.isKinematic = animator.enabled;
-				}
 			}
 		}
 	}
