@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace Enemy.States
 {
-	public class BasicIdleState : NpcState
+	public class IdleState : NpcState
 	{
-		public BasicIdleState(AIEntity aiEntity) : base(aiEntity) {
+		public IdleState(AIEntity aiEntity) : base(aiEntity) {
 		}
 
 		public override void DoActions() {
 			entity.targets = entity.PlayersInRange();
 			if (entity.InView(entity.targets))
-				entity.SetState(new BasicCombatState(entity));
+				entity.SetState(new CombatState(entity));
 			Idle();
 		}
 

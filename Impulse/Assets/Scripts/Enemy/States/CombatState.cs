@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace Enemy.States
 {
-	public class BasicCombatState : NpcState
+	public class CombatState : NpcState
 	{
 		private Vector3 targetMovePoint;
 		private bool isDone;
@@ -27,12 +27,13 @@ namespace Enemy.States
 				entity.StartCoroutine(FindPath());
 			}
 			
-			if (Vector3.Distance(entity.targetPlayer.transform.position, entity.transform.position) <
-			    entity.exclusionZone) {
-				var playerPosition = entity.transform.position - entity.targetPlayer.position;
-				var backUp = entity.transform.position         + playerPosition;
-				entity.navAgent.SetDestination(backUp);
-			}
+			// if (Vector3.Distance(entity.targetPlayer.transform.position, entity.transform.position) <
+			//     entity.exclusionZone) {
+			// 	var playerPosition = entity.transform.position - entity.targetPlayer.position;
+			// 	var backUp = entity.transform.position         + playerPosition;
+			// 	entity.navAgent.SetDestination(backUp);
+			// }
+			
 			entity.transform.LookAt(new Vector3(entity.targetPlayer.position.x, entity.transform.position.y
 				, entity.targetPlayer.position.z));
 		}
@@ -58,7 +59,7 @@ namespace Enemy.States
 			return path;
 		}
 		
-		public BasicCombatState(AIEntity aiEntity) : base(aiEntity) {
+		public CombatState(AIEntity aiEntity) : base(aiEntity) {
 			entity.detectionRadius += 10;
 			onEnter = true;
 		}

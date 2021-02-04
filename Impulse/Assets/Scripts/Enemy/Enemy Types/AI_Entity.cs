@@ -20,15 +20,14 @@ namespace Enemy.Enemy_Types
 		private int playerLayer = 1 << 9;
 		[Range(0, 360)] public float fieldOfView;
 
-		public Collider[] targets;
-
 		protected NpcState currentState;
+
+		[HideInInspector] public NavMeshAgent navAgent;
+		[HideInInspector] public Collider[] targets;
+
 		public Weapons weapon;
-
-
-		public NavMeshAgent navAgent;
-
 		public Transform targetPlayer;
+
 
 		// public Transform Hand;
 		public float combatDonut;
@@ -37,6 +36,7 @@ namespace Enemy.Enemy_Types
 		public void SetState(NpcState aState) {
 			currentState = aState;
 		}
+
 
 		public bool InView(Collider[] targets) {
 			foreach (var t in targets) {
@@ -67,6 +67,7 @@ namespace Enemy.Enemy_Types
 		public bool testAction;
 		protected Rigidbody[] rigidbodies;
 		public Animator animator;
+		public bool toggleBody;
 
 
 		public Vector3 DirFromAngle(float angleInDegrees) {
@@ -109,6 +110,8 @@ namespace Enemy.Enemy_Types
 				Gizmos.color = Color.red;
 				Gizmos.DrawWireSphere(targetPlayer.position, exclusionZone);
 			}
+
+			
 		}
 	}
 
