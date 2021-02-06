@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemy.States;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -33,10 +34,14 @@ namespace Enemy.Enemy_Types
 		public float combatDonut;
 		public float exclusionZone;
 
+		public NpcState CurrentState {
+			get => currentState;
+			set => currentState = value;
+		}
+
 		public void SetState(NpcState aState) {
 			currentState = aState;
 		}
-
 
 		public bool InView(Collider[] targets) {
 			foreach (var t in targets) {
@@ -93,6 +98,8 @@ namespace Enemy.Enemy_Types
 			}
 		}
 
+		[HideInInspector] public Vector3 coverPos;
+
 		public virtual void OnDrawGizmosSelected() {
 			Gizmos.color = Color.green;
 			//radius  
@@ -111,7 +118,10 @@ namespace Enemy.Enemy_Types
 				Gizmos.DrawWireSphere(targetPlayer.position, exclusionZone);
 			}
 
-			
+			if (coverPos != Vector3.zero) {
+				Gizmos.color = Color.black;
+				Gizmos.DrawSphere(coverPos, .25f);
+			}
 		}
 	}
 

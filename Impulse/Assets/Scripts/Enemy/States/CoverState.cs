@@ -10,17 +10,23 @@ namespace Enemy.States
 		}
 
 		public override void DoActions() {
-			var coverPosition = GetCoverPosition();
-			Debug.DrawLine(entity.transform.position, coverPosition, Color.red);
+			entity.coverPos = CoverCalutations();
+			entity.navAgent.SetDestination(entity.coverPos);
 		}
-		
+
+
+		private Vector3 CoverCalutations() {
+			var coverPosition = GetCoverPosition();
+			var t = Vector3.Normalize(coverPosition - entity.targetPlayer.position);
+			var goTo = (new Vector3(t.x, 0, t.z) * 1f) + coverPosition;
+			return goTo;
+		}
 		Vector3 GetCoverPosition() {
 			Vector3 cover = new Vector3();
-			
-			float nearestCover = 15f;
+			double nearestCover = 15f;
 
 			LayerMask coverMask = LayerMask.GetMask("Cover");
-			
+
 			var coverObjects = Physics.OverlapSphere(entity.transform.position, entity.detectionRadius, coverMask);
 
 			foreach (var c in coverObjects) {
@@ -31,8 +37,10 @@ namespace Enemy.States
 					cover = c.transform.position;
 				}
 			}
-			Debug.Log("Cover options: " + coverObjects.Length);
+			// Debug.Log("Cover options: " + coverObjects.Length);
+			Debug.DrawLine(entity.transform.position, cover, Color.blue);
 			return cover;
 		}
+
 	}
 }
