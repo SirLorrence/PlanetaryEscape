@@ -34,11 +34,6 @@ namespace Enemy.Enemy_Types
 		public float combatDonut;
 		public float exclusionZone;
 
-		public NpcState CurrentState {
-			get => currentState;
-			set => currentState = value;
-		}
-
 		public void SetState(NpcState aState) {
 			currentState = aState;
 		}

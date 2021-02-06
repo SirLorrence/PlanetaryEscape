@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 47530879}
   - component: {fileID: 47530881}
   - component: {fileID: 47530880}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 523832482}
   - component: {fileID: 523832484}
   - component: {fileID: 523832483}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5519716329976211792
 Transform:
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 5664147183738257840}
   - component: {fileID: 2907650386323816512}
   - component: {fileID: 7054955502482756394}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: GameObject (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 7365600533319889926}
   - component: {fileID: 2935197618295249982}
   - component: {fileID: 6959713991815598736}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: GameObject (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

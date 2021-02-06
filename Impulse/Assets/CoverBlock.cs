@@ -6,21 +6,33 @@ using UnityEngine;
 
 public class CoverBlock : MonoBehaviour
 {
-	public Transform player;
-	private Vector3 pos;
-	public double DistBo;
+	public GameObject[] coverPositions;
 
-	private void Update() {
+	public int maxCapacity;
+	public int occupied;
+	public bool unavailableCover;
 
-		var ToOb = Vector3.Normalize(transform.position - player.position);
-		pos = (new Vector3(ToOb.x, 0, ToOb.z) * (float) DistBo) + transform.position;
+	private void Start() {
+		List<GameObject> objects = new List<GameObject>();
+		foreach (Transform child in this.transform) {
+			objects.Add(child.gameObject);
+		}
+		coverPositions = objects.ToArray();
 	}
 
-	private void OnDrawGizmosSelected() {
-		Gizmos.color = Color.black;
-		Gizmos.DrawSphere(pos, 0.25f);
-		
-		Gizmos.color = Color.green;
-		Gizmos.DrawLine(pos, player.position);
+	private void LateUpdate() {
+		occupied = 0;
+		for (int i = 0; i < coverPositions.Length; i++) {
+			var spot = coverPositions[i].GetComponent<CoverSpot>();
+			if (spot.availableSpot) occupied++;
+
+			if (spot.badSpot) {
+				unavailableCover = true;
+				break;
+			}
+			else {
+				unavailableCover = false;
+			}
+		}
 	}
 }
