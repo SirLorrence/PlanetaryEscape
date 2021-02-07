@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Enemy;
 using UnityEngine;
-using Mirror;
 
-public class GlobalShootingSystem : NetworkBehaviour
+public class GlobalShootingSystem : MonoBehaviour
 {
     [Header("Assignable")] 
     public WeaponObjects[] weaponList;
@@ -94,16 +93,6 @@ public class GlobalShootingSystem : NetworkBehaviour
                 wo.reserveAmmo = 0;
             }
         }
-    }
-
-    public void StartADS()
-    {
-        isADS = true;
-    }
-
-    public void StopADS()
-    {
-        isADS = false;
     }
 
     public void CmdShootOnServer(int weapon)

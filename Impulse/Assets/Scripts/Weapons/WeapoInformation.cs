@@ -12,8 +12,10 @@ public class WeapoInformation : MonoBehaviour
 
     public void OnEnable()
     {
-        WeaponObjects wo = GlobalShootingSystem.Instance.weaponList[(int)gunType];
-        reserveAmmo = wo.reserveAmmo;
-        currentAmmoInMag = wo.magasineSize;
-}
+        //WeaponObjects wo = GlobalShootingSystem.Instance.weaponList[(int)gunType];
+        //reserveAmmo = wo.reserveAmmo;
+        //currentAmmoInMag = wo.magasineSize;
+        reserveAmmo = 50;
+        currentAmmoInMag = 10;
+    }
 }
