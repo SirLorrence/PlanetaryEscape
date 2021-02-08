@@ -159,7 +159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: ee178595c69007f46bf030c509a32f14, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 5836873392963178150}
   - component: {fileID: 3519943904300425192}
   - component: {fileID: 1475314531616393204}
+  - component: {fileID: 5727722779010302003}
   m_Layer: 9
   m_Name: Player Object
   m_TagString: Player
@@ -350,6 +351,22 @@ MonoBehaviour:
   currentRespawnPointPosition: {x: 0, y: 0, z: 0}
   currentRespawnPointRotation: {x: 0, y: 0, z: 0, w: 0}
   crosshairImage: {fileID: 2800000, guid: 7251bd8650d2a8d428edb29289952851, type: 3}
+--- !u!208 &5727722779010302003
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4863694117721605522}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 2, y: 1, z: 2}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &5801925537695770115
 GameObject:
   m_ObjectHideFlags: 0

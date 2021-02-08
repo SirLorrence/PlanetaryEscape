@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enemy.States;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,15 +21,14 @@ namespace Enemy.Enemy_Types
 		private int playerLayer = 1 << 9;
 		[Range(0, 360)] public float fieldOfView;
 
-		public Collider[] targets;
-
 		protected NpcState currentState;
+
+		[HideInInspector] public NavMeshAgent navAgent;
+		[HideInInspector] public Collider[] targets;
+
 		public Weapons weapon;
-
-
-		public NavMeshAgent navAgent;
-
 		public Transform targetPlayer;
+
 
 		// public Transform Hand;
 		public float combatDonut;
@@ -67,6 +67,7 @@ namespace Enemy.Enemy_Types
 		public bool testAction;
 		protected Rigidbody[] rigidbodies;
 		public Animator animator;
+		public bool toggleBody;
 
 
 		public Vector3 DirFromAngle(float angleInDegrees) {
@@ -84,16 +85,20 @@ namespace Enemy.Enemy_Types
 			health -= 1;
 		}
 
+		public void ToggleRagdoll() {
+			if (rigidbodies != null || rigidbodies.Length != 0) {
+				foreach (var rb in rigidbodies) {
+					rb.isKinematic = animator.enabled;
+				}
+			}
+		}
+
+		[HideInInspector] public Vector3 coverPos;
 
 		public virtual void OnDrawGizmosSelected() {
 			Gizmos.color = Color.green;
 			//radius  
 			Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
-			// // Gizmos.DrawLine(transform.position, transform.position + Vector3.right);
-			// var origin = new Vector3(transform.position.x, transform.position.y + 1.4f, transform.position.z);
-			// var dir = transform.TransformDirection(Vector3.forward) * 5;
-			// Debug.DrawRay(origin, dir, Color.magenta);
 
 			var viewAngleA = DirFromAngle(-fieldOfView / 2);
 			var viewAngleB = DirFromAngle(fieldOfView  / 2);
@@ -107,13 +112,10 @@ namespace Enemy.Enemy_Types
 				Gizmos.color = Color.red;
 				Gizmos.DrawWireSphere(targetPlayer.position, exclusionZone);
 			}
-		}
 
-		public void ToggleRagdoll() {
-			if (rigidbodies != null || rigidbodies.Length != 0) {
-				foreach (var rb in rigidbodies) {
-					rb.isKinematic = animator.enabled;
-				}
+			if (coverPos != Vector3.zero) {
+				Gizmos.color = Color.black;
+				Gizmos.DrawSphere(coverPos, .25f);
 			}
 		}
 	}
