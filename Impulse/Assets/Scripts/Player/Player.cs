@@ -8,7 +8,6 @@ public class Player : NetworkBehaviour
     public PlayerController playerController;
     public Vector3 currentRespawnPointPosition;
     public Quaternion currentRespawnPointRotation;
-    public bool canPlay = true;
 
     [Header("Crosshair Settings")]
     public Texture2D crosshairImage;
@@ -18,15 +17,15 @@ public class Player : NetworkBehaviour
     {
         currentRespawnPointPosition = gameObject.transform.position;
         currentRespawnPointRotation = gameObject.transform.rotation;
-        //ObjectPooler.Instance.Initialize();
         float xMin = (Screen.width / 2) - (crosshairImage.width / 2);
         float yMin = (Screen.height / 2) - (crosshairImage.height / 2);
         //GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
     }
 
+    [ClientCallback]
     private void Update()
     {
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             playerController.UpdatePlayer(
                 Input.GetAxis("Horizontal"),
@@ -47,10 +46,6 @@ public class Player : NetworkBehaviour
         gameObject.transform.position = currentRespawnPointPosition;
         gameObject.transform.rotation = currentRespawnPointRotation;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    }
-    public void FreePlayer()
-    {
-        canPlay = true;
     }
 
 }

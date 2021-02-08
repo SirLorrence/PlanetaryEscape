@@ -88,14 +88,16 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void Start()
+    public override void OnStartAuthority()
     {
         playerScale = transform.localScale;
         currentJumpsRemaining = amountOfAirJumps;
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             camera.SetActive(true);
         }
+
+        base.OnStartAuthority();
     }
 
     //Applies Movement 
