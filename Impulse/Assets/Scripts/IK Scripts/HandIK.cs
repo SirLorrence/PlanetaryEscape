@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponHolder : MonoBehaviour
+public class HandIK : MonoBehaviour
 {
-	protected Animator animator;
-	protected Rigidbody rigidbody;
+	public Animator animator;
 	public bool ikActive = false;
 
 
@@ -17,19 +16,12 @@ public class WeaponHolder : MonoBehaviour
 
 
 	private void OnEnable() {
-		animator = GetComponent<Animator>();
-		rigidbody = weapon.GetComponent<Rigidbody>();
-		rigidbody.isKinematic = true;
+		// animator = GetComponent<Animator>();
 	}
 
 	private void OnAnimatorIK(int layerIndex) {
 		if (animator) {
 			if (ikActive) {
-				if (lookObj != null) {
-					animator.SetLookAtWeight(1);
-					animator.SetLookAtPosition(lookObj.position);
-				}
-
 				if (rightHandObj != null) {
 					animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
 					animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
@@ -57,7 +49,6 @@ public class WeaponHolder : MonoBehaviour
 		}
 		else {
 			weapon.transform.SetParent(null);
-			rigidbody.isKinematic = false;
 		}
 	}
 }
