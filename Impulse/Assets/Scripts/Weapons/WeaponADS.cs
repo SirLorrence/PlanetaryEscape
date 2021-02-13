@@ -6,16 +6,17 @@ using UnityEngine;
 
 public class WeaponADS : MonoBehaviour
 {
-	public bool toggelAimSights;
+	public bool toggleAimSights;
 
 	public Transform Hip;
-	public Transform weapon;
 	public Transform Aim;
 
+	public WeaponSelect weaponSelected;
 	public float smooth;
 
+	
 	private void Update() {
-		if (Input.GetMouseButton(1) || toggelAimSights) {
+		if (Input.GetMouseButton(1) || toggleAimSights) {
 			LerpPosition(Aim.position, smooth);
 		}
 		else LerpPosition(Hip.position, smooth);
@@ -23,8 +24,8 @@ public class WeaponADS : MonoBehaviour
 
 
 	void LerpPosition(Vector3 targetLoc, float duration) {
-			var startpos = weapon.position;
-			weapon.position = Vector3.Lerp(startpos, targetLoc,  duration * Time.deltaTime);
+			var startpos = weaponSelected.selectedWeapon.position;
+			weaponSelected.selectedWeapon.position = Vector3.Lerp(startpos, targetLoc,  duration * Time.deltaTime);
 			Debug.Log("Done");
 	}
 }
