@@ -188,7 +188,7 @@ MonoBehaviour:
   jumpCooldown: 0.25
   jumpForce: 3000
   gravityForce: 30
-  airJumps: 1
+  airJumps: 0
   amountOfAirJumps: 1
   slideForce: 1600
   slideCounterMovement: 0.05

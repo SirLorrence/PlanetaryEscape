@@ -121,7 +121,7 @@ public class PlayerController : NetworkBehaviour
         if (stopAds) StopADS();
         if (startCrouch) StartCrouch();
         if (stopCrouch) StopCrouch();
-        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward);
+        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward, true, isADS);
         if (reload) GlobalShootingSystem.Instance.Reload(gun);
 
         cameraFollow.UpdateCamera();

@@ -15,6 +15,7 @@ public class WeaponObjects : ScriptableObject
     public int magasineSize;
     public int reserveAmmo;
     public float bulletSpeed;
+    public float bulletSpread;
     
 
     [Header("Settings")]

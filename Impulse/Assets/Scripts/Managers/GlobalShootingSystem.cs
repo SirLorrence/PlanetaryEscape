@@ -13,7 +13,6 @@ public class GlobalShootingSystem : MonoBehaviour
     public enum Guns { Pistol }
 
     private float timer;
-    private bool isADS = false;
 
     #region Singleton
 
@@ -33,7 +32,7 @@ public class GlobalShootingSystem : MonoBehaviour
 
     #endregion
 
-    public void Shoot(GameObject gun, Vector3 position, Vector3 direction)
+    public void Shoot(GameObject gun, Vector3 position, Vector3 direction, bool fromPlayer, bool isADS)
     {
         print("shoot");
         if (timer < Time.realtimeSinceStartup)
@@ -53,10 +52,14 @@ public class GlobalShootingSystem : MonoBehaviour
                 else
                 {
                     //Hipfire Calculations
+                    var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
+                    randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
+                    gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
+
                 }
 
                 wo.currentAmmoInMag--;
-                CmdShootOnServer((int)wo.gunType);
+                CmdShootOnServer((int)wo.gunType, fromPlayer, isADS);
             }
             else
             {
@@ -95,12 +98,12 @@ public class GlobalShootingSystem : MonoBehaviour
         }
     }
 
-    public void CmdShootOnServer(int weapon)
+    public void CmdShootOnServer(int weapon, bool fromPlayer, bool isADS)
     {
         GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
         bullet.transform.position = gunTip.position;
         bullet.transform.rotation = gunTip.rotation;
-        bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, false, true);
+        bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, fromPlayer, isADS);
         bullet.SetActive(true);
     }
 }
