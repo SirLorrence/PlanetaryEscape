@@ -12,8 +12,10 @@ public class PlayerController : NetworkBehaviour
     public CapsuleCollider capsuleCollider;
     public int playerNum = 0;
     public CameraFollow cameraFollow;
-    public PlayerShoot playerShoot;
     public GameObject camera;
+
+    [Header("Gun Info")]
+    public GameObject gun;
 
     [Header("Speed Settings")]
     public float moveSpeed = 4500;
@@ -75,6 +77,10 @@ public class PlayerController : NetworkBehaviour
 
     //Sliding
     private Vector3 normalVector = Vector3.up;
+
+    //ADS
+    private bool isADS;
+
     #endregion
 
     void Awake()
@@ -82,16 +88,16 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void Start()
+    public override void OnStartAuthority()
     {
         playerScale = transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         currentJumpsRemaining = amountOfAirJumps;
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             camera.SetActive(true);
         }
+
+        base.OnStartAuthority();
     }
 
     //Applies Movement 
@@ -101,29 +107,36 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Gets User Input from the Input Manager
-    public void Update()
+    public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting, bool startCrouch, bool stopCrouch, bool reload, bool startAds, bool stopAds)
     {
-        if (isLocalPlayer)
-        {
+        this.x = x;
+        this.y = y;
+        this.jumping = jumping;
+        this.crouching = crouching;
+        this.sprinting = sprinting;
+        this.shooting = shooting;
 
-            this.x = Input.GetAxis("Horizontal");
-            this.y = Input.GetAxis("Vertical");
-            jumping = Input.GetKeyDown(KeyCode.Space);
-            crouching = Input.GetKey(KeyCode.LeftControl);
-            sprinting = Input.GetKey(KeyCode.LeftShift);
-            shooting = Input.GetKey(KeyCode.Mouse0);
 
-            //Crouching
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-                StartCrouch();
-            if (Input.GetKeyUp(KeyCode.LeftControl))
-                StopCrouch();
-            if (shooting)
-                playerShoot.Shoot();
+        if (startAds) StartADS();
+        if (stopAds) StopADS();
+        if (startCrouch) StartCrouch();
+        if (stopCrouch) StopCrouch();
+        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward, true, isADS);
+        if (reload) GlobalShootingSystem.Instance.Reload(gun);
 
-            cameraFollow.UpdateCamera();
-            Movement();
-        }
+        cameraFollow.UpdateCamera();
+        Movement();
+    }
+    public void StartADS()
+    {
+        isADS = true;
+        Vector3.Lerp(gun.transform.localPosition, new Vector3(0, -0.1f, 0.5f), 0.5f);
+    }
+
+    public void StopADS()
+    {
+        isADS = false;
+        Vector3.Lerp(gun.transform.localPosition, new Vector3(0.636f, -0.149f, 0.417f), 0.5f);
     }
 
     private void StartCrouch()
@@ -157,7 +170,7 @@ public class PlayerController : NetworkBehaviour
         if (readyToJump && jumping) Jump();
 
         //Set Max Speed
-        maxSpeed = sprinting && !shooting && x == 0 && y >= 0.9f? maxSprintSpeed : maxWalkSpeed;
+        maxSpeed = sprinting && canSprint() && x == 0 && y >= 0.9f? maxSprintSpeed : maxWalkSpeed;
         //maxSpeed = maxSprintSpeed;
 
 
@@ -194,6 +207,22 @@ public class PlayerController : NetworkBehaviour
         //Apply forces to move player
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+    }
+
+    private bool canSprint()
+    {
+        if (shooting && grounded)
+        {
+            return false;
+        }
+        else if (shooting && !grounded)
+        {
+            return true;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void AddGravity()

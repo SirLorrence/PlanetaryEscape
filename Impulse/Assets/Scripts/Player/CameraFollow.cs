@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
     public Transform target;
     public float smooth = 5.0f;
