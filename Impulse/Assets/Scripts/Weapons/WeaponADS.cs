@@ -26,6 +26,6 @@ public class WeaponADS : MonoBehaviour
 	void LerpPosition(Vector3 targetLoc, float duration) {
 			var startpos = weaponSelected.selectedWeapon.position;
 			weaponSelected.selectedWeapon.position = Vector3.Lerp(startpos, targetLoc,  duration * Time.deltaTime);
-			Debug.Log("Done");
+			// Debug.Log("Done");
 	}
 }

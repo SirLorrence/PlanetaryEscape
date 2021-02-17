@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class Player : NetworkBehaviour
+public class Player : MonoBehaviour
 {
     public PlayerController playerController;
     public Vector3 currentRespawnPointPosition;
@@ -28,8 +28,8 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (isLocalPlayer)
-        {
+        // if (isLocalPlayer)
+        // {
             playerController.UpdatePlayer(
                 Input.GetAxis("Horizontal"),
                 Input.GetAxis("Vertical"),
@@ -40,7 +40,7 @@ public class Player : NetworkBehaviour
                 Input.GetKeyDown(KeyCode.LeftControl),
                 Input.GetKeyUp(KeyCode.LeftControl),
                 Input.GetKeyDown(KeyCode.R));
-        }
+        // }
     }
     public void ReturnToCheckpoint()
     {
