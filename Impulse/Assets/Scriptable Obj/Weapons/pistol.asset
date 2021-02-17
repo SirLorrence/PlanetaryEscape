@@ -20,6 +20,5 @@ MonoBehaviour:
   magasineSize: 10
   reserveAmmo: 50
   bulletSpeed: 20
-  bulletSpread: 1
   canAds: 1
   isFullauto: 0

@@ -140,7 +140,7 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_AutoCreatePlayer")]
         [Tooltip("Should Mirror automatically spawn the player after scene change?")]
-        public bool autoCreatePlayer = false;
+        public bool autoCreatePlayer = true;
 
         /// <summary>
         /// The current method of spawning players used by the NetworkManager.
