@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Enemy;
-using UnityEngine;
+﻿using UnityEngine;
+using Mirror;
 
-public class GlobalShootingSystem : MonoBehaviour
+public class GlobalShootingSystem : NetworkBehaviour
 {
     [Header("Assignable")] 
     public WeaponObjects[] weaponList;
@@ -32,38 +29,30 @@ public class GlobalShootingSystem : MonoBehaviour
 
     #endregion
 
-    public void Shoot(GameObject gun, Vector3 position, Vector3 direction, bool fromPlayer, bool isADS)
+    public void Shoot(GameObject gun, Vector3 position, Vector3 direction, bool fromPlayer, bool bulletHasTracer)
     {
-        print("shoot");
         if (timer < Time.realtimeSinceStartup)
         {
             WeapoInformation wo = gun.GetComponent<WeapoInformation>();
             if (wo.currentAmmoInMag > 0)
             {
-                print("Shooting");
+                wo.currentAmmoInMag--;
+
                 timer = Time.realtimeSinceStartup + (1 / weaponList[(int)wo.gunType].firerate);
+                
                 gunTip.transform.position = position;
                 gunTip.transform.forward = direction;
 
-                if (isADS)
-                {
-
-                }
-                else
-                {
-                    //Hipfire Calculations
-                    var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
-                    randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
-                    gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
-
-                }
-
-                wo.currentAmmoInMag--;
-                CmdShootOnServer((int)wo.gunType, fromPlayer, isADS);
+                //Hipfire Calculations
+                //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
+                //randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
+                //gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
+                
+                CmdShootOnServer((int)wo.gunType, fromPlayer, bulletHasTracer);
             }
             else
             {
-                //Click sound effect
+                //Play Click Sound Effect
             }
         }
     }
@@ -98,12 +87,13 @@ public class GlobalShootingSystem : MonoBehaviour
         }
     }
 
-    public void CmdShootOnServer(int weapon, bool fromPlayer, bool isADS)
+    [Command]
+    public void CmdShootOnServer(int weapon, bool fromPlayer, bool bulletHasTracer)
     {
         GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
         bullet.transform.position = gunTip.position;
         bullet.transform.rotation = gunTip.rotation;
-        bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, fromPlayer, isADS);
+        bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, fromPlayer, bulletHasTracer);
         bullet.SetActive(true);
     }
 }

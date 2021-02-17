@@ -50,6 +50,7 @@ public class ObjectPooler : NetworkBehaviour
             }
         }
         isInitialized = true;
+
         if (debug) {print("Pooling has ended, " + pooledGameObjects.Count + " Pooled Objects"); print("Generating Pool Took " + (Time.realtimeSinceStartup - timer));}
     }
 
