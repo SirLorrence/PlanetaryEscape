@@ -11,24 +11,21 @@ public class Player : NetworkBehaviour
 
     [Header("Crosshair Settings")]
     public Texture2D crosshairImage;
-    void OnGUI()
-    {
-        float xMin = (Screen.width / 2) - (crosshairImage.width / 2);
-        float yMin = (Screen.height / 2) - (crosshairImage.height / 2);
-        GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
-    }
 
     // Start is called before the first frame update
     void Start()
     {
         currentRespawnPointPosition = gameObject.transform.position;
         currentRespawnPointRotation = gameObject.transform.rotation;
-        ObjectPooler.Instance.Initialize();
+        float xMin = (Screen.width / 2) - (crosshairImage.width / 2);
+        float yMin = (Screen.height / 2) - (crosshairImage.height / 2);
+        //GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
     }
 
+    [ClientCallback]
     private void Update()
     {
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             playerController.UpdatePlayer(
                 Input.GetAxis("Horizontal"),
@@ -39,7 +36,9 @@ public class Player : NetworkBehaviour
                 Input.GetKey(KeyCode.Mouse0),
                 Input.GetKeyDown(KeyCode.LeftControl),
                 Input.GetKeyUp(KeyCode.LeftControl),
-                Input.GetKeyDown(KeyCode.R));
+                Input.GetKeyDown(KeyCode.R),
+                Input.GetKeyDown(KeyCode.Mouse1),
+                Input.GetKeyUp(KeyCode.Mouse1));
         }
     }
     public void ReturnToCheckpoint()
@@ -48,4 +47,5 @@ public class Player : NetworkBehaviour
         gameObject.transform.rotation = currentRespawnPointRotation;
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
+
 }

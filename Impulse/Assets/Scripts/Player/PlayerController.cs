@@ -77,6 +77,10 @@ public class PlayerController : NetworkBehaviour
 
     //Sliding
     private Vector3 normalVector = Vector3.up;
+
+    //ADS
+    private bool isADS;
+
     #endregion
 
     void Awake()
@@ -84,16 +88,16 @@ public class PlayerController : NetworkBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void Start()
+    public override void OnStartAuthority()
     {
         playerScale = transform.localScale;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         currentJumpsRemaining = amountOfAirJumps;
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
             camera.SetActive(true);
         }
+
+        base.OnStartAuthority();
     }
 
     //Applies Movement 
@@ -103,7 +107,7 @@ public class PlayerController : NetworkBehaviour
     }
 
     // Gets User Input from the Input Manager
-    public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting, bool startCrouch, bool stopCrouch, bool reload)
+    public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting, bool startCrouch, bool stopCrouch, bool reload, bool startAds, bool stopAds)
     {
         this.x = x;
         this.y = y;
@@ -112,14 +116,27 @@ public class PlayerController : NetworkBehaviour
         this.sprinting = sprinting;
         this.shooting = shooting;
 
-        //Crouching
+
+        if (startAds) StartADS();
+        if (stopAds) StopADS();
         if (startCrouch) StartCrouch();
         if (stopCrouch) StopCrouch();
-        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward);
+        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward, true, isADS);
         if (reload) GlobalShootingSystem.Instance.Reload(gun);
 
         cameraFollow.UpdateCamera();
         Movement();
+    }
+    public void StartADS()
+    {
+        isADS = true;
+        Vector3.Lerp(gun.transform.localPosition, new Vector3(0, -0.1f, 0.5f), 0.5f);
+    }
+
+    public void StopADS()
+    {
+        isADS = false;
+        Vector3.Lerp(gun.transform.localPosition, new Vector3(0.636f, -0.149f, 0.417f), 0.5f);
     }
 
     private void StartCrouch()
@@ -153,7 +170,7 @@ public class PlayerController : NetworkBehaviour
         if (readyToJump && jumping) Jump();
 
         //Set Max Speed
-        maxSpeed = sprinting && !shooting && x == 0 && y >= 0.9f? maxSprintSpeed : maxWalkSpeed;
+        maxSpeed = sprinting && canSprint() && x == 0 && y >= 0.9f? maxSprintSpeed : maxWalkSpeed;
         //maxSpeed = maxSprintSpeed;
 
 
@@ -190,6 +207,22 @@ public class PlayerController : NetworkBehaviour
         //Apply forces to move player
         rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
         rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
+    }
+
+    private bool canSprint()
+    {
+        if (shooting && grounded)
+        {
+            return false;
+        }
+        else if (shooting && !grounded)
+        {
+            return true;
+        }
+        else
+        {
+            return true;
+        }
     }
 
     private void AddGravity()
