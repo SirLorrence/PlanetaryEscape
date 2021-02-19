@@ -43,10 +43,6 @@ public class ObjectPooler : NetworkBehaviour
                 go.SetActive(false);
                 go.transform.SetParent(transform);
                 pooledGameObjects.Add(go);
-                if (gameObjectsToBePooled[i].isNetworked)
-                    CmdSpawnBulletOnServer(go);
-
-
             }
         }
         isInitialized = true;
@@ -118,6 +114,5 @@ public struct GameObjectToBePooled
     public GameObject gameObjectToBePooled;
 
     [Header("Settings")] 
-    public bool isNetworked;
     public bool loadMoreIfNoneLeft;
 }

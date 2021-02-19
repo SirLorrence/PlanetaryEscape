@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Mirror;
 
-public class GlobalShootingSystem : NetworkBehaviour
+public class GlobalShootingSystem : MonoBehaviour
 {
     [Header("Assignable")] 
     public WeaponObjects[] weaponList;
@@ -87,13 +87,30 @@ public class GlobalShootingSystem : NetworkBehaviour
         }
     }
 
-    [Command]
     public void CmdShootOnServer(int weapon, bool fromPlayer, bool bulletHasTracer)
     {
         GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
         bullet.transform.position = gunTip.position;
         bullet.transform.rotation = gunTip.rotation;
         bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, fromPlayer, bulletHasTracer);
+
+        BulletMessage msg = new BulletMessage() 
+        {
+            bulletHasTracer = bulletHasTracer,
+            bulletPosition = gunTip.position,
+            rotation = gunTip.rotation
+        };
+        
+        NetworkServer.SendToReady<BulletMessage>(msg);
         bullet.SetActive(true);
+
+        
     }
+}
+
+public struct BulletMessage : NetworkMessage
+{
+    public Vector3 bulletPosition;
+    public Quaternion rotation;
+    public bool bulletHasTracer;
 }
