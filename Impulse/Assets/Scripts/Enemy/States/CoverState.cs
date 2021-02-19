@@ -22,7 +22,6 @@ namespace Enemy.States
 				Debug.Log("Now in Cover");
 			}
 			else {
-				
 				entity.animator.SetBool("InCover", false);
 			}
 		}
@@ -39,19 +38,21 @@ namespace Enemy.States
 			Vector3 cover = new Vector3();
 			double nearestCover = 15f;
 
-			LayerMask coverMask = LayerMask.GetMask("Cover");
+			LayerMask coverSearchMask = LayerMask.GetMask("Environment");
 
-			var coverObjects = Physics.OverlapSphere(entity.transform.position, entity.detectionRadius, coverMask);
+			var coverObjects = Physics.OverlapSphere(entity.transform.position, entity.detectionRadius, coverSearchMask);
 
 			foreach (var c in coverObjects) {
-				var isAvailable = c.GetComponent<CoverBlock>();
-				var distance = Vector3.Distance(entity.transform.position, c.transform.position);
-				Debug.DrawLine(entity.transform.position, c.transform.position);
+				if (c.CompareTag("Cover")) {
+					var isAvailable = c.GetComponent<CoverBlock>();
+					var distance = Vector3.Distance(entity.transform.position, c.transform.position);
+					Debug.DrawLine(entity.transform.position, c.transform.position);
 
-				if (distance < nearestCover && isAvailable.occupied < isAvailable.maxCapacity &&
-				    !isAvailable.unavailableCover) {
-					nearestCover = distance;
-					cover = c.transform.position;
+					if (distance < nearestCover && isAvailable.occupied < isAvailable.maxCapacity &&
+					    !isAvailable.unavailableCover) {
+						nearestCover = distance;
+						cover = c.transform.position;
+					}
 				}
 			}
 
