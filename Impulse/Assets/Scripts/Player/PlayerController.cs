@@ -141,8 +141,8 @@ public class PlayerController : MonoBehaviour
 	public void AnimationHandler() {
 		fullBodyAnimation.MovementAnim(x, z);
 		fullBodyAnimation.CrouchAnim(isCrouching);
-		fullBodyAnimation.SprintAnim((grounded) ? isSprinting : false);
 		fullBodyAnimation.InAirAnim(grounded);
+		fullBodyAnimation.SprintAnim((grounded) ? isSprinting : false);
 	}
 
 	private void Movement() {
