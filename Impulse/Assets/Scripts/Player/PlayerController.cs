@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
 	public Transform camera;
 	public Transform camPivot;
 
-		[Header("Speed Settings")] public float sprintMult = 1.5f;
+	[Header("Speed Settings")] public float sprintMult = 1.5f;
 	public float airSpeedMult = 0.25f;
 
 	[Header("Friction Settings")] public float counterMovement = 0.10f;
@@ -58,17 +58,8 @@ public class PlayerController : MonoBehaviour
 	private Rigidbody rb;
 	private Vector3 movement;
 
-
-	//animation variables 
+	//animation ref 
 	public BodyAnimation fullBodyAnimation;
-	// private Animator anim;
-	// private bool crouchBool;
-	// [SerializeField] private bool slideBool;
-	// private static readonly int XInput = Animator.StringToHash("xInput");
-	// private static readonly int ZInput = Animator.StringToHash("zInput");
-	// private static readonly int IsCrouch = Animator.StringToHash("isCrouch");
-	// private static readonly int IsSliding = Animator.StringToHash("isSliding");
-	// private static readonly int IsRunning = Animator.StringToHash("isSprinting");
 
 	//collider variables
 	private CapsuleCollider collider;
@@ -92,9 +83,9 @@ public class PlayerController : MonoBehaviour
 		collider = GetComponent<CapsuleCollider>();
 		colliderCenterScale = collider.center.y;
 		colliderHeight = collider.height;
-			//
-			// crouchBool = anim.GetBool(IsCrouch);
-			// slideBool = anim.GetBool(IsSliding);
+		//
+		// crouchBool = anim.GetBool(IsCrouch);
+		// slideBool = anim.GetBool(IsSliding);
 	}
 
 	void Start() {
@@ -148,18 +139,19 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void AnimationHandler() {
-		fullBodyAnimation.MovementAnim(x,z);
+		fullBodyAnimation.MovementAnim(x, z);
 		fullBodyAnimation.CrouchAnim(isCrouching);
-		fullBodyAnimation.SprintAnim(isSprinting);
+		fullBodyAnimation.SprintAnim((grounded) ? isSprinting : false);
+		fullBodyAnimation.InAirAnim(grounded);
 	}
-	
+
 	private void Movement() {
 		AnimationHandler();
 		AddGravity();
 		SpeedHandler();
 		CrouchColliderHandler();
 		grounded = GroundCheck();
-		
+
 		//Find actual velocity relative to where player is looking
 
 		Vector2 mag = FindVelRelativeToLook();
@@ -202,29 +194,16 @@ public class PlayerController : MonoBehaviour
 		rb.AddForce(transform.forward * z * moveSpeed * Time.deltaTime * multiplier * multiplierV);
 		rb.AddForce(transform.right   * x * moveSpeed * Time.deltaTime * multiplier);
 	}
-	
+
 
 	private void AddGravity() => rb.AddForce(Vector3.down * Time.deltaTime * gravityForce);
 	private bool GroundCheck() => (Physics.CheckSphere(transform.position, .5f, layerMask));
 
 	private void Jump() {
 		if (grounded && readyToJump) {
-			currentJumpsRemaining = amountOfAirJumps;
-			//If jumping while falling, reset y velocity.
-			Vector3 vel = rb.velocity;
-			if (rb.velocity.y < 0.5f)
-				rb.velocity = new Vector3(vel.x, 0, vel.z);
-			else if (rb.velocity.y > 0)
-				rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
-
 			//Add jump forces
 			rb.AddForce(Vector2.up   * jumpForce * 1.5f);
 			rb.AddForce(normalVector * jumpForce * 0.5f);
-
-			// if (!airJumps) {
-			// 	readyToJump = false;
-			// 	Invoke(nameof(ResetJump), jumpCooldown);
-			// }
 		}
 
 		// else if (airJumps && currentJumpsRemaining > 0) {
@@ -299,7 +278,6 @@ public class PlayerController : MonoBehaviour
 
 	// private bool IsFloor(Vector3 v) => Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
 
-	
 
 	private void SpeedHandler() {
 		switch (movementAction) {
@@ -325,11 +303,10 @@ public class PlayerController : MonoBehaviour
 			camera.localPosition = Vector3.zero;
 			collider.center = new Vector3(0, colliderCenterScale, 0);
 			collider.height = colliderHeight;
-			
 		}
 	}
 
 	private void OnDrawGizmosSelected() {
-		if(collider != null) Gizmos.DrawSphere(collider.gameObject.transform.position, .5f);
+		if (collider != null) Gizmos.DrawSphere(collider.gameObject.transform.position, .5f);
 	}
 }
