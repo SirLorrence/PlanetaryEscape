@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Mirror;
 using Object = UnityEngine.Object;
@@ -6,37 +6,41 @@ using Object = UnityEngine.Object;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-	#region Variables
 
-	[Header("Player Information")] public int playerNum = 0;
+	[Header("Player Information")] 
+  public int playerNum = 0;
 	public float sensitivityY, sensitivityX;
 	public Transform camera;
 	public Transform camPivot;
 
-	[Header("Speed Settings")] public float sprintMult = 1.5f;
+	[Header("Speed Settings")] 
+  public float sprintMult = 1.5f;
 	public float airSpeedMult = 0.25f;
 
-	[Header("Friction Settings")] public float counterMovement = 0.10f;
+	[Header("Friction Settings")] 
+  public float counterMovement = 0.10f;
 	private float threshold = 0.01f;
 	public float maxSlopeAngle = 35f;
 
 
-	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
+	[Header("Jump Settings")] 
+  public float jumpCooldown = 0.25f;
 	public float jumpForce = 550f;
 	public float gravityForce = 20;
 	public int amountOfAirJumps = 2;
 	public LayerMask layerMask;
 
-	// public bool airJumps = true;
 	[SerializeField] private bool readyToJump = true;
 	[SerializeField] private bool grounded;
 	[SerializeField] private int currentJumpsRemaining = 1;
 
 
-	[Header("Crouch Settings")] public float slideForce = 400;
+	[Header("Crouch Settings")] 
+  public float slideForce = 400;
 	public float slideCounterMovement = 0.2f;
 
-	[Header("Speed Settings")] public float moveSpeed = 5000;
+	[Header("Speed Settings")] 
+  public float moveSpeed = 5000;
 	public float maxSpeed;
 	public float maxWalkSpeed = 10;
 	public float maxSprintSpeed = 20;
