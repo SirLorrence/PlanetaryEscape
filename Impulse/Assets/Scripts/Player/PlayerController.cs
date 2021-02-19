@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
 
 	//animation variables 
-	public BodyAnimation bodyAnimation;
+	public BodyAnimation fullBodyAnimation;
 	// private Animator anim;
 	// private bool crouchBool;
 	// [SerializeField] private bool slideBool;
@@ -88,7 +88,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
-
+		fullBodyAnimation = GetComponent<BodyAnimation>();
 		collider = GetComponent<CapsuleCollider>();
 		colliderCenterScale = collider.center.y;
 		colliderHeight = collider.height;
@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	void Start() {
+		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		currentJumpsRemaining = amountOfAirJumps;
@@ -147,8 +148,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void AnimationHandler() {
-		bodyAnimation.MovementAnim(x,z);
-		bodyAnimation.CrouchAnim(isCrouching);
+		fullBodyAnimation.MovementAnim(x,z);
+		fullBodyAnimation.CrouchAnim(isCrouching);
+		fullBodyAnimation.SprintAnim(isSprinting);
 	}
 	
 	private void Movement() {

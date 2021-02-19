@@ -31,12 +31,15 @@ public class BodyAnimation : MonoBehaviour
 
 		if (bodyAnimator.GetFloat(XInput) > 0.2f || bodyAnimator.GetFloat(XInput) < -0.2f ||
 		    bodyAnimator.GetFloat(ZInput) > 0.2f || bodyAnimator.GetFloat(ZInput) < -0.2f) {
-		
 			fpsAnimator.SetBool(walking, true);
 		}
-		else {
-			fpsAnimator.SetBool(walking, false);
-		}
+		else fpsAnimator.SetBool(walking, false);
 	}
+
 	public void CrouchAnim(bool isCrouched) => bodyAnimator.SetBool(IsCrouch, isCrouched);
+
+	public void SprintAnim(bool isSprinting) {
+		fpsAnimator.SetBool(IsRunning, isSprinting);
+		bodyAnimator.SetBool(IsRunning, isSprinting);
+	}
 }
