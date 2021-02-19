@@ -6,8 +6,14 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Bullet Stats")]
-    public float lifetime = 2f;
-    public float lifetimeTimer = 0;
+    [SerializeField]private float lifetime = 2f;
+    [SerializeField] private float tracerDelay= 0.2f;
+
+    private bool hasTracer;
+
+
+    private float lifetimeTimer = 0;
+    private float tracerTimer = 0;
 
     private float speed, damage;
     private bool canDamagePlayer, canDamageEnemy;
@@ -31,12 +37,13 @@ public class Bullet : MonoBehaviour
         partialExtent = minimumExtent * (1.0f - skinWidth);
         sqrMinimumExtent = minimumExtent * minimumExtent;
     }
-    public void StartBullet(float speed, float damage, bool canDamagePlayer, bool canDamageEnemy) 
+    public void StartBullet(float speed, float damage, bool canDamagePlayer, bool hasTracer) 
     {
         this.speed = speed;
         this.damage = damage;
-        this.canDamagePlayer = canDamagePlayer;
-        this.canDamageEnemy = canDamageEnemy;
+        this.canDamagePlayer = !canDamagePlayer;
+        this.canDamageEnemy = canDamagePlayer;
+        this.hasTracer = hasTracer;
     }
 
     void FixedUpdate()
@@ -93,6 +100,7 @@ public class Bullet : MonoBehaviour
     {
         Move();
         CheckLifetime();
+        CheckTracer();
     }
 
     void Move()
@@ -103,5 +111,10 @@ public class Bullet : MonoBehaviour
     {
         if (lifetimeTimer <= 0) ObjectPooler.Instance.SetObjectInPool(this.gameObject);
         else lifetimeTimer -= Time.deltaTime;
+    }
+    void CheckTracer()
+    {
+        //if (tracerTimer <= 0) //enable tracer
+        //else tracerTimer -= Time.deltaTime;
     }
 }

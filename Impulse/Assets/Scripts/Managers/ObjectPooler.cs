@@ -12,6 +12,8 @@ public class ObjectPooler : NetworkBehaviour
     private List<GameObject> pooledGameObjects = new List<GameObject>();
     private float timer;
 
+    private bool isInitialized = false;
+
     #region Singleton
 
     //Singleton Instantiation
@@ -29,7 +31,6 @@ public class ObjectPooler : NetworkBehaviour
 
     #endregion
 
-
     public void Initialize()
     {
         if (debug) {print("Pooling has started"); timer = Time.realtimeSinceStartup; } 
@@ -43,15 +44,20 @@ public class ObjectPooler : NetworkBehaviour
                 go.transform.SetParent(transform);
                 pooledGameObjects.Add(go);
                 if (gameObjectsToBePooled[i].isNetworked)
-                    NetworkServer.Spawn(go);
+                    CmdSpawnBulletOnServer(go);
+
+
             }
         }
+        isInitialized = true;
 
         if (debug) {print("Pooling has ended, " + pooledGameObjects.Count + " Pooled Objects"); print("Generating Pool Took " + (Time.realtimeSinceStartup - timer));}
     }
 
     public GameObject GetGameObject(int index)
     {
+        if (!isInitialized) Initialize();
+
         int startPosInList = 0;
         for (int i = 0; i < index; i++)
         {
@@ -95,6 +101,11 @@ public class ObjectPooler : NetworkBehaviour
 
         go.SetActive(false);
         go.transform.position = Vector3.zero;
+    }
+    [Command]
+    public void CmdSpawnBulletOnServer(GameObject go)
+    {
+        NetworkServer.Spawn(go);
     }
 }
 

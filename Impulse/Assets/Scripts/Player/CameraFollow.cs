@@ -6,7 +6,7 @@ using Mirror;
 using Unity.Mathematics;
 using UnityEditor.IMGUI.Controls;
 
-public class CameraFollow : MonoBehaviour
+public class CameraFollow : NetworkBehaviour
 {
 	// public Transform target;
 	public float smooth = 5.0f;
