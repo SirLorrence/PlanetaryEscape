@@ -1,51 +1,40 @@
 ﻿using System;
 using UnityEngine;
 using Mirror;
+using Object = UnityEngine.Object;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
 	#region Variables
 
-	[Header("Player Information")]
-	// public GameObject playerGO;
-	// public Transform orientation;
-	// public CapsuleCollider capsuleCollider;
-	public int playerNum = 0;
+	[Header("Player Information")] public int playerNum = 0;
+	public float sensitivityY, sensitivityX;
+	public Transform camera;
+	public Transform camPivot;
 
-	public CameraFollow cameraFollow;
-	public GameObject camera;
-
-	[Header("Gun Info")] public GameObject gun;
-
-
-	[Header("Speed Settings")] public float sprintMult = 1.5f;
+		[Header("Speed Settings")] public float sprintMult = 1.5f;
 	public float airSpeedMult = 0.25f;
 
 	[Header("Friction Settings")] public float counterMovement = 0.10f;
 	private float threshold = 0.01f;
 	public float maxSlopeAngle = 35f;
 
-	[Header("Layer Masks")] public LayerMask whatIsGround;
-	public LayerMask whatIsWall;
 
 	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
 	public float jumpForce = 550f;
 	public float gravityForce = 20;
-	public bool airJumps = true;
 	public int amountOfAirJumps = 2;
+	public LayerMask layerMask;
+
+	// public bool airJumps = true;
+	[SerializeField] private bool readyToJump = true;
+	[SerializeField] private bool grounded;
+	[SerializeField] private int currentJumpsRemaining = 1;
+
 
 	[Header("Crouch Settings")] public float slideForce = 400;
 	public float slideCounterMovement = 0.2f;
-
-	// [Header("Wall Running Settings")] public float wallRunForce;
-	// public float maxWallRunTime;
-	// public float maxWallSpeed;
-	// public bool isLeftWall;
-	// public bool isRightWall;
-	// public bool isWallRunning;
-	// public float maxCameraTilt;
-	// public float cameraTilt;
 
 	[Header("Speed Settings")] public float moveSpeed = 5000;
 	public float maxSpeed;
@@ -54,18 +43,13 @@ public class PlayerController : MonoBehaviour
 	public float maxCrouchSpeed = 10;
 
 	//Physics
-	private bool cancellingGrounded;
+	// private bool cancellingGrounded;
 
-
-	//Jumping
-	private bool readyToJump = true;
-	private bool grounded;
-	private int currentJumpsRemaining = 1;
 
 	//Input
 
-	private float x, z, pitchRotation, yawRotation, sensitivityY, sensitivityX;
-	private bool jumping, sprinting, crouching, shooting;
+	private float x, z, pitchRotation, yawRotation, camClamp = -60;
+	public bool canJump, isSprinting, isCrouching, shooting;
 
 	//Sliding
 	private Vector3 normalVector = Vector3.up;
@@ -76,26 +60,26 @@ public class PlayerController : MonoBehaviour
 
 
 	//animation variables 
-	private Animator anim;
-	private bool crouchBool;
-	[SerializeField] private bool slideBool;
-	private static readonly int XInput = Animator.StringToHash("xInput");
-	private static readonly int ZInput = Animator.StringToHash("zInput");
-	private static readonly int IsCrouch = Animator.StringToHash("isCrouch");
-	private static readonly int IsSliding = Animator.StringToHash("isSliding");
-	private static readonly int IsRunning = Animator.StringToHash("isSprinting");
+	public BodyAnimation bodyAnimation;
+	// private Animator anim;
+	// private bool crouchBool;
+	// [SerializeField] private bool slideBool;
+	// private static readonly int XInput = Animator.StringToHash("xInput");
+	// private static readonly int ZInput = Animator.StringToHash("zInput");
+	// private static readonly int IsCrouch = Animator.StringToHash("isCrouch");
+	// private static readonly int IsSliding = Animator.StringToHash("isSliding");
+	// private static readonly int IsRunning = Animator.StringToHash("isSprinting");
 
 	//collider variables
 	private CapsuleCollider collider;
 	private float colliderCenterScale, colliderHeight;
 	private float crouchValue = 0.25f;
 
-
 	public enum MovementAction
 	{
-		walking,
-		crouching,
-		running,
+		Walking,
+		Crouching,
+		Running,
 	}
 
 	public MovementAction movementAction;
@@ -108,13 +92,9 @@ public class PlayerController : MonoBehaviour
 		collider = GetComponent<CapsuleCollider>();
 		colliderCenterScale = collider.center.y;
 		colliderHeight = collider.height;
-
-		anim = GetComponentInChildren<Animator>();
-		if (anim == null) Debug.LogWarning("No animator found");
-		else {
-			crouchBool = anim.GetBool(IsCrouch);
-			slideBool = anim.GetBool(IsSliding);
-		}
+			//
+			// crouchBool = anim.GetBool(IsCrouch);
+			// slideBool = anim.GetBool(IsSliding);
 	}
 
 	void Start() {
@@ -124,63 +104,71 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Gets User Input from the Input Manager
-	public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting,
+	public void UpdatePlayer(float x, float z, bool jumping, bool crouching, bool sprinting, bool shooting,
 	                         bool startCrouch, bool stopCrouch, bool reload) {
 		this.x = x;
-		this.z = y;
-		this.jumping = jumping;
-		this.crouching = crouching;
-		this.sprinting = sprinting;
-		this.shooting = shooting;
+		this.z = z;
+		canJump = jumping;
+		isCrouching = crouching;
+		isSprinting = sprinting;
+		// this.shooting = shooting;
 
+
+		// pitchRotation += Input.GetAxisRaw("Mouse X") * sensitivityY;
+		// yawRotation += Input.GetAxisRaw("Mouse Y")   * sensitivityX;
+		// yawRotation = Mathf.Clamp(yawRotation, minX, maxX);
 		//Crouching
 		if (startCrouch) StartCrouch();
 		if (stopCrouch) StopCrouch();
 
 		// if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward);
 		// if (reload) GlobalShootingSystem.Instance.Reload(gun);
-
 		Movement();
 	}
 
-	void AnimationActions() {
+	private void LateUpdate() {
+		pitchRotation += Input.GetAxisRaw("Mouse X") * sensitivityY;
+		yawRotation += Input.GetAxisRaw("Mouse Y")   * sensitivityX;
+		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
+		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		// if inverse positive Y
+		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 	}
 
 	private void StartCrouch() {
-		// playerGO.transform.localScale = crouchScale;
-		// capsuleCollider.height = crouchScale.y * 2;
-		// playerGO.transform.position = new Vector3(playerGO.transform.position.x, playerGO.transform.position.y - 0.5f,
-		// 	playerGO.transform.position.z);
-		crouching = true;
-
+		isCrouching = true;
 		if (grounded && rb.velocity.magnitude > 0.5f) {
 			rb.AddForce(transform.forward * slideForce);
 		}
 	}
 
 	private void StopCrouch() {
-		crouching = false;
-		// playerGO.transform.localScale = playerScale;
-		// capsuleCollider.height = playerScale.y * 2;
-		// playerGO.transform.position = new Vector3(playerGO.transform.position.x, playerGO.transform.position.y + 0.5f,
-		// 	playerGO.transform.position.z);
+		isCrouching = false;
 	}
 
+	public void AnimationHandler() {
+		bodyAnimation.MovementAnim(x,z);
+		bodyAnimation.CrouchAnim(isCrouching);
+	}
+	
 	private void Movement() {
+		AnimationHandler();
 		AddGravity();
 		SpeedHandler();
-		GroundCheck();
 		CrouchColliderHandler();
+		grounded = GroundCheck();
+		
 		//Find actual velocity relative to where player is looking
+
 		Vector2 mag = FindVelRelativeToLook();
 		float xMag = mag.x, yMag = mag.y;
 
 		ApplyFriction(x, z, mag);
-		if (readyToJump && jumping) Jump();
+		if (readyToJump && canJump) Jump();
 
 
 		//If sliding down a ramp, add force down so player stays grounded and builds speed
-		if (crouching && grounded && readyToJump) {
+		if (isCrouching && grounded && readyToJump) {
 			rb.AddForce(Vector3.down * Time.deltaTime * 3000);
 			return;
 		}
@@ -201,21 +189,21 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//Increased Movement if Sprinting 
-		if (grounded && sprinting && !crouching) {
+		if (grounded && isSprinting && !isCrouching) {
 			multiplierV = sprintMult;
 		}
 
 		// Movement while sliding
-		if (grounded && crouching) multiplierV = 0f;
+		if (grounded && isCrouching) multiplierV = 0f;
 
 		//Apply forces to move player
 		rb.AddForce(transform.forward * z * moveSpeed * Time.deltaTime * multiplier * multiplierV);
 		rb.AddForce(transform.right   * x * moveSpeed * Time.deltaTime * multiplier);
 	}
+	
 
-	private void AddGravity() {
-		rb.AddForce(Vector3.down * Time.deltaTime * gravityForce);
-	}
+	private void AddGravity() => rb.AddForce(Vector3.down * Time.deltaTime * gravityForce);
+	private bool GroundCheck() => (Physics.CheckSphere(transform.position, .5f, layerMask));
 
 	private void Jump() {
 		if (grounded && readyToJump) {
@@ -231,40 +219,41 @@ public class PlayerController : MonoBehaviour
 			rb.AddForce(Vector2.up   * jumpForce * 1.5f);
 			rb.AddForce(normalVector * jumpForce * 0.5f);
 
-			if (!airJumps) {
-				readyToJump = false;
-				Invoke(nameof(ResetJump), jumpCooldown);
-			}
+			// if (!airJumps) {
+			// 	readyToJump = false;
+			// 	Invoke(nameof(ResetJump), jumpCooldown);
+			// }
 		}
-		else if (airJumps && currentJumpsRemaining > 0) {
-			--currentJumpsRemaining;
 
-			//If jumping while falling, reset y velocity.
-			Vector3 vel = rb.velocity;
-			if (rb.velocity.y < 0.5f)
-				rb.velocity = new Vector3(vel.x, 0, vel.z);
-			else if (rb.velocity.y > 0)
-				rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
-
-			//Add jump forces
-			rb.AddForce(Vector2.up   * jumpForce * 1.5f);
-			rb.AddForce(normalVector * jumpForce * 0.5f);
-		}
+		// else if (airJumps && currentJumpsRemaining > 0) {
+		// 	--currentJumpsRemaining;
+		//
+		// 	//If jumping while falling, reset y velocity.
+		// 	Vector3 vel = rb.velocity;
+		// 	if (rb.velocity.y < 0.5f)
+		// 		rb.velocity = new Vector3(vel.x, 0, vel.z);
+		// 	else if (rb.velocity.y > 0)
+		// 		rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
+		//
+		// 	//Add jump forces
+		// 	rb.AddForce(Vector2.up   * jumpForce * 1.5f);
+		// 	rb.AddForce(normalVector * jumpForce * 0.5f);
+		// }
 	}
 
-	private void ResetJump() {
-		readyToJump = true;
-	}
-
-	private void WaitForGrounded() {
-		currentJumpsRemaining = amountOfAirJumps;
-	}
+	// private void ResetJump() {
+	// 	readyToJump = true;
+	// }
+	//
+	// private void WaitForGrounded() {
+	// 	currentJumpsRemaining = amountOfAirJumps;
+	// }
 
 	private void ApplyFriction(float x, float y, Vector2 mag) {
-		if (!grounded || jumping) return;
+		if (!grounded || canJump) return;
 
 		//Slow down sliding
-		if (crouching) {
+		if (isCrouching) {
 			rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
 			return;
 		}
@@ -288,8 +277,10 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
-	//Find the velocity relative to where the player is looking
-	//Useful for vectors calculations regarding movement and limiting movement
+	/// <summary>
+	/// Find the velocity relative to where the player is looking
+	/// Useful for vectors calculations regarding movement and limiting movement
+	/// </summary>
 	public Vector2 FindVelRelativeToLook() {
 		float lookAngle = transform.eulerAngles.y;
 		float moveAngle = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * Mathf.Rad2Deg;
@@ -304,72 +295,39 @@ public class PlayerController : MonoBehaviour
 		return new Vector2(xMag, yMag);
 	}
 
-	private bool IsFloor(Vector3 v) => Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
+	// private bool IsFloor(Vector3 v) => Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
 
-	void GroundCheck() {
-		grounded = Physics.CheckSphere(transform.position, .5f);
-	}
-
-//Handle ground detection
-
-	// private void OnCollisionStay(Collision other) {
-	// 	//Make sure we are only checking for walkable layers
-	// 	int layer = other.gameObject.layer;
-	// 	if (whatIsGround != (whatIsGround | (1 << layer))) return;
-	//
-	// 	//Iterate through every collision in a physics update
-	// 	for (int i = 0; i < other.contactCount; i++) {
-	// 		Vector3 normal = other.contacts[i].normal;
-	// 		if (IsFloor(normal)) {
-	// 			currentJumpsRemaining = amountOfAirJumps;
-	// 			grounded = true;
-	// 			cancellingGrounded = false;
-	// 			normalVector = normal;
-	// 			CancelInvoke(nameof(StopGrounded));
-	// 		}
-	// 	}
-	//
-	//
-	// 	//Invoke ground cancel, since we can't check normals with CollisionExit
-	// 	float delay = 3f;
-	// 	if (!cancellingGrounded) {
-	// 		cancellingGrounded = true;
-	// 		Invoke(nameof(StopGrounded), Time.deltaTime * delay);
-	// 	}
-	// }
-
-	private void StopGrounded() {
-		grounded = false;
-	}
-
+	
 
 	private void SpeedHandler() {
 		switch (movementAction) {
-			case MovementAction.crouching:
+			case MovementAction.Crouching:
 				maxSpeed = maxCrouchSpeed;
 				break;
-			case MovementAction.walking:
+			case MovementAction.Walking:
 				maxSpeed = maxWalkSpeed;
 				break;
-			case MovementAction.running:
+			case MovementAction.Running:
 				maxSpeed = maxSprintSpeed;
 				break;
 		}
 	}
 
-
 	private void CrouchColliderHandler() {
-		if (crouching) {
+		if (isCrouching) {
+			camera.localPosition = new Vector3(0, -.4f, 0);
 			collider.center = new Vector3(0, colliderCenterScale - crouchValue, 0);
 			collider.height = colliderHeight - (crouchValue * 2);
 		}
 		else {
+			camera.localPosition = Vector3.zero;
 			collider.center = new Vector3(0, colliderCenterScale, 0);
 			collider.height = colliderHeight;
+			
 		}
 	}
 
 	private void OnDrawGizmosSelected() {
-		Gizmos.DrawSphere(transform.position, .5f);
+		if(collider != null) Gizmos.DrawSphere(collider.gameObject.transform.position, .5f);
 	}
 }

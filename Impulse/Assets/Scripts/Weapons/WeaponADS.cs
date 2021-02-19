@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponADS : MonoBehaviour
 {
 	public bool toggleAimSights;
-
 	public Transform Hip;
 	public Transform Aim;
-
-	public WeaponSelect weaponSelected;
+	public HandIKHandler weaponSelected;
 	public float smooth;
 
 	
@@ -22,10 +16,8 @@ public class WeaponADS : MonoBehaviour
 		else LerpPosition(Hip.position, smooth);
 	}
 
-
 	void LerpPosition(Vector3 targetLoc, float duration) {
-			var startpos = weaponSelected.selectedWeapon.position;
-			weaponSelected.selectedWeapon.position = Vector3.Lerp(startpos, targetLoc,  duration * Time.deltaTime);
-			// Debug.Log("Done");
+			var holdingPosition = weaponSelected.weaponHolding.position;
+			weaponSelected.weaponHolding.position = Vector3.Lerp(holdingPosition, targetLoc,  duration * Time.deltaTime);
 	}
 }

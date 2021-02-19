@@ -1,36 +1,23 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 
 public class WeaponSelect : MonoBehaviour
 {
 	public int weaponSelected = 0;
-
-	public Transform gripRef;
-	public Transform holdRef;
-	public Transform selectedWeapon;
-
-
+	public Transform arms;
+	public Transform body;
 	private void Update() {
-		int i = 0;
-		foreach (Transform w in transform) {
+		for (int i = 0; i < arms.transform.childCount; i++) {
 			if (i == weaponSelected) {
-				w.gameObject.SetActive(true);
-				HandleIK(w);
-				selectedWeapon = w;
+				arms.GetChild(i).gameObject.SetActive(true);
+				body.GetChild(i).gameObject.SetActive(true);
+				// selectedWeapon = arms.GetChild(i);
 			}
-			else w.gameObject.SetActive(false);
-			++i;
+			else {
+				arms.GetChild(i).gameObject.SetActive(false);
+				body.GetChild(i).gameObject.SetActive(false);
+			}
 		}
-	}
-
-	void HandleIK(Transform weapon) {
-		var grip = weapon.transform.Find("Grip");
-		var holder = weapon.transform.Find("Holder");
-
-		gripRef.position = grip.transform.position;
-		gripRef.rotation = grip.transform.rotation;
-		
-		holdRef.position = holder.transform.position;
-		holdRef.rotation = holder.transform.rotation;
 	}
 }

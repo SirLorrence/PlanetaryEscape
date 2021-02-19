@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 29171626}
   m_Layer: 11
   m_Name: Low Cover Block
-  m_TagString: Untagged
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 225282620}
   m_Layer: 11
   m_Name: Low Cover Block
-  m_TagString: Untagged
+  m_TagString: Cover
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -535,6 +535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cover Test Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
+        type: 3}
+      propertyPath: m_TagString
+      value: Cover
       objectReference: {fileID: 0}
     - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
         type: 3}
@@ -1353,6 +1358,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
         type: 3}
+      propertyPath: m_TagString
+      value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
+        type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2082,6 +2092,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
         type: 3}
+      propertyPath: m_TagString
+      value: Cover
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
+        type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}
@@ -2231,6 +2246,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Cover Test Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
+        type: 3}
+      propertyPath: m_TagString
+      value: Cover
       objectReference: {fileID: 0}
     - target: {fileID: 5519716329976211883, guid: 795681bf1a0f3894caec1f169428ca95,
         type: 3}
