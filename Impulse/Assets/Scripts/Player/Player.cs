@@ -28,11 +28,9 @@ public class Player : MonoBehaviour
         //GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
     }
 
-    [ClientCallback]
     private void Update()
     {
-        if (hasAuthority)
-        {
+  
             playerController.UpdatePlayer(
                 Input.GetAxis("Horizontal"),
                 Input.GetAxis("Vertical"),
@@ -43,11 +41,8 @@ public class Player : MonoBehaviour
                 Input.GetKeyDown(KeyCode.LeftControl),
                 Input.GetKeyUp(KeyCode.LeftControl),
                 Input.GetKeyDown(KeyCode.R));
-                Input.GetKeyDown(KeyCode.R),
-                Input.GetKeyDown(KeyCode.Mouse1),
-                Input.GetKeyUp(KeyCode.Mouse1));
-        }
     }
+    
     
     public void ReturnToCheckpoint()
     {

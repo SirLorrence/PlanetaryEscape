@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Mirror;
-using Object = UnityEngine.Object;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -79,7 +78,6 @@ public class PlayerController : MonoBehaviour
 
 	public MovementAction movementAction;
 
-	#endregion
 
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
@@ -109,10 +107,6 @@ public class PlayerController : MonoBehaviour
 		isSprinting = sprinting;
 		// this.shooting = shooting;
 
-
-		// pitchRotation += Input.GetAxisRaw("Mouse X") * sensitivityY;
-		// yawRotation += Input.GetAxisRaw("Mouse Y")   * sensitivityX;
-		// yawRotation = Mathf.Clamp(yawRotation, minX, maxX);
 		//Crouching
 		if (startCrouch) StartCrouch();
 		if (stopCrouch) StopCrouch();
@@ -209,30 +203,7 @@ public class PlayerController : MonoBehaviour
 			rb.AddForce(Vector2.up   * jumpForce * 1.5f);
 			rb.AddForce(normalVector * jumpForce * 0.5f);
 		}
-
-		// else if (airJumps && currentJumpsRemaining > 0) {
-		// 	--currentJumpsRemaining;
-		//
-		// 	//If jumping while falling, reset y velocity.
-		// 	Vector3 vel = rb.velocity;
-		// 	if (rb.velocity.y < 0.5f)
-		// 		rb.velocity = new Vector3(vel.x, 0, vel.z);
-		// 	else if (rb.velocity.y > 0)
-		// 		rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
-		//
-		// 	//Add jump forces
-		// 	rb.AddForce(Vector2.up   * jumpForce * 1.5f);
-		// 	rb.AddForce(normalVector * jumpForce * 0.5f);
-		// }
 	}
-
-	// private void ResetJump() {
-	// 	readyToJump = true;
-	// }
-	//
-	// private void WaitForGrounded() {
-	// 	currentJumpsRemaining = amountOfAirJumps;
-	// }
 
 	private void ApplyFriction(float x, float y, Vector2 mag) {
 		if (!grounded || canJump) return;
@@ -279,8 +250,6 @@ public class PlayerController : MonoBehaviour
 
 		return new Vector2(xMag, yMag);
 	}
-
-	// private bool IsFloor(Vector3 v) => Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
 
 
 	private void SpeedHandler() {
