@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
 	//Input
 
 	private float x, z, pitchRotation, yawRotation, camClamp = -60;
-	public bool canJump, isSprinting, isCrouching, shooting;
+	public bool canJump, isSprinting, isCrouching, isShooting, ADS;
 
 	//Sliding
 	private Vector3 normalVector = Vector3.up;
@@ -99,12 +99,13 @@ public class PlayerController : MonoBehaviour
 
 	// Gets User Input from the Input Manager
 	public void UpdatePlayer(float x, float z, bool jumping, bool crouching, bool sprinting, bool shooting,
-	                         bool startCrouch, bool stopCrouch, bool reload) {
+	                         bool startCrouch, bool stopCrouch, bool reload, bool aiming) {
 		this.x = x;
 		this.z = z;
 		canJump = jumping;
 		isCrouching = crouching;
 		isSprinting = sprinting;
+		ADS = aiming;
 		// this.shooting = shooting;
 
 		//Crouching
@@ -140,7 +141,10 @@ public class PlayerController : MonoBehaviour
 		fullBodyAnimation.MovementAnim(x, z);
 		fullBodyAnimation.CrouchAnim(isCrouching);
 		fullBodyAnimation.InAirAnim(grounded);
-		fullBodyAnimation.SprintAnim((grounded) ? isSprinting : false);
+		fullBodyAnimation.SprintAnim((grounded && !ADS) ? isSprinting : false); //cancels sprint while in air and aiming
+		fullBodyAnimation.AimDownAnim(ADS);
+		// fullBodyAnimation.ReloadAnim(reloa);
+		
 	}
 
 	private void Movement() {
@@ -181,7 +185,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 		//Increased Movement if Sprinting 
-		if (grounded && isSprinting && !isCrouching) {
+		if (grounded && isSprinting && !isCrouching && !ADS) {
 			multiplierV = sprintMult;
 		}
 

@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class HandIKHandler : MonoBehaviour
+namespace IK_Scripts
 {
-	public Transform gripRef, holdRef, weaponHolding;
-	private void Update() {
-		foreach (Transform w in transform) {
-			if (w.gameObject.activeInHierarchy) {
-				HandleIK(w);
-				weaponHolding = w;
+	/// <summary>
+	/// Handles the left hand IK, needs to be on a Game object that has the weapon as its child. 
+	/// </summary>
+	public class HandIKHandler : MonoBehaviour
+	{
+		public Transform targetHoldRef;
+		private void Update() {
+			foreach (Transform w in transform) {
+				if (w.gameObject.activeInHierarchy) {
+					HandleIK(w);
+				}
 			}
 		}
-	}
-	
-	public void HandleIK(Transform weapon) {
-		var grip = weapon.transform.Find("Grip");
-		var holder = weapon.transform.Find("Holder");
-
-		gripRef.position = grip.transform.position;
-		gripRef.rotation = grip.transform.rotation;
-
-		holdRef.position = holder.transform.position;
-		holdRef.rotation = holder.transform.rotation;
+		public void HandleIK(Transform weapon) {
+			var holder = weapon.transform.Find("Holder");
+			targetHoldRef.position = holder.transform.position;
+			targetHoldRef.rotation = holder.transform.rotation;
+		}
 	}
 }
