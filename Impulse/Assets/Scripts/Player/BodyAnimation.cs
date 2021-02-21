@@ -13,22 +13,20 @@ public class BodyAnimation : MonoBehaviour
 	private static readonly int XInput = Animator.StringToHash("xInput");
 	private static readonly int ZInput = Animator.StringToHash("zInput");
 	private static readonly int IsCrouch = Animator.StringToHash("isCrouch");
-	private static readonly int IsSliding = Animator.StringToHash("isSliding");
 	private static readonly int IsGrounded = Animator.StringToHash("isGrounded");
 
 	//arms specific
 	private static readonly int Walking = Animator.StringToHash("Walk");
-	// private static readonly int ZInput = Animator.StringToHash("zInput");
-	// private static readonly int IsCrouch = Animator.StringToHash("isCrouch");
-	// private static readonly int IsSliding = Animator.StringToHash("isSliding");
-	// private static readonly int IsRunning = Animator.StringToHash("isSprinting");
+
 
 	//universal 
 	private static readonly int IsRunning = Animator.StringToHash("isSprinting");
+	private static readonly int IsAiming = Animator.StringToHash("Aim");
+	private static readonly int Reloading = Animator.StringToHash("Reload");
 
 	private void Update() => fpsAnimator = activeAnimator.anim;
 
-	public void CrouchAnim(bool isCrouched) => bodyAnimator.SetBool(IsCrouch, isCrouched);
+	public void CrouchAnim(bool crouched) => bodyAnimator.SetBool(IsCrouch, crouched);
 	public void InAirAnim(bool grounded) => bodyAnimator.SetBool(IsGrounded, grounded);
 
 	public void MovementAnim(float x, float z) {
@@ -42,8 +40,21 @@ public class BodyAnimation : MonoBehaviour
 		else fpsAnimator.SetBool(Walking, false);
 	}
 
-	public void SprintAnim(bool isSprinting) {
-		fpsAnimator.SetBool(IsRunning, isSprinting);
-		bodyAnimator.SetBool(IsRunning, isSprinting);
+	public void AimDownAnim(bool aiming) {
+		fpsAnimator.SetBool(IsAiming, aiming);
+		bodyAnimator.SetBool(IsAiming, aiming);
+	}
+
+	public void ReloadAnim(bool reloading) {
+		if (reloading) {
+			fpsAnimator.SetTrigger(Reloading);
+			reloading = false;
+		}
+	}
+
+
+	public void SprintAnim(bool sprinting) {
+		fpsAnimator.SetBool(IsRunning, sprinting);
+		bodyAnimator.SetBool(IsRunning, sprinting);
 	}
 }
