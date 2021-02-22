@@ -579,6 +579,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231025944}
   - component: {fileID: 231025946}
+  - component: {fileID: 231025945}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -600,6 +601,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &231025945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231025943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Port: 7778
+  NoDelay: 1
+  Interval: 10
+  FastResend: 2
+  CongestionWindow: 0
+  SendWindowSize: 128
+  ReceiveWindowSize: 128
+  debugLog: 0
+  debugGUI: 0
 --- !u!114 &231025946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,13 +641,13 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: 
   onlineScene: Assets/Scenes/Final Scenes/Game Lobby.unity
-  transport: {fileID: 0}
+  transport: {fileID: 231025945}
   networkAddress: localhost
   maxConnections: 2
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 959993359415453898, guid: 1c22af6a82b180240900adb9e7bfd64e,
+  playerPrefab: {fileID: 5668468611010563309, guid: e958d360bb9842a4994922840c641fee,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0

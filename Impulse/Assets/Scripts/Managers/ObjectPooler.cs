@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using System.Collections;
 
-public class ObjectPooler : NetworkBehaviour
+public class ObjectPooler : MonoBehaviour
 {
     public bool debug = false;
     [Header("GameObjects to be Pooled")] public GameObjectToBePooled[] gameObjectsToBePooled;
@@ -97,11 +96,6 @@ public class ObjectPooler : NetworkBehaviour
 
         go.SetActive(false);
         go.transform.position = Vector3.zero;
-    }
-    [Command]
-    public void CmdSpawnBulletOnServer(GameObject go)
-    {
-        NetworkServer.Spawn(go);
     }
 }
 

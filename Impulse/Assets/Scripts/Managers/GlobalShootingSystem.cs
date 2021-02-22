@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Mirror;
 
 public class GlobalShootingSystem : MonoBehaviour
 {
@@ -40,15 +39,30 @@ public class GlobalShootingSystem : MonoBehaviour
 
                 timer = Time.realtimeSinceStartup + (1 / weaponList[(int)wo.gunType].firerate);
                 
-                gunTip.transform.position = position;
+                gunTip.transform.position = position;   
                 gunTip.transform.forward = direction;
 
                 //Hipfire Calculations
                 //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
                 //randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
                 //gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
+
                 
-                CmdShootOnServer((int)wo.gunType, fromPlayer, bulletHasTracer);
+                BulletMessage msg = new BulletMessage()
+                {
+                    bulletHasTracer = bulletHasTracer,
+                    position = gunTip.position,
+                    rotation = gunTip.rotation,
+                    speed = weaponList[0].bulletSpeed,
+                    damage = weaponList[0].damage,
+                    fromPlayer = fromPlayer
+                };
+
+                //if (isServer)
+                //    RpcShootOnAll(msg);
+                //else
+                //    CmdShootOnServer(msg);
+                
             }
             else
             {
@@ -87,30 +101,38 @@ public class GlobalShootingSystem : MonoBehaviour
         }
     }
 
-    public void CmdShootOnServer(int weapon, bool fromPlayer, bool bulletHasTracer)
+    
+    public void CmdShootOnServer(BulletMessage msg)
     {
+        print("Shoot");
         GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
-        bullet.transform.position = gunTip.position;
-        bullet.transform.rotation = gunTip.rotation;
-        bullet.GetComponent<Bullet>().StartBullet(weaponList[weapon].bulletSpeed, weaponList[weapon].damage, fromPlayer, bulletHasTracer);
+        bullet.transform.position = msg.position;
+        bullet.transform.rotation = msg.rotation;
+        bullet.GetComponent<Bullet>().StartBullet(msg.speed, msg.damage, msg.fromPlayer, msg.bulletHasTracer);
 
-        BulletMessage msg = new BulletMessage() 
-        {
-            bulletHasTracer = bulletHasTracer,
-            bulletPosition = gunTip.position,
-            rotation = gunTip.rotation
-        };
-        
-        NetworkServer.SendToReady<BulletMessage>(msg);
         bullet.SetActive(true);
 
-        
+        RpcShootOnAll(msg);
+    }
+
+  
+    public void RpcShootOnAll(BulletMessage msg)
+    {
+        GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
+        bullet.transform.position = msg.position;
+        bullet.transform.rotation = msg.rotation;
+        bullet.GetComponent<Bullet>().StartBullet(msg.speed, msg.damage, msg.fromPlayer, msg.bulletHasTracer);
+
+        bullet.SetActive(true);
     }
 }
 
-public struct BulletMessage : NetworkMessage
+public struct BulletMessage
 {
-    public Vector3 bulletPosition;
+    public Vector3 position;
     public Quaternion rotation;
     public bool bulletHasTracer;
+    public float speed;
+    public float damage;
+    public bool fromPlayer;
 }
