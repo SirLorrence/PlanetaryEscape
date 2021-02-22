@@ -9,85 +9,75 @@ public class PlayerShoot : NetworkBehaviour
 {
     [Header("Assignable")] 
     public Transform cameraTransform;
-    public LayerMask shootingLayerMask;
-    public GameObject bulletPrefab;
-    public WeaponObjects[] weaponList;
     public Transform gunTip;
+    public WeapoInformation[] weapons;
+    public WeaponSelect weaponSelect;
 
     [Header("Crosshair Settings")]
     public Texture2D crosshairImage;
 
-    public enum Guns { Pistol }
-    public Guns currentWeapon;
-
     private float timer;
-
-    private void Start()
-    {
-        ChangeWeapon(0);
-    }
 
     void OnEnable()
     {
-        timer = Time.realtimeSinceStartup + (1 / weaponList[(int)currentWeapon].firerate);
+        timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.weaponSelected].firerate);
     }
 
     public void Shoot()
     {
-        print("shoot");
         if (timer < Time.realtimeSinceStartup)
         {
-            print("Shooting");
-            timer = Time.realtimeSinceStartup + (1 / weaponList[(int)currentWeapon].firerate);
-            Ray ray = new Ray(cameraTransform.position, cameraTransform.forward * 50);
-            if (Physics.Raycast(ray, out RaycastHit hit, 200))
+            if (weapons[weaponSelect.weaponSelected].currentAmmoInMag > 0)
             {
-                gunTip.LookAt(hit.point);
+                weapons[weaponSelect.weaponSelected].currentAmmoInMag--;
+
+                timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.weaponSelected].firerate);
+
+                //Hipfire Calculations
+                //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
+                //randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
+                //gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
+
+                GameObject bullet = ObjectPooler.Instance.GetGameObject(0);
+                bullet.transform.position = gunTip.transform.position;
+                bullet.transform.rotation = gunTip.transform.rotation;
+                bullet.GetComponent<Bullet>().StartBullet(weapons[weaponSelect.weaponSelected].bulletSpeed, weapons[weaponSelect.weaponSelected].damage, true);
+
+                bullet.SetActive(true);
             }
-            CmdShootOnServer();
+            else
+            {
+                //Play Click Sound Effect
+            }
         }
     }
 
-    public void StartADS()
+    public void Reload()
     {
-
-    }
-
-    public void StopADS()
-    {
-
-    }
-
-    public void ChangeWeapon(int i)
-    {
-        currentWeapon = (Guns)i;
-
-        Transform parentTransform = weaponList[(int)currentWeapon].model.transform;
-        foreach (Transform child in parentTransform) 
+        if (weapons[weaponSelect.weaponSelected].reserveAmmo <= 0)
         {
-            if (child.CompareTag("GunTip")) 
-            { 
-                weaponList[(int)currentWeapon].gunTipTransform = child;
-                print(child.name);
-                break;
+            //No Ammo
+        }
+        else if (weapons[weaponSelect.weaponSelected].reserveAmmo > weapons[weaponSelect.weaponSelected].maxAmmoInMag)
+        {
+            weapons[weaponSelect.weaponSelected].reserveAmmo += weapons[weaponSelect.weaponSelected].currentAmmoInMag;
+
+            weapons[weaponSelect.weaponSelected].reserveAmmo -= weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+            weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+        }
+        else
+        {
+            weapons[weaponSelect.weaponSelected].reserveAmmo += weapons[weaponSelect.weaponSelected].currentAmmoInMag;
+            if (weapons[weaponSelect.weaponSelected].reserveAmmo > weapons[weaponSelect.weaponSelected].maxAmmoInMag)
+            {
+                weapons[weaponSelect.weaponSelected].reserveAmmo -= weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+                weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+            }
+            else
+            {
+                weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].reserveAmmo;
+                weapons[weaponSelect.weaponSelected].reserveAmmo = 0;
             }
         }
-
-    }
-
-    [Command]
-    public void CmdShootOnServer()
-    {
-        //GameObject bullet = ObjectPooler.Instance.GetGameObject(1);
-        //bullet.transform.position = gunTip.position;
-        //bullet.transform.rotation = gunTip.rotation;
-        //bullet.GetComponent<Bullet>().StartBullet(weaponList[(int)currentWeapon].bulletSpeed, weaponList[(int)currentWeapon].damage, false, true);
-        //bullet.SetActive(true);
-
-
-        GameObject bullet = Instantiate(bulletPrefab, gunTip.position, gunTip.rotation);
-        bullet.GetComponent<Bullet>().StartBullet(weaponList[(int)currentWeapon].bulletSpeed, weaponList[(int)currentWeapon].damage, false, true);
-        Destroy(bullet, 5);
-        NetworkServer.Spawn(bullet);
     }
 }

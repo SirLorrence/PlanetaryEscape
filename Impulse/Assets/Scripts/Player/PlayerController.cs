@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	public float sensitivityY, sensitivityX;
 	public Transform camera;
 	public Transform camPivot;
+	public PlayerShoot playerShoot;
 
 	[Header("Speed Settings")] public float sprintMult = 1.5f;
 	public float airSpeedMult = 0.25f;
@@ -28,7 +29,6 @@ public class PlayerController : MonoBehaviour
 
 	[SerializeField] private bool readyToJump = true;
 	[SerializeField] private bool grounded;
-	[SerializeField] private int currentJumpsRemaining = 1;
 
 
 	[Header("Crouch Settings")] public float slideForce = 400;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 	public PlayerActions playerActions;
 
 	private float x, z, pitchRotation, yawRotation, camClamp = -60;
-	public bool canJump, isSprinting, isCrouching, isShooting, ADS;
+	public bool canJump, isSprinting, isCrouching, isShooting, ADS, inputReload, inputShoot;
 
 	//Sliding
 	private Vector3 normalVector = Vector3.up;
@@ -88,6 +88,9 @@ public class PlayerController : MonoBehaviour
 
 		playerActions.PlayerControls.Look.performed += ctx => inputLook = ctx.ReadValue<Vector2>();
 		playerActions.PlayerControls.Look.canceled += ctx => inputLook = Vector2.zero;
+
+		playerActions.PlayerControls.Reload.performed += ctx => inputReload = ctx.ReadValue<bool>();
+		playerActions.PlayerControls.Reload.performed += ctx => inputReload = false;
 	}
 
 	void Start() {
@@ -99,7 +102,6 @@ public class PlayerController : MonoBehaviour
 		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
-		currentJumpsRemaining = amountOfAirJumps;
 	}
 
 	// public void OnMovement(InputAction.CallbackContext value) {
@@ -110,27 +112,18 @@ public class PlayerController : MonoBehaviour
 	private void FixedUpdate() {
 		//Apply forces to move player
 		Movement();
+		Shoot();
+		Reload();
 	}
 
+	private void Shoot()
+    {
+		if (Mouse.current.leftButton.isPressed) playerShoot.Shoot();
+    }
 
-	// Gets User Input from the Input Manager
-	public void UpdatePlayer(float x, float z, bool jumping, bool crouching, bool sprinting, bool shooting,
-	                         bool startCrouch, bool stopCrouch, bool reload, bool aiming) {
-		// this.x = x;
-		// this.z = z;
-		canJump = jumping;
-		isCrouching = crouching;
-		isSprinting = sprinting;
-		ADS = aiming;
-		// this.shooting = shooting;
-
-		//Crouching
-		if (startCrouch) StartCrouch();
-		if (stopCrouch) StopCrouch();
-
-		// if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward);
-		// if (reload) GlobalShootingSystem.Instance.Reload(gun);
-		Movement();
+	private void Reload()
+	{
+		if (Keyboard.current.rKey.isPressed) playerShoot.Reload();
 	}
 
 	private void LateUpdate() {
@@ -138,19 +131,8 @@ public class PlayerController : MonoBehaviour
 		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
-		// if inverse positive Y
+		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
-	}
-
-	private void StartCrouch() {
-		isCrouching = true;
-		if (grounded && rb.velocity.magnitude > 0.5f) {
-			rb.AddForce(transform.forward * slideForce);
-		}
-	}
-
-	private void StopCrouch() {
-		isCrouching = false;
 	}
 
 	public void AnimationHandler() {
@@ -163,7 +145,7 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void Movement() {
-		AnimationHandler();
+		//AnimationHandler();
 		AddGravity();
 		SpeedHandler();
 		CrouchColliderHandler();
@@ -175,7 +157,6 @@ public class PlayerController : MonoBehaviour
 
 		ApplyFriction(x, z, mag);
 		if (readyToJump && canJump) Jump();
-
 
 		//If sliding down a ramp, add force down so player stays grounded and builds speed
 		if (isCrouching && grounded && readyToJump) {
@@ -192,7 +173,7 @@ public class PlayerController : MonoBehaviour
 		//For Change In Movement
 		float multiplier = 1f, multiplierV = 1f;
 
-		// // Reduce Movement in air
+		// Reduce Movement in air
 		if (!grounded) {
 			multiplier = airSpeedMult;
 			multiplierV = airSpeedMult;
