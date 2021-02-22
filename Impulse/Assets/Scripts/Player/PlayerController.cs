@@ -1,29 +1,26 @@
 using System;
 using UnityEngine;
 using Mirror;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-
-	[Header("Player Information")] 
-  public int playerNum = 0;
+	[Header("Player Information")] public int playerNum = 0;
 	public float sensitivityY, sensitivityX;
 	public Transform camera;
 	public Transform camPivot;
 
-	[Header("Speed Settings")] 
-  public float sprintMult = 1.5f;
+	[Header("Speed Settings")] public float sprintMult = 1.5f;
 	public float airSpeedMult = 0.25f;
 
-	[Header("Friction Settings")] 
-  public float counterMovement = 0.10f;
+	[Header("Friction Settings")] public float counterMovement = 0.10f;
 	private float threshold = 0.01f;
 	public float maxSlopeAngle = 35f;
 
 
-	[Header("Jump Settings")] 
-  public float jumpCooldown = 0.25f;
+	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
 	public float jumpForce = 550f;
 	public float gravityForce = 20;
 	public int amountOfAirJumps = 2;
@@ -34,12 +31,10 @@ public class PlayerController : MonoBehaviour
 	[SerializeField] private int currentJumpsRemaining = 1;
 
 
-	[Header("Crouch Settings")] 
-  public float slideForce = 400;
+	[Header("Crouch Settings")] public float slideForce = 400;
 	public float slideCounterMovement = 0.2f;
 
-	[Header("Speed Settings")] 
-  public float moveSpeed = 5000;
+	[Header("Speed Settings")] public float moveSpeed = 5000;
 	public float maxSpeed;
 	public float maxWalkSpeed = 10;
 	public float maxSprintSpeed = 20;
@@ -50,6 +45,8 @@ public class PlayerController : MonoBehaviour
 
 
 	//Input
+	// public PlayerInput playerInput;
+	public PlayerActions playerActions;
 
 	private float x, z, pitchRotation, yawRotation, camClamp = -60;
 	public bool canJump, isSprinting, isCrouching, isShooting, ADS;
@@ -59,7 +56,10 @@ public class PlayerController : MonoBehaviour
 
 	//movement variables
 	private Rigidbody rb;
-	private Vector3 movement;
+
+	// private Vector3 movement;
+	private Vector2 inputMovement;
+	private Vector2 inputLook;
 
 	//animation ref 
 	public BodyAnimation fullBodyAnimation;
@@ -81,27 +81,43 @@ public class PlayerController : MonoBehaviour
 
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
+		playerActions = new PlayerActions();
+
+		playerActions.PlayerControls.Move.performed += ctx => inputMovement = ctx.ReadValue<Vector2>();
+		playerActions.PlayerControls.Move.canceled += ctx => inputMovement = Vector2.zero;
+
+		playerActions.PlayerControls.Look.performed += ctx => inputLook = ctx.ReadValue<Vector2>();
+		playerActions.PlayerControls.Look.canceled += ctx => inputLook = Vector2.zero;
+	}
+
+	void Start() {
 		fullBodyAnimation = GetComponent<BodyAnimation>();
 		collider = GetComponent<CapsuleCollider>();
 		colliderCenterScale = collider.center.y;
 		colliderHeight = collider.height;
-		//
-		// crouchBool = anim.GetBool(IsCrouch);
-		// slideBool = anim.GetBool(IsSliding);
-	}
 
-	void Start() {
 		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
 		Cursor.lockState = CursorLockMode.Locked;
 		Cursor.visible = false;
 		currentJumpsRemaining = amountOfAirJumps;
 	}
 
+	// public void OnMovement(InputAction.CallbackContext value) {
+	// 	Vector2 inputMovement = value.ReadValue<Vector2>();
+	// 	movement = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
+	// }
+
+	private void FixedUpdate() {
+		//Apply forces to move player
+		Movement();
+	}
+
+
 	// Gets User Input from the Input Manager
 	public void UpdatePlayer(float x, float z, bool jumping, bool crouching, bool sprinting, bool shooting,
 	                         bool startCrouch, bool stopCrouch, bool reload, bool aiming) {
-		this.x = x;
-		this.z = z;
+		// this.x = x;
+		// this.z = z;
 		canJump = jumping;
 		isCrouching = crouching;
 		isSprinting = sprinting;
@@ -118,8 +134,8 @@ public class PlayerController : MonoBehaviour
 	}
 
 	private void LateUpdate() {
-		pitchRotation += Input.GetAxisRaw("Mouse X") * sensitivityY;
-		yawRotation += Input.GetAxisRaw("Mouse Y")   * sensitivityX;
+		pitchRotation += inputLook.x * sensitivityY;
+		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 		// if inverse positive Y
@@ -138,13 +154,12 @@ public class PlayerController : MonoBehaviour
 	}
 
 	public void AnimationHandler() {
-		fullBodyAnimation.MovementAnim(x, z);
+		fullBodyAnimation.MovementAnim(inputMovement.x, inputMovement.y);
 		fullBodyAnimation.CrouchAnim(isCrouching);
 		fullBodyAnimation.InAirAnim(grounded);
 		fullBodyAnimation.SprintAnim((grounded && !ADS) ? isSprinting : false); //cancels sprint while in air and aiming
 		fullBodyAnimation.AimDownAnim(ADS);
 		// fullBodyAnimation.ReloadAnim(reloa);
-		
 	}
 
 	private void Movement() {
@@ -155,7 +170,6 @@ public class PlayerController : MonoBehaviour
 		grounded = GroundCheck();
 
 		//Find actual velocity relative to where player is looking
-
 		Vector2 mag = FindVelRelativeToLook();
 		float xMag = mag.x, yMag = mag.y;
 
@@ -193,8 +207,9 @@ public class PlayerController : MonoBehaviour
 		if (grounded && isCrouching) multiplierV = 0f;
 
 		//Apply forces to move player
-		rb.AddForce(transform.forward * z * moveSpeed * Time.deltaTime * multiplier * multiplierV);
-		rb.AddForce(transform.right   * x * moveSpeed * Time.deltaTime * multiplier);
+		
+		rb.AddForce(transform.forward * inputMovement.y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
+		rb.AddForce(transform.right   * inputMovement.x * moveSpeed * Time.deltaTime * multiplier);
 	}
 
 
@@ -281,6 +296,14 @@ public class PlayerController : MonoBehaviour
 			collider.center = new Vector3(0, colliderCenterScale, 0);
 			collider.height = colliderHeight;
 		}
+	}
+
+	private void OnEnable() {
+		playerActions.PlayerControls.Enable();
+	}
+
+	private void OnDisable() {
+		playerActions.PlayerControls.Disable();
 	}
 
 	private void OnDrawGizmosSelected() {
