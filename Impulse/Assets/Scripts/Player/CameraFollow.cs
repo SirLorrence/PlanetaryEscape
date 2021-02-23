@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Unity.Mathematics;
-using UnityEditor.IMGUI.Controls;
 
 public class CameraFollow : NetworkBehaviour
 {
