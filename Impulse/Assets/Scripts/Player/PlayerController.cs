@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
 	#region Fields
 
@@ -65,7 +65,9 @@ public class PlayerController : MonoBehaviour
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
 		playerActions = new PlayerActions();
+	}
 
+	public override void OnStartAuthority() {
 		//movement input
 		playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
 		playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour
 		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
 	}
+
 
 	void Start() {
 		fullBodyAnimation = GetComponent<BodyAnimation>();
