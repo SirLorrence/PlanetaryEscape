@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
 	[Header("Player Information")] public int playerNum = 0;
 	public float sensitivityY, sensitivityX;
@@ -81,16 +81,7 @@ public class PlayerController : MonoBehaviour
 
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
-		playerActions = new PlayerActions();
-
-		playerActions.PlayerControls.Move.performed += ctx => inputMovement = ctx.ReadValue<Vector2>();
-		playerActions.PlayerControls.Move.canceled += ctx => inputMovement = Vector2.zero;
-
-		playerActions.PlayerControls.Look.performed += ctx => inputLook = ctx.ReadValue<Vector2>();
-		playerActions.PlayerControls.Look.canceled += ctx => inputLook = Vector2.zero;
-
-		playerActions.PlayerControls.Reload.performed += ctx => inputReload = ctx.ReadValue<bool>();
-		playerActions.PlayerControls.Reload.performed += ctx => inputReload = false;
+		playerActions = new PlayerActions();     
 	}
 
 	void Start() {
@@ -104,12 +95,28 @@ public class PlayerController : MonoBehaviour
 		Cursor.visible = false;
 	}
 
-	// public void OnMovement(InputAction.CallbackContext value) {
-	// 	Vector2 inputMovement = value.ReadValue<Vector2>();
-	// 	movement = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
-	// }
+    // public void OnMovement(InputAction.CallbackContext value) {
+    // 	Vector2 inputMovement = value.ReadValue<Vector2>();
+    // 	movement = new Vector3(inputMovement.x, 0, inputMovement.y).normalized;
+    // }
 
-	private void FixedUpdate() {
+    public override void OnStartAuthority()
+    {
+		gameObject.GetComponent<NetworkAnimator>().enabled = false;
+
+		playerActions.PlayerControls.Move.performed += ctx => inputMovement = ctx.ReadValue<Vector2>();
+		playerActions.PlayerControls.Move.canceled += ctx => inputMovement = Vector2.zero;
+
+		playerActions.PlayerControls.Look.performed += ctx => inputLook = ctx.ReadValue<Vector2>();
+		playerActions.PlayerControls.Look.canceled += ctx => inputLook = Vector2.zero;
+
+		playerActions.PlayerControls.Reload.performed += ctx => inputReload = ctx.ReadValue<bool>();
+		playerActions.PlayerControls.Reload.performed += ctx => inputReload = false;
+
+		base.OnStartAuthority();
+    }
+
+    private void FixedUpdate() {
 		//Apply forces to move player
 		Movement();
 		Shoot();
