@@ -8,6 +8,8 @@ TagManager:
   - Killbox
   - GunTip
   - Cover
+  - Arms
+  - NetworkedBody
   layers:
   - Default
   - TransparentFX

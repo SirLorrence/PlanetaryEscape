@@ -11094,7 +11094,7 @@ GameObject:
   - component: {fileID: 2998717978547588723}
   m_Layer: 0
   m_Name: FPS Arms Holder
-  m_TagString: Untagged
+  m_TagString: Arms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22796,7 +22796,7 @@ GameObject:
   - component: {fileID: 8472323997202435048}
   m_Layer: 0
   m_Name: Outter Body
-  m_TagString: Untagged
+  m_TagString: NetworkedBody
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

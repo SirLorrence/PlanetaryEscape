@@ -32,7 +32,7 @@ class SteamStatsAndAchievements : MonoBehaviour
 	// Current Stat details
 	private int m_nCurrentKills;
 	private double m_flCurrentTimeInGameSeconds;
-	private double m_ulTickCountGameStart;
+	private double m_ulTimeAtGameStart;
 
 	// Persisted Stat details
 	private int m_nTotalGamesPlayed;
@@ -169,25 +169,22 @@ class SteamStatsAndAchievements : MonoBehaviour
 		if (!m_bStatsValid)
 			return;
 
-		if (eNewState == EClientGameState.k_EClientGameActive)
+		if (eNewState == EClientGameState.k_EClientGameAlive)
 		{
 			// Reset per-game stats
 			m_nCurrentKills = 0;
-			m_flCurrentTimeInGameSeconds = Time.time;
+			m_ulTimeAtGameStart = Time.time;
 		}
-		else if (eNewState == EClientGameState.k_EClientGameWinner || eNewState == EClientGameState.k_EClientGameLoser)
+		else if (eNewState == EClientGameState.k_EClientGameOver)
 		{
-			if (eNewState == EClientGameState.k_EClientGameWinner)
-			{
-				m_nTotalNumKills++;
-			}
-			else
-			{
-				m_nMaxKills++;
-			}
+			m_nTotalNumKills += m_nCurrentKills;
+	
 
 			// Tally games
 			m_nTotalGamesPlayed++;
+
+			// Calc game duration
+			m_flCurrentTimeInGameSeconds = Time.time - m_ulTimeAtGameStart;
 
 			// Accumulate Time
 			m_flTotalTimeSurvived += (int)m_flCurrentTimeInGameSeconds;
@@ -196,8 +193,7 @@ class SteamStatsAndAchievements : MonoBehaviour
 			if (m_nCurrentKills > m_nMaxKills)
 				m_nMaxKills = m_nCurrentKills;
 
-			// Calc game duration
-			m_flCurrentTimeInGameSeconds = Time.time - m_ulTickCountGameStart;
+			
 
 			// We want to update stats the next frame.
 			m_bStoreStats = true;

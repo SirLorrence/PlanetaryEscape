@@ -91,8 +91,6 @@ public class PlayerController : NetworkBehaviour
 		colliderHeight = collider.height;
 
 		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 	}
 
     // public void OnMovement(InputAction.CallbackContext value) {
@@ -288,10 +286,14 @@ public class PlayerController : NetworkBehaviour
 
 	private void OnEnable() {
 		playerActions.PlayerControls.Enable();
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	}
 
 	private void OnDisable() {
 		playerActions.PlayerControls.Disable();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	private void OnDrawGizmosSelected() {
