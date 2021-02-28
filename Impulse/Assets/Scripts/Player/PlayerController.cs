@@ -134,7 +134,7 @@ public class PlayerController : NetworkBehaviour
 		//for keyboard, can be used along side on the input system key
 		if (Keyboard.current.digit1Key.isPressed) wSwitch = 0;
 		if (Keyboard.current.digit2Key.isPressed) wSwitch = 1;
-		
+
 		var weaponSelected = (wSwitch % weaponSelect.weaponCount);
 
 		switch (weaponSelected) {
@@ -160,6 +160,9 @@ public class PlayerController : NetworkBehaviour
 		//Increased Movement if Sprinting 
 		if (isGrounded && isSprinting && !isCrouching && !ADS) movementAction = MovementAction.Running;
 
+		// Sprint forward if the input is above the threshold 
+		if (isSprinting) isSprinting = (inputMovement.y >= 0.7);
+		
 		// Movement while sliding
 		if (isGrounded && isCrouching) movementAction = MovementAction.Crouching;
 
