@@ -20,18 +20,18 @@ public class PlayerShoot : NetworkBehaviour
 
     void OnEnable()
     {
-        timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.weaponSelected].firerate);
+        timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
     }
 
     public void Shoot()
     {
         if (timer < Time.realtimeSinceStartup)
         {
-            if (weapons[weaponSelect.weaponSelected].currentAmmoInMag > 0)
+            if (weapons[weaponSelect.WeaponSelected].currentAmmoInMag > 0)
             {
-                weapons[weaponSelect.weaponSelected].currentAmmoInMag--;
+                weapons[weaponSelect.WeaponSelected].currentAmmoInMag--;
 
-                timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.weaponSelected].firerate);
+                timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
 
                 //Hipfire Calculations
                 //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
@@ -41,7 +41,7 @@ public class PlayerShoot : NetworkBehaviour
                 GameObject bullet = ObjectPooler.Instance.GetGameObject(0);
                 bullet.transform.position = gunTip.transform.position;
                 bullet.transform.rotation = gunTip.transform.rotation;
-                bullet.GetComponent<Bullet>().StartBullet(weapons[weaponSelect.weaponSelected].bulletSpeed, weapons[weaponSelect.weaponSelected].damage, true);
+                bullet.GetComponent<Bullet>().StartBullet(weapons[weaponSelect.WeaponSelected].bulletSpeed, weapons[weaponSelect.WeaponSelected].damage, true);
 
                 bullet.SetActive(true);
             }
@@ -54,29 +54,29 @@ public class PlayerShoot : NetworkBehaviour
 
     public void Reload()
     {
-        if (weapons[weaponSelect.weaponSelected].reserveAmmo <= 0)
+        if (weapons[weaponSelect.WeaponSelected].reserveAmmo <= 0)
         {
             //No Ammo
         }
-        else if (weapons[weaponSelect.weaponSelected].reserveAmmo > weapons[weaponSelect.weaponSelected].maxAmmoInMag)
+        else if (weapons[weaponSelect.WeaponSelected].reserveAmmo > weapons[weaponSelect.WeaponSelected].maxAmmoInMag)
         {
-            weapons[weaponSelect.weaponSelected].reserveAmmo += weapons[weaponSelect.weaponSelected].currentAmmoInMag;
+            weapons[weaponSelect.WeaponSelected].reserveAmmo += weapons[weaponSelect.WeaponSelected].currentAmmoInMag;
 
-            weapons[weaponSelect.weaponSelected].reserveAmmo -= weapons[weaponSelect.weaponSelected].maxAmmoInMag;
-            weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+            weapons[weaponSelect.WeaponSelected].reserveAmmo -= weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
+            weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
         }
         else
         {
-            weapons[weaponSelect.weaponSelected].reserveAmmo += weapons[weaponSelect.weaponSelected].currentAmmoInMag;
-            if (weapons[weaponSelect.weaponSelected].reserveAmmo > weapons[weaponSelect.weaponSelected].maxAmmoInMag)
+            weapons[weaponSelect.WeaponSelected].reserveAmmo += weapons[weaponSelect.WeaponSelected].currentAmmoInMag;
+            if (weapons[weaponSelect.WeaponSelected].reserveAmmo > weapons[weaponSelect.WeaponSelected].maxAmmoInMag)
             {
-                weapons[weaponSelect.weaponSelected].reserveAmmo -= weapons[weaponSelect.weaponSelected].maxAmmoInMag;
-                weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].maxAmmoInMag;
+                weapons[weaponSelect.WeaponSelected].reserveAmmo -= weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
+                weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
             }
             else
             {
-                weapons[weaponSelect.weaponSelected].currentAmmoInMag = weapons[weaponSelect.weaponSelected].reserveAmmo;
-                weapons[weaponSelect.weaponSelected].reserveAmmo = 0;
+                weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].reserveAmmo;
+                weapons[weaponSelect.WeaponSelected].reserveAmmo = 0;
             }
         }
     }

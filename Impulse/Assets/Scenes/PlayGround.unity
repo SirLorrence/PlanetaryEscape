@@ -1212,6 +1212,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 462980441}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &271199337 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6516277835154013132, guid: 17ac810e83ac35b43888cc6f7092be66,
+    type: 3}
+  m_PrefabInstance: {fileID: 945868319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &279611834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3699,6 +3705,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 743843443}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &756102786 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6516277835671607228, guid: 17ac810e83ac35b43888cc6f7092be66,
+    type: 3}
+  m_PrefabInstance: {fileID: 945868319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &756102789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756102786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reserveAmmo: 0
+  currentAmmoInMag: 0
+  isFullAuto: 1
+  maxAmmoInMag: 10
+  maxReserveAmmo: 50
+  bulletSpeed: 10
+  damage: 1
+  firerate: 2
 --- !u!1001 &762673284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4172,9 +4204,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6516277836305253453, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253454, guid: 17ac810e83ac35b43888cc6f7092be66,
         type: 3}
       propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516277836305253454, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: localPlayer
+      value: 
+      objectReference: {fileID: 1314177872}
+    - target: {fileID: 6516277836305253454, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: networkedPlayer
+      value: 
+      objectReference: {fileID: 271199337}
+    - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: ADS
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
@@ -4184,8 +4236,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
         type: 3}
+      propertyPath: playerShoot
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
       propertyPath: maxWalkSpeed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: sensitivityX
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
+        type: 3}
+      propertyPath: sensitivityY
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253455, guid: 17ac810e83ac35b43888cc6f7092be66,
         type: 3}
@@ -4252,7 +4319,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6516277836305253454, guid: 17ac810e83ac35b43888cc6f7092be66, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 17ac810e83ac35b43888cc6f7092be66, type: 3}
 --- !u!1001 &945963691
 PrefabInstance:
@@ -4420,6 +4488,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 89437696}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1109359291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6516277836283247336, guid: 17ac810e83ac35b43888cc6f7092be66,
+    type: 3}
+  m_PrefabInstance: {fileID: 945868319}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1109359294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109359291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reserveAmmo: 0
+  currentAmmoInMag: 0
+  isFullAuto: 0
+  maxAmmoInMag: 10
+  maxReserveAmmo: 50
+  bulletSpeed: 10
+  damage: 1
+  firerate: 2
 --- !u!4 &1138454851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4957478770538164, guid: 46e18d94e2668c5479029197e6379a8e,
@@ -5377,6 +5471,12 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1314177872 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3009555160851060843, guid: 17ac810e83ac35b43888cc6f7092be66,
+    type: 3}
+  m_PrefabInstance: {fileID: 945868319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1323788419
 PrefabInstance:
   m_ObjectHideFlags: 0
