@@ -18,7 +18,7 @@ public class Player : NetworkBehaviour
 
 	private GameObject[] playerObjects = new GameObject[0];
 	private int spectatorIndex = 0;
-	SteamStatsAndAchievements m_StatsAndAchievements;
+	//public SteamStatsAndAchievements m_StatsAndAchievements;
 
 	// Start is called before the first frame update
 	void Start() {
@@ -30,12 +30,12 @@ public class Player : NetworkBehaviour
 
 	private void OnEnable()
 	{
-		if (m_StatsAndAchievements != null)
-		{
-			m_StatsAndAchievements = FindObjectOfType<SteamStatsAndAchievements>();
-		}
+		//if (m_StatsAndAchievements != null)
+		//{
+			//m_StatsAndAchievements = FindObjectOfType<SteamStatsAndAchievements>();
+		//}
 
-		m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameAlive);
+		//m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameAlive);
 	}
 
 	public void BeginSpectateNext()
