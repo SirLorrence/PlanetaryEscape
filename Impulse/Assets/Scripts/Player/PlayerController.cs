@@ -68,6 +68,9 @@ public class PlayerController : NetworkBehaviour
 	}
 
 	public override void OnStartAuthority() {
+  
+    gameObject.GetComponent<NetworkAnimator>().enabled = false;
+  
 		//movement input
 		playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
 		playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
@@ -82,6 +85,8 @@ public class PlayerController : NetworkBehaviour
 		playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
 		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+    
+    base.OnStartAuthority();
 	}
 
 
@@ -93,14 +98,11 @@ public class PlayerController : NetworkBehaviour
 		colliderCenterScale = mCollider.center.y;
 		colliderHeight = mCollider.height;
 		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 	}
-
 
 	private void FixedUpdate() {
 		UpdatePlayer();
-	}
+  }
 
 	private void LateUpdate() {
 		UpdateCamera();
@@ -220,6 +222,18 @@ public class PlayerController : NetworkBehaviour
 			mCollider.center = new Vector3(0, colliderCenterScale, 0);
 			mCollider.height = colliderHeight;
 		}
+	}
+
+	private void OnEnable() {
+		playerActions.PlayerControls.Enable();
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
+
+	private void OnDisable() {
+		playerActions.PlayerControls.Disable();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
 
 	private void OnDrawGizmosSelected() {
