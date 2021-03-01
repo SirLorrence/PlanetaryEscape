@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Mirror;
 using System.Collections;
 
-public class ObjectPooler : NetworkBehaviour
+public class ObjectPooler : MonoBehaviour
 {
     public bool debug = false;
     [Header("GameObjects to be Pooled")] public GameObjectToBePooled[] gameObjectsToBePooled;
@@ -43,10 +42,6 @@ public class ObjectPooler : NetworkBehaviour
                 go.SetActive(false);
                 go.transform.SetParent(transform);
                 pooledGameObjects.Add(go);
-                if (gameObjectsToBePooled[i].isNetworked)
-                    CmdSpawnBulletOnServer(go);
-
-
             }
         }
         isInitialized = true;
@@ -102,11 +97,6 @@ public class ObjectPooler : NetworkBehaviour
         go.SetActive(false);
         go.transform.position = Vector3.zero;
     }
-    [Command]
-    public void CmdSpawnBulletOnServer(GameObject go)
-    {
-        NetworkServer.Spawn(go);
-    }
 }
 
 [Serializable]
@@ -118,6 +108,5 @@ public struct GameObjectToBePooled
     public GameObject gameObjectToBePooled;
 
     [Header("Settings")] 
-    public bool isNetworked;
     public bool loadMoreIfNoneLeft;
 }
