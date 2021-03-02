@@ -18,17 +18,17 @@ public class Player : NetworkBehaviour
 
 	private GameObject[] playerObjects = new GameObject[0];
 	private int spectatorIndex = 0;
-	//public SteamStatsAndAchievements m_StatsAndAchievements;
+    //public SteamStatsAndAchievements m_StatsAndAchievements;
 
-	// Start is called before the first frame update
-	void Start() {
-		if (hasAuthority)
-			localPlayer.SetActive(true);
-		else
-			networkedPlayer.SetActive(true);
-	}
+    public override void OnStartAuthority()
+    {
+		localPlayer.SetActive(true);
+		networkedPlayer.SetActive(false);
 
-	private void OnEnable()
+		base.OnStartAuthority();
+    }
+
+    private void OnEnable()
 	{
 		//if (m_StatsAndAchievements != null)
 		//{
@@ -85,7 +85,6 @@ public class Player : NetworkBehaviour
 
 		Debug.Log("No Players availible to be spectated");
 	}
-
 
 	//-----------------------------------------------------------------------------
 	// Purpose: Testing

@@ -16,6 +16,8 @@ public class PlayerController : NetworkBehaviour
 	public PlayerShoot playerShoot;
 	public WeaponSelect weaponSelect;
 	public BodyAnimation fullBodyAnimation; // animation ref
+	public GameObject head;
+	public GameObject body;
 
 	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
 	public float jumpForce = 550f;
@@ -69,7 +71,7 @@ public class PlayerController : NetworkBehaviour
 
 	public override void OnStartAuthority() {
   
-    gameObject.GetComponent<NetworkAnimator>().enabled = false;
+		//gameObject.GetComponent<NetworkAnimator>().enabled = false;
   
 		//movement input
 		playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
@@ -108,15 +110,6 @@ public class PlayerController : NetworkBehaviour
 		UpdateCamera();
 	}
 
-	private void OnEnable() {
-		playerActions.PlayerControls.Enable();
-	}
-
-	private void OnDisable() {
-		playerActions.PlayerControls.Disable();
-	}
-
-
 	void UpdatePlayer() {
 		Movement();
 		WeaponSwitch();
@@ -128,8 +121,10 @@ public class PlayerController : NetworkBehaviour
 		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 	}
 
 	void WeaponSwitch() {
