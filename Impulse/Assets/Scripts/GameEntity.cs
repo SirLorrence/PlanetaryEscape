@@ -12,7 +12,6 @@ public class GameEntity : NetworkBehaviour
 
 
 	#region Health System
-
 	public virtual void SetHealth(int value) {
 		health = value;
 		maxHealth = value;

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace Enemy.States
 {
-	public class CombatState : NpcState
+	public class AttackState : NpcState
 	{
 		private Vector3 targetMovePoint;
 		private bool isDone;
@@ -59,7 +59,7 @@ namespace Enemy.States
 		// 	return path;
 		// }
 		
-		public CombatState(AIEntity aiEntity) : base(aiEntity) {
+		public AttackState(AIEntity aiEntity) : base(aiEntity) {
 			entity.detectionRadius += 10;
 			onEnter = true;
 		}

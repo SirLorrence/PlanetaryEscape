@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
@@ -107,6 +108,8 @@ public class PlayerController : GameEntity
 
 
 	void Start() {
+		SetHealth(100);
+		SetArmor(100);
 		fullBodyAnimation = GetComponent<BodyAnimation>();
 		weaponSelect = GetComponent<WeaponSelect>();
 
@@ -246,5 +249,17 @@ public class PlayerController : GameEntity
 
 	private void OnDrawGizmosSelected() {
 		if (mCollider != null) Gizmos.DrawSphere(mCollider.gameObject.transform.position, .5f);
+	}
+
+
+	private void OnGUI() {
+		GUILayout.BeginArea(new Rect(10, 10, 100, 250));
+		GUILayout.Box("Stats");
+		GUILayout.TextField("Armor: " + armor, 50);
+		GUILayout.TextField("Heath: " + health, 50);
+		GUILayout.TextField("Mag: "   + playerShoot.weapons[0].currentAmmoInMag, 100);
+		GUILayout.TextField("Ammo: "  + playerShoot.weapons[0].reserveAmmo, 100);
+
+		GUILayout.EndArea();
 	}
 }

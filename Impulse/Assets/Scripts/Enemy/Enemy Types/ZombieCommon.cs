@@ -9,7 +9,7 @@ namespace Enemy.Enemy_Types
 	{
 		public bool testDebug;
 		private void OnEnable() {
-			SetState(new IdleState(this));
+			SetState(new FollowState(this));
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponent<NavMeshAgent>();
 			animator = GetComponent<Animator>();
