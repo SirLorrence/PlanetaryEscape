@@ -1,16 +1,22 @@
-﻿using System;
+﻿using Enemy.States;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Enemy.Enemy_Types
 {
-	public class HeavyEnemy : AIEntity
+	[RequireComponent(typeof(NavMeshAgent))]
+	public class ZombieCommon : AIEntity
 	{
+		public bool testDebug;
 		private void OnEnable() {
+			SetState(new IdleState(this));
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponent<NavMeshAgent>();
 			animator = GetComponent<Animator>();
-			weapon = GetComponentInChildren<Weapons>();
+		}
+		public override void Update() {
+			
+			base.Update();
 		}
 	}
 }
