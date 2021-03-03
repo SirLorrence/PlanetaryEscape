@@ -806,6 +806,7 @@ namespace Mirror
 
             if (identity == null)
             {
+                Debug.Log(msg.isLocalPlayer + "   " + msg.position);
                 logger.LogError($"Could not spawn assetId={msg.assetId} scene={msg.sceneId:X} netId={msg.netId}");
                 return false;
             }

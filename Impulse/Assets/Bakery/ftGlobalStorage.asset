@@ -933,7 +933,292 @@ MonoBehaviour:
   - Assets/3DAssets/Props/ArmourPack.fbx
   - Assets/3DAssets/Props/HealthPickup.fbx
   - Assets/3DAssets/Props/Table.fbx
-  uvOverlapAssetList: 00000000000000000101000000000000010100000101000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff0000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000010100000000000000000000000000000000000000000000000000000000000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000101000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000001010000000000000101000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000001010000010100000000000000000000000000000000000001010000010100000101000001010000010100000000000001010000000000000101000000000000000000000101000001010000000000000000000000000000
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolWalk.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleShootcrouching.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleIdle.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleReloadcrouching.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolRun.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolJump.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleCrouchingidle.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolShootidle.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleReloadwalking.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleReloadrunning.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleReloadidle.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleRun.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleCrouchingwalk.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleWalk.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleJump.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleShootidle.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleShootmoving.fbx
+  - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolIdle.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol kneeling idle.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol kneel to stand.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run backward arc.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run backward arc (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol jump (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk backward arc (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run arc (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk backward.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk arc.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk backward arc.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol idle.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol strafe.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol walk arc (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/ybot.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol strafe (2).fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol stand to kneel.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol jump.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run arc.fbx
+  - Assets/Animation/Pistol_Handgun Locomotion Pack/pistol run backward.fbx
+  - Assets/Animation/Pistol Locomotion/pistol run.fbx
+  - Assets/Animation/Pistol Locomotion/pistol stand to kneel.fbx
+  - Assets/Animation/Pistol Locomotion/pistol strafe (2).fbx
+  - Assets/Animation/Pistol Locomotion/pistol strafe.fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk.fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk backward.fbx
+  - Assets/Animation/Pro Rifle Pack/walk backward left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching backward.fbx
+  - Assets/Animation/Pro Rifle Pack/walk backward right.fbx
+  - Assets/Animation/Pro Rifle Pack/run right.fbx
+  - Assets/Animation/Pro Rifle Pack/death from back headshot.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching right.fbx
+  - Assets/Animation/Pro Rifle Pack/idle crouching.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint forward left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching left.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint backward left.fbx
+  - Assets/Animation/Pro Rifle Pack/jump loop.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint forward right.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint backward right.fbx
+  - Assets/Animation/Pro Rifle Pack/death from the front.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching forward.fbx
+  - Assets/Animation/Pro Rifle Pack/run forward right.fbx
+  - Assets/Animation/Pro Rifle Pack/death crouching headshot front.fbx
+  - Assets/Animation/Pro Rifle Pack/walk forward right.fbx
+  - Assets/Animation/Pro Rifle Pack/jump down.fbx
+  - Assets/Animation/Pro Rifle Pack/death from the back.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching backward left.fbx
+  - Assets/Animation/Pro Rifle Pack/crouching turn 90 left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk forward.fbx
+  - Assets/Animation/Pro Rifle Pack/idle aiming.fbx
+  - Assets/Animation/Pro Rifle Pack/idle crouching aiming.fbx
+  - Assets/Animation/Pro Rifle Pack/death from right.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching backward right.fbx
+  - Assets/Animation/Pro Rifle Pack/turn 90 left.fbx
+  - Assets/Animation/Pro Rifle Pack/turn 90 right.fbx
+  - Assets/Animation/Pro Rifle Pack/walk forward left.fbx
+  - Assets/Animation/Pro Rifle Pack/run backward.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint forward.fbx
+  - Assets/Animation/Pro Rifle Pack/idle.fbx
+  - Assets/Animation/Pro Rifle Pack/walk left.fbx
+  - Assets/Animation/Pro Rifle Pack/run forward.fbx
+  - Assets/Animation/Pro Rifle Pack/crouching turn 90 right.fbx
+  - Assets/Animation/Pro Rifle Pack/death from front headshot.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint right.fbx
+  - Assets/Animation/Pro Rifle Pack/run backward left.fbx
+  - Assets/Animation/Pro Rifle Pack/run forward left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching forward left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk backward.fbx
+  - Assets/Animation/Pro Rifle Pack/jump up.fbx
+  - Assets/Animation/Pro Rifle Pack/walk right.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint left.fbx
+  - Assets/Animation/Pro Rifle Pack/walk crouching forward right.fbx
+  - Assets/Animation/Pro Rifle Pack/run backward right.fbx
+  - Assets/Animation/Pro Rifle Pack/run left.fbx
+  - Assets/Animation/Pro Rifle Pack/sprint backward.fbx
+  - Assets/Animation/Rifle Locomotion/walk backward left.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching backward.fbx
+  - Assets/Animation/Rifle Locomotion/walk backward right.fbx
+  - Assets/Animation/Rifle Locomotion/run right.fbx
+  - Assets/Animation/Rifle Locomotion/death from back headshot.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching right.fbx
+  - Assets/Animation/Rifle Locomotion/idle crouching.fbx
+  - Assets/Animation/Rifle Locomotion/sprint forward left.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching left.fbx
+  - Assets/Animation/Rifle Locomotion/sprint backward left.fbx
+  - Assets/Animation/Rifle Locomotion/jump loop.fbx
+  - Assets/Animation/Rifle Locomotion/sprint forward right.fbx
+  - Assets/Animation/Rifle Locomotion/sprint backward right.fbx
+  - Assets/Animation/Rifle Locomotion/death from the front.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching forward.fbx
+  - Assets/Animation/Rifle Locomotion/run forward right.fbx
+  - Assets/Animation/Rifle Locomotion/death crouching headshot front.fbx
+  - Assets/Animation/Rifle Locomotion/walk forward right.fbx
+  - Assets/Animation/Rifle Locomotion/jump down.fbx
+  - Assets/Animation/Rifle Locomotion/death from the back.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching backward left.fbx
+  - Assets/Animation/Rifle Locomotion/crouching turn 90 left.fbx
+  - Assets/Animation/Rifle Locomotion/walk forward.fbx
+  - Assets/Animation/Rifle Locomotion/idle aiming.fbx
+  - Assets/Animation/Rifle Locomotion/idle crouching aiming.fbx
+  - Assets/Animation/Rifle Locomotion/death from right.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching backward right.fbx
+  - Assets/Animation/Rifle Locomotion/turn 90 left.fbx
+  - Assets/Animation/Rifle Locomotion/turn 90 right.fbx
+  - Assets/Animation/Rifle Locomotion/walk forward left.fbx
+  - Assets/Animation/Rifle Locomotion/run backward.fbx
+  - Assets/Animation/Rifle Locomotion/sprint forward.fbx
+  - Assets/Animation/Rifle Locomotion/idle.fbx
+  - Assets/Animation/Rifle Locomotion/walk left.fbx
+  - Assets/Animation/Rifle Locomotion/run forward.fbx
+  - Assets/Animation/Rifle Locomotion/crouching turn 90 right.fbx
+  - Assets/Animation/Rifle Locomotion/death from front headshot.fbx
+  - Assets/Animation/Rifle Locomotion/sprint right.fbx
+  - Assets/Animation/Rifle Locomotion/run backward left.fbx
+  - Assets/Animation/Rifle Locomotion/run forward left.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching forward left.fbx
+  - Assets/Animation/Rifle Locomotion/walk backward.fbx
+  - Assets/Animation/Rifle Locomotion/jump up.fbx
+  - Assets/Animation/Rifle Locomotion/walk right.fbx
+  - Assets/Animation/Rifle Locomotion/sprint left.fbx
+  - Assets/Animation/Rifle Locomotion/walk crouching forward right.fbx
+  - Assets/Animation/Rifle Locomotion/run backward right.fbx
+  - Assets/Animation/Rifle Locomotion/run left.fbx
+  - Assets/Animation/Rifle Locomotion/sprint backward.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint backward left.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint backward right.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint backward.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint forward left.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint forward right.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint forward.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint left.fbx
+  - Assets/Animation/Rifle Locomotion/Sprinting/sprint right.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk backward left.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk backward right.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk backward.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk forward left.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk forward right.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk forward.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk left.fbx
+  - Assets/Animation/Rifle Locomotion/Walking/walk right.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching backward left.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching backward right.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching backward.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching forward left.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching forward right.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching forward.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching left.fbx
+  - Assets/Animation/Rifle Locomotion/Crouching/walk crouching right.fbx
+  - Assets/Animation/Pistol Locomotion/pistol run arc (2).fbx
+  - Assets/Animation/Pistol Locomotion/pistol run backward arc.fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk backward arc (2).fbx
+  - Assets/Animation/Pistol Locomotion/pistol run backward arc (2).fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk arc.fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk backward arc.fbx
+  - Assets/Animation/Pistol Locomotion/pistol run arc.fbx
+  - Assets/Animation/Pistol Locomotion/pistol walk arc (2).fbx
+  - Assets/Animation/Pistol Locomotion/pistol idle.fbx
+  - Assets/Animation/Rifle Locomotion/Reloading/Running Reload.fbx
+  - Assets/Animation/Rifle Locomotion/Reloading/Idle Reload.fbx
+  - Assets/Animation/Rifle Locomotion/Reloading/Walk Reload.fbx
+  - Assets/Animation/Rifle Locomotion/Reloading/Crouch Reload.fbx
+  - Assets/Animation/Rifle Locomotion/Walk Reload.fbx
+  - Assets/Animation/Fire/Rifle Fire.fbx
+  - Assets/Animation/Fire/Pistol Fire.fbx
+  - Assets/Animation/Fire/Shotgun Fire.fbx
+  - Assets/Animation/Fire/ybot@Gunplay.fbx
+  - Assets/Animation/Rifle Locomotion/Reloading/Shotgun Reload.fbx
+  - Assets/Animation/Reloading/Pistol Reload.fbx
+  - Assets/Animation/ybot@Breathing Idle.fbx
+  - Packages/com.unity.animation.rigging/Tests/Runtime/Assets/Dude_low.fbx
+  - Assets/Animation/Idle.fbx
+  - Assets/Animation/ybot@Running Slide.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Bullet_Prefab/ico_mesh.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Mags/Assault_Rifle_01_Mags/assault_rifle_01_mag_empty.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Bullets_&_Casings/small_bullet_casing.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Bullets_&_Casings/big_bullet.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Mags/Handgun_01_Mags/handgun_01_mag_empty.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Mags/Handgun_01_Mags/handgun_01_mag_full.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Mags/Assault_Rifle_01_Mags/assault_rifle_01_mag_full.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Arms/Handgun_01/arms_handgun_01.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Grenades/hand_grenade.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Tactical_Knife/tactical_knife.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Arms/Assault_Rifle_01/arms_assault_rifle_01.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Guns/Assault_Rifle_01/assault_rifle_01.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Bullets_&_Casings/big_bullet_casing.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Guns/Handgun_01/handgun_01.fbx
+  - Assets/Low Poly FPS Pack - Free (Sample)/Components/Meshes/Bullets_&_Casings/small_bullet.fbx
+  - Assets/Zombie Animations/zombie scream.fbx
+  - Assets/Zombie Animations/running crawl.fbx
+  - Assets/Zombie Animations/zombie run.fbx
+  - Assets/Zombie Animations/zombie attack.fbx
+  - Assets/Zombie Animations/zombie idle.fbx
+  - Assets/Zombie Animations/zombie biting.fbx
+  - Assets/Zombie Animations/zombie walk.fbx
+  - Assets/Zombie Animations/zombie dying.fbx
+  - Assets/Zombie Animations/zombie biting (2).fbx
+  - Assets/Zombie Animations/zombie death.fbx
+  - Assets/Zombie Animations/zombie crawl.fbx
+  - Assets/Zombie Animations/zombie neck bite.fbx
+  - Assets/Zombie Animations/zombiegirl_w_kurniawan.fbx
+  - Assets/Zombie Animations/zombie agonizing.fbx
+  - Assets/Zombie Animations/zombie reaction hit (2).fbx
+  - Assets/Zombie Animations/zombie attack 1.fbx
+  - Assets/Zombie Animations/walking.fbx
+  - Assets/Zombie Animations/zombie transition (2).fbx
+  - Assets/Zombie Animations/zombie kicking (2).fbx
+  - Assets/Zombie Animations/zombie idle 1.fbx
+  - Assets/Zombie Animations/zombie kicking.fbx
+  - Assets/Zombie Animations/zombie idle (4).fbx
+  - Assets/Zombie Animations/zombie headbutt.fbx
+  - Assets/Zombie Animations/zombiegirl_w_kurniawan 1.fbx
+  - Assets/Zombie Animations/zombie reaction hit.fbx
+  - Assets/Zombie Animations/zombie scratch idle.fbx
+  - Assets/Zombie Animations/zombie idle (2).fbx
+  - Assets/Zombie Animations/zombie idle (3).fbx
+  - Assets/Zombie Animations/zombie punching (2).fbx
+  - Assets/Zombie Animations/zombie stumbling.fbx
+  - Assets/Zombie Animations/zombie stand up (2).fbx
+  - Assets/Zombie Animations/zombie transition.fbx
+  - Assets/Zombie Animations/zombie stand up (3).fbx
+  - Assets/Zombie Animations/zombie stand up.fbx
+  - Assets/Zombie Animations/walking (2).fbx
+  - Assets/Zombie Animations/zombie turn.fbx
+  - Assets/Zombie Animations/zombie punching.fbx
+  - Assets/Zombie Animations/zombie running.fbx
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Headbutt.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Slap Left.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Walk.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Walk.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Scream.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Biting.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Aggro.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Slap Right.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Scream.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Idle.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Biting.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Worried.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Walk Aggro.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Walk Back.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Slap Right.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Death.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Walk Back.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Aggro.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Damage.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Run.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Slap Left.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Death.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Damage.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Neck Bite.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Turn Left.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Neck Bite.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Girl@Turn Right.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Turn Right.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Run.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Walk Aggro.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Headbutt.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Turn Left.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Idle.FBX
+  - Assets/Zombie Slaughter/Animation/Zombie Guy@Worried.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Girl 2 Mesh.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Girl 3 Mesh.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Guy 2 Mesh.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Guy 1 Mesh.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Guy 3 Mesh.FBX
+  - Assets/Zombie Slaughter/Demo Background.FBX
+  - Assets/Zombie Slaughter/Meshes/Zombie Girl 1 Mesh.FBX
+  uvOverlapAssetList: 00000000000000000101000000000000010100000101000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000ffffffff000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000001010000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000000000000010100000000000000000000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001010000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000001010000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010100000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000101000000000000010100000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000001010000000000000101000000000000000000000101000000000000010100000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   xatlasWarningShown: 0
   foundCompatibleSetup: 1
   gpuName: NVIDIA GeForce RTX 2080

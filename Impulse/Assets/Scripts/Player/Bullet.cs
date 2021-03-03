@@ -9,7 +9,7 @@ public class Bullet : MonoBehaviour
     [SerializeField]private float lifetime = 2f;
     [SerializeField] private float tracerDelay= 0.2f;
 
-    private bool hasTracer;
+    private bool hasTracer = false;
 
 
     private float lifetimeTimer = 0;
@@ -37,13 +37,12 @@ public class Bullet : MonoBehaviour
         partialExtent = minimumExtent * (1.0f - skinWidth);
         sqrMinimumExtent = minimumExtent * minimumExtent;
     }
-    public void StartBullet(float speed, float damage, bool canDamagePlayer, bool hasTracer) 
+    public void StartBullet(float speed, float damage, bool canDamagePlayer) 
     {
         this.speed = speed;
         this.damage = damage;
         this.canDamagePlayer = !canDamagePlayer;
         this.canDamageEnemy = canDamagePlayer;
-        this.hasTracer = hasTracer;
     }
 
     void FixedUpdate()

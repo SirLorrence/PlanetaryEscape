@@ -1,51 +1,114 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
+
+// Enum for possible game states on the client
+enum EClientGameState
+{
+	k_EClientGameAlive,
+	k_EClientGameDown,
+	k_EClientGameOver,
+};
+
 
 public class Player : NetworkBehaviour
 {
-    public PlayerController playerController;
-    public Vector3 currentRespawnPointPosition;
-    public Quaternion currentRespawnPointRotation;
+	public GameObject localPlayer;
+	public GameObject networkedPlayer;
 
-    [Header("Crosshair Settings")]
-    public Texture2D crosshairImage;
+	private GameObject[] playerObjects = new GameObject[0];
+	private int spectatorIndex = 0;
+    //public SteamStatsAndAchievements m_StatsAndAchievements;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void OnStartAuthority()
     {
-        currentRespawnPointPosition = gameObject.transform.position;
-        currentRespawnPointRotation = gameObject.transform.rotation;
-        float xMin = (Screen.width / 2) - (crosshairImage.width / 2);
-        float yMin = (Screen.height / 2) - (crosshairImage.height / 2);
-        //GUI.DrawTexture(new Rect(xMin, yMin, crosshairImage.width, crosshairImage.height), crosshairImage);
+		localPlayer.SetActive(true);
+		networkedPlayer.SetActive(false);
+
+		base.OnStartAuthority();
     }
 
-    [ClientCallback]
-    private void Update()
+    private void OnEnable()
+	{
+		//if (m_StatsAndAchievements != null)
+		//{
+			//m_StatsAndAchievements = FindObjectOfType<SteamStatsAndAchievements>();
+		//}
+
+		//m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameAlive);
+	}
+
+	public void BeginSpectateNext()
     {
-        if (hasAuthority)
+		//Ensures we have the reference to every player
+		if (NetworkServer.connections.Count != playerObjects.Length) playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < playerObjects.Length; i++)
         {
-            playerController.UpdatePlayer(
-                Input.GetAxis("Horizontal"),
-                Input.GetAxis("Vertical"),
-                Input.GetKeyDown(KeyCode.Space),
-                Input.GetKey(KeyCode.LeftControl),
-                Input.GetKey(KeyCode.LeftShift),
-                Input.GetKey(KeyCode.Mouse0),
-                Input.GetKeyDown(KeyCode.LeftControl),
-                Input.GetKeyUp(KeyCode.LeftControl),
-                Input.GetKeyDown(KeyCode.R),
-                Input.GetKeyDown(KeyCode.Mouse1),
-                Input.GetKeyUp(KeyCode.Mouse1));
-        }
-    }
-    public void ReturnToCheckpoint()
-    {
-        gameObject.transform.position = currentRespawnPointPosition;
-        gameObject.transform.rotation = currentRespawnPointRotation;
-        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-    }
+			//Increments the Spectator index
+			if (spectatorIndex < playerObjects.Length - 1) spectatorIndex++;
+			else spectatorIndex = 0;
 
+			//Checks if the 3rd person body on the selected player is active
+			if (playerObjects[spectatorIndex].transform.GetChild(1))
+			{
+				//Disables the Body and enables the FPS Camera
+				playerObjects[spectatorIndex].transform.GetChild(1).gameObject.SetActive(false);
+				playerObjects[spectatorIndex].transform.GetChild(0).gameObject.SetActive(true);
+			}
+		}
+		Debug.Log("No Players availible to be spectated");
+	}
+		
+
+
+	public void BeginSpectatePrevious()
+	{
+		//Ensures we have the reference to every player
+		if (NetworkServer.connections.Count != playerObjects.Length) playerObjects = GameObject.FindGameObjectsWithTag("Player");
+
+		for (int i = 0; i < playerObjects.Length; i++)
+		{
+			//Increments the Spectator index
+			if (spectatorIndex > 1) spectatorIndex--;
+			else spectatorIndex = playerObjects.Length - 1;
+
+			//Checks if the 3rd person body on the selected player is active
+			if (playerObjects[spectatorIndex].transform.GetChild(1))
+			{
+				//Disables the Body and enables the FPS Camera
+				playerObjects[spectatorIndex].transform.GetChild(1).gameObject.SetActive(false);
+				playerObjects[spectatorIndex].transform.GetChild(0).gameObject.SetActive(true);
+				break;
+			}
+		}
+
+		Debug.Log("No Players availible to be spectated");
+	}
+
+	//-----------------------------------------------------------------------------
+	// Purpose: Testing
+	//-----------------------------------------------------------------------------
+	//private void OnGUI()
+	//{
+	//	m_StatsAndAchievements.Render();
+	//	GUILayout.Space(10);
+
+	//	if (GUILayout.Button("Set State to Active"))
+	//	{
+	//		m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameActive);
+	//	}
+	//	if (GUILayout.Button("Set State to Winner"))
+	//	{
+	//		m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameWinner);
+	//	}
+	//	if (GUILayout.Button("Set State to Loser"))
+	//	{
+	//		m_StatsAndAchievements.OnGameStateChange(EClientGameState.k_EClientGameLoser);
+	//	}
+	//	if (GUILayout.Button("Add Distance Traveled +100"))
+	//	{
+	//		m_StatsAndAchievements.AddDistanceTraveled(100.0f);
+	//	}
+	//}
 }

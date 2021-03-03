@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - Killbox
   - GunTip
+  - Cover
+  - Arms
+  - NetworkedBody
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,7 @@ TagManager:
   - PostProcessing
   - PlayerLayer
   - Ground
-  - Cover
+  - Environment
   - 
   - 
   - 
