@@ -33,11 +33,6 @@ public class PlayerShoot : NetworkBehaviour
 
                 timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
 
-                //Hipfire Calculations
-                //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
-                //randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
-                //gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
-
                 GameObject bullet = ObjectPooler.Instance.GetGameObject(0);
                 bullet.transform.position = gunTip.transform.position;
                 bullet.transform.rotation = gunTip.transform.rotation;
