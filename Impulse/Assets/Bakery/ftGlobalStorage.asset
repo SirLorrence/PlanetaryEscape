@@ -910,6 +910,29 @@ MonoBehaviour:
   - Assets/PolygonPrototype/Models/SM_Buildings_Stairs_1x2_02.fbx
   - Assets/PolygonPrototype/Models/SM_Icon_Number_0_01.fbx
   - Assets/Animation/Ch44_nonPBR@Crouch Idle.fbx
+  - Assets/3DAssets/Level/LevelUnity_3.fbx
+  - Assets/3DAssets/Props/AmmoBox01.fbx
+  - Assets/3DAssets/Props/AmmoBox02.fbx
+  - Assets/3DAssets/Props/Barricade.fbx
+  - Assets/3DAssets/Props/Bench.fbx
+  - Assets/3DAssets/Props/Box01.fbx
+  - Assets/3DAssets/Props/Box02.fbx
+  - Assets/3DAssets/Props/Map03.fbx
+  - Assets/3DAssets/Props/EnterAtOwnRisk.fbx
+  - Assets/3DAssets/Props/StationSign.fbx
+  - Assets/3DAssets/Props/ImpulseSign.fbx
+  - Assets/3DAssets/Props/Map02.fbx
+  - Assets/3DAssets/Props/GarbageCan.fbx
+  - Assets/3DAssets/Props/CarbonMonoxide.fbx
+  - Assets/3DAssets/Props/Vent.fbx
+  - Assets/3DAssets/Props/Rock02.fbx
+  - Assets/3DAssets/Props/Pole.fbx
+  - Assets/3DAssets/Props/WetFloorSign.fbx
+  - Assets/3DAssets/Props/Map01.fbx
+  - Assets/3DAssets/Props/Rock01.fbx
+  - Assets/3DAssets/Props/ArmourPack.fbx
+  - Assets/3DAssets/Props/HealthPickup.fbx
+  - Assets/3DAssets/Props/Table.fbx
   - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Pistol/PistolWalk.fbx
   - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleShootcrouching.fbx
   - Assets/Animation/AnimationsForImpulse/AnimationsForImpulse/Rifle/RifleIdle.fbx
