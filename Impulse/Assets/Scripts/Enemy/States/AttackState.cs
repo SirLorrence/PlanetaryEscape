@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 namespace Enemy.States
 {
-	public class CombatState : NpcState
+	public class AttackState : NpcState
 	{
 		private Vector3 targetMovePoint;
 		private bool isDone;
@@ -19,7 +19,7 @@ namespace Enemy.States
 			// Debug.Log(entity.navAgent.remainingDistance);
 			entity.targetPlayer = entity.ClosestTarget(entity.targets);
 			if (entity.navAgent.hasPath == false && onEnter) {
-				entity.navAgent.SetDestination(NewPath());
+				// entity.navAgent.SetDestination(NewPath());
 				onEnter = false;
 			}
 			else if (entity.navAgent.remainingDistance < 1f) {
@@ -43,23 +43,23 @@ namespace Enemy.States
 			entity.navAgent.ResetPath();
 			yield return new WaitForSeconds(1f);
 			Debug.Log("Going to new path");
-			if (!isDone) targetMovePoint = NewPath();
+			// if (!isDone) targetMovePoint = NewPath();
 			entity.navAgent.SetDestination(targetMovePoint);
 		}
 
-		Vector3 NewPath() {
-			var randomPointX = Random.Range(entity.exclusionZone + 1, entity.combatDonut) * (Random.Range(0, 2) * 2 - 1);
-			var randomPointZ = Random.Range(entity.exclusionZone + 1, entity.combatDonut) * (Random.Range(0, 2) * 2 - 1);
-
-			var path = new Vector3(entity.targetPlayer.position.x + randomPointX, entity.targetPlayer.position.y,
-				entity.targetPlayer.position.z                    + randomPointZ);
-
-			Debug.LogWarning("New Path Ran");
-			isDone = true;
-			return path;
-		}
+		// Vector3 NewPath() {
+		// 	var randomPointX = Random.Range(entity.exclusionZone + 1, entity.combatDonut) * (Random.Range(0, 2) * 2 - 1);
+		// 	var randomPointZ = Random.Range(entity.exclusionZone + 1, entity.combatDonut) * (Random.Range(0, 2) * 2 - 1);
+		//
+		// 	var path = new Vector3(entity.targetPlayer.position.x + randomPointX, entity.targetPlayer.position.y,
+		// 		entity.targetPlayer.position.z                    + randomPointZ);
+		//
+		// 	Debug.LogWarning("New Path Ran");
+		// 	isDone = true;
+		// 	return path;
+		// }
 		
-		public CombatState(AIEntity aiEntity) : base(aiEntity) {
+		public AttackState(AIEntity aiEntity) : base(aiEntity) {
 			entity.detectionRadius += 10;
 			onEnter = true;
 		}
