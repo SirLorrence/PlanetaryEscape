@@ -18,8 +18,8 @@ public class PlayerShoot : NetworkBehaviour
 
     private float timer;
 
-    void OnEnable()
-    {
+    
+    void OnEnable() {
         timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
     }
 

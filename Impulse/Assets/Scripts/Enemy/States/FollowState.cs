@@ -3,21 +3,19 @@ using UnityEngine;
 
 namespace Enemy.States
 {
-	public class IdleState : NpcState
+	public class FollowState : NpcState
 	{
-		public IdleState(AIEntity aiEntity) : base(aiEntity) {
+		public FollowState(AIEntity aiEntity) : base(aiEntity) {
 		}
 
 		public override void DoActions() {
 			entity.targets = entity.PlayersInRange();
-			if (entity.InView(entity.targets))
-				entity.SetState(new CombatState(entity));
+			if (entity.InView(entity.targets)) entity.SetState(new AttackState(entity));
 			Idle();
 		}
 
 		public void Idle() {
 			Debug.Log("Idle");
-			
 		}
 	}
 }
