@@ -2,10 +2,9 @@ using System;
 using UnityEngine;
 using Mirror;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : GameEntity
 {
 	#region Fields
 
@@ -16,6 +15,9 @@ public class PlayerController : NetworkBehaviour
 	public PlayerShoot playerShoot;
 	public WeaponSelect weaponSelect;
 	public BodyAnimation fullBodyAnimation; // animation ref
+	public GameObject head;
+	public GameObject body;
+	public bool localDebug;
 
 	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
 	public float jumpForce = 550f;
@@ -64,10 +66,30 @@ public class PlayerController : NetworkBehaviour
 
 	void Awake() {
 		rb = GetComponent<Rigidbody>();
-		playerActions = new PlayerActions();
+		if (localDebug) {
+			playerActions = new PlayerActions();
+			//movement input
+			playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
+			playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
+			playerActions.PlayerControls.Look.performed += context => inputLook = context.ReadValue<Vector2>();
+			playerActions.PlayerControls.Look.canceled += context => inputLook = Vector2.zero;
+			playerActions.PlayerControls.Sprint.performed += context => isSprinting = true;
+			playerActions.PlayerControls.Sprint.canceled += context => isSprinting = false;
+			playerActions.PlayerControls.Crouch.performed += context => isCrouching = !isCrouching;
+			playerActions.PlayerControls.Jump.performed += context => Jump();
+			//Weapon input
+			playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
+			playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
+			playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
+			playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+		}
 	}
 
 	public override void OnStartAuthority() {
+		gameObject.GetComponent<NetworkAnimator>().enabled = false;
+
+		playerActions = new PlayerActions();
+
 		//movement input
 		playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
 		playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
@@ -82,10 +104,14 @@ public class PlayerController : NetworkBehaviour
 		playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
 		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+
+		base.OnStartAuthority();
 	}
 
 
 	void Start() {
+		SetHealth(100);
+		SetArmor(100);
 		fullBodyAnimation = GetComponent<BodyAnimation>();
 		weaponSelect = GetComponent<WeaponSelect>();
 
@@ -93,10 +119,7 @@ public class PlayerController : NetworkBehaviour
 		colliderCenterScale = mCollider.center.y;
 		colliderHeight = mCollider.height;
 		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
-		Cursor.lockState = CursorLockMode.Locked;
-		Cursor.visible = false;
 	}
-
 
 	private void FixedUpdate() {
 		UpdatePlayer();
@@ -108,12 +131,15 @@ public class PlayerController : NetworkBehaviour
 
 	private void OnEnable() {
 		playerActions.PlayerControls.Enable();
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 	}
 
 	private void OnDisable() {
 		playerActions.PlayerControls.Disable();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
 	}
-
 
 	void UpdatePlayer() {
 		Movement();
@@ -126,8 +152,10 @@ public class PlayerController : NetworkBehaviour
 		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 	}
 
 	void WeaponSwitch() {
@@ -162,7 +190,7 @@ public class PlayerController : NetworkBehaviour
 
 		// Sprint forward if the input is above the threshold 
 		if (isSprinting) isSprinting = (inputMovement.y >= 0.7);
-		
+
 		// Movement while sliding
 		if (isGrounded && isCrouching) movementAction = MovementAction.Crouching;
 
@@ -222,7 +250,20 @@ public class PlayerController : NetworkBehaviour
 		}
 	}
 
+
 	private void OnDrawGizmosSelected() {
 		if (mCollider != null) Gizmos.DrawSphere(mCollider.gameObject.transform.position, .5f);
+	}
+
+
+	private void OnGUI() {
+		GUILayout.BeginArea(new Rect(10, 10, 100, 250));
+		GUILayout.Box("Stats");
+		GUILayout.TextField("Armor: " + armor, 50);
+		GUILayout.TextField("Heath: " + health, 50);
+		GUILayout.TextField("Mag: "   + playerShoot.weapons[0].currentAmmoInMag, 100);
+		GUILayout.TextField("Ammo: "  + playerShoot.weapons[0].reserveAmmo, 100);
+
+		GUILayout.EndArea();
 	}
 }

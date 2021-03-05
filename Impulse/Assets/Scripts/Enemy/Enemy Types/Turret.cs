@@ -24,7 +24,6 @@ namespace Enemy.Enemy_Types
 
 			turretHead = transform.Find("Pivot");
 			restPos = turretHead.rotation;
-			weapon = GetComponent<Weapons>();
 			
 			var turretAxis = turretHead.eulerAngles;
 			minHorizontalR = turretAxis.y - lockHorizontal;
@@ -43,7 +42,6 @@ namespace Enemy.Enemy_Types
 
 		void FollowRotation() {
 			targetPlayer = ClosestTarget(targets);
-			weapon.FireWeapon();
 			var targetLocation = targetPlayer.position - turretHead.position;
 			var targetLookRotation = Quaternion.LookRotation(targetLocation);
 
