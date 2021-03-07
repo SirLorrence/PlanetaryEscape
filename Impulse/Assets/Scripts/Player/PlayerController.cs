@@ -152,7 +152,9 @@ public class PlayerController : GameEntity
 		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
-		body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		//something is wrong with this line prevent the player to look up and down 
+		// body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0); 
+		
 		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);

@@ -21,7 +21,7 @@ namespace Enemy.Enemy_Types
 		public Transform targetPlayer;
 		public float detectionRadius;
 		public float viewDistance = 10;
-		public AttackHandler handler;
+		public double attackDist;
 
 		[Header("Aggression")] public bool alwaysAggro;
 		[Range(0, 100)] public int aggressionLevel;
@@ -40,20 +40,19 @@ namespace Enemy.Enemy_Types
 
 		[HideInInspector] public Collider[] targets;
 		[HideInInspector] public NavMeshAgent navAgent;
-		 public Animator animator;
+		public Animator animator;
 
 		protected Rigidbody[] rigidbodies;
 
 		protected NpcState currentState;
 		protected NpcState pastState;
 
-		protected bool playerFound, inRange;
+		[SerializeField] protected bool playerFound, inRange;
 
 		public bool PlayerFound => playerFound;
 		public bool InRange => inRange;
 
 		private int playerLayer = 1 << 9;
-		public double attackDist;
 
 		#endregion
 
@@ -63,7 +62,10 @@ namespace Enemy.Enemy_Types
 
 			animator.SetFloat("xInput", vX, 0.1f, Time.deltaTime);
 			animator.SetFloat("zInput", vZ, 0.1f, Time.deltaTime);
+
+
 			VisionArea();
+
 			Debug.Log($"Player Found :{playerFound}");
 			Debug.Log($"Can Attack :{inRange}");
 		}
@@ -83,18 +85,21 @@ namespace Enemy.Enemy_Types
 			for (float i = -fieldOfView; i < fieldOfView; i += 4) {
 				Vector3 angle = DirFromAngle(i / 2);
 				Vector3 origin = transform.position + Vector3.up;
-				Vector3 dir = angle * viewDistance;
+				Vector3 dir = angle;
 
 				Ray ray = new Ray(origin, dir);
 				RaycastHit raycastHit;
-				if (Physics.Raycast(ray, out raycastHit)) {
+				if (Physics.Raycast(ray, out raycastHit, viewDistance)) {
 					if (raycastHit.transform.CompareTag("Player")) {
 						playerFound = true;
-						inRange = raycastHit.distance < attackDist;
+						inRange = raycastHit.distance <= attackDist;
 					}
 				}
+				else inRange = false;
 			}
 		}
+
+		public void FindRandomTarget() => targetPlayer = GameObject.FindWithTag("Player").transform;
 
 		// public bool InView() {
 		// 	for (float i = -fieldOfView; i < fieldOfView; i += 4) {

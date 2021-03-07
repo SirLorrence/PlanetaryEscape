@@ -6,18 +6,17 @@ using UnityEngine.AI;
 namespace Enemy.Enemy_Types
 {
 	[RequireComponent(typeof(NavMeshAgent))]
+	[RequireComponent(typeof(Rigidbody))]
 	public class ZombieCommon : AIEntity
 	{
 		private void Start() {
 			SetInitState(new FollowState(this));
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
-			navAgent = GetComponent<NavMeshAgent>();
-
-			// targets = PlayersInRange();
-			// targetPlayer = ClosestTarget(targets);
+			navAgent = GetComponentInChildren<NavMeshAgent>();
 		}
+
 		private void OnEnable() {
-			// navAgent.speed = wonderSpeed * speedMultiplier;
+			navAgent.speed = wonderSpeed * speedMultiplier;
 		}
 
 		public override void Update() {
