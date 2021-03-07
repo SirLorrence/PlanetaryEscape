@@ -13,6 +13,7 @@ namespace Enemy.Enemy_Types
 			SetInitState(new FollowState(this));
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponentInChildren<NavMeshAgent>();
+			zAnimator = gameObject.AddComponent<ZombieAnimationHandler>();
 		}
 
 		private void OnEnable() {

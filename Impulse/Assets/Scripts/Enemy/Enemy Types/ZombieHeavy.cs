@@ -9,7 +9,6 @@ namespace Enemy.Enemy_Types
 		private void OnEnable() {
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponent<NavMeshAgent>();
-			animator = GetComponent<Animator>();
 		}
 
 		public override void Update() {

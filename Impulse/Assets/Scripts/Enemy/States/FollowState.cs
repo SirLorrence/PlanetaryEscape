@@ -1,4 +1,5 @@
-﻿using Enemy.Enemy_Types;
+﻿using System.Collections;
+using Enemy.Enemy_Types;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,13 +22,28 @@ namespace Enemy.States
 			aiEntity.navAgent.SetDestination(aiEntity.targetPlayer.position);
 
 			if (aiEntity.PlayerFound && !changedSpeed) {
-				aiEntity.navAgent.speed = (aiEntity.CheckIfAggro())
-					? aiEntity.chaseSpeed  * aiEntity.speedMultiplier
-					: aiEntity.followSpeed * aiEntity.speedMultiplier;
+				if (aiEntity.CheckIfAggro()) {
+					aiEntity.navAgent.speed = aiEntity.chaseSpeed * aiEntity.speedMultiplier;
+				}
+				else aiEntity.navAgent.speed = aiEntity.followSpeed * aiEntity.speedMultiplier;
+
 				changedSpeed = true;
 			}
 
-			if (aiEntity.InRange) aiEntity.PushState(new AttackState(aiEntity));
+			if (aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).IsName("Scream")) {
+				aiEntity.StartCoroutine(Rage());
+			}
+
+			if (aiEntity.InRange)
+				aiEntity.PushState(new AttackState(aiEntity));
+		}
+
+		private IEnumerator Rage() {
+			float animationTime = aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
+			aiEntity.navAgent.SetDestination(aiEntity.transform.position);
+			Debug.Log("Wait");
+			yield return new WaitForSeconds(animationTime);
 		}
 	}
 }
+

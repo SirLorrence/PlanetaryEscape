@@ -9,10 +9,12 @@ namespace Enemy.States
 		}
 
 		public override void DoActions() {
-			aiEntity.navAgent.enabled = false;
-			aiEntity.animator.enabled = false;
-			aiEntity.ToggleRagdoll();
-			//method to de-spawn 
 		}
+
+		// 	aiEntity.navAgent.enabled = false;
+		// 	aiEntity.animator.enabled = false;
+		// 	aiEntity.ToggleRagdoll();
+		// 	//method to de-spawn 
+		// }
 	}
 }

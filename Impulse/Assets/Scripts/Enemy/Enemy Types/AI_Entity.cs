@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,8 +24,9 @@ namespace Enemy.Enemy_Types
 		public float viewDistance = 10;
 		public double attackDist;
 
-		[Header("Aggression")] public bool alwaysAggro;
-		[Range(0, 100)] public int aggressionLevel;
+		[Header("Aggression")] [Range(0, 100)] public int aggressionLevel;
+		public bool alwaysAggro;
+		public bool inAggroMode;
 
 		[Header("Speed Values")] public float wonderSpeed;
 		public float followSpeed;
@@ -39,15 +41,18 @@ namespace Enemy.Enemy_Types
 		public bool testStateChange;
 
 		[HideInInspector] public Collider[] targets;
+
 		[HideInInspector] public NavMeshAgent navAgent;
-		public Animator animator;
+
+		[HideInInspector] public ZombieAnimationHandler zAnimator;
+
 
 		protected Rigidbody[] rigidbodies;
 
 		protected NpcState currentState;
 		protected NpcState pastState;
 
-		[SerializeField] protected bool playerFound, inRange;
+		protected bool playerFound, inRange;
 
 		public bool PlayerFound => playerFound;
 		public bool InRange => inRange;
@@ -59,9 +64,7 @@ namespace Enemy.Enemy_Types
 		public virtual void Update() {
 			var vZ = Vector3.Dot(navAgent.velocity.normalized, transform.forward);
 			var vX = Vector3.Dot(navAgent.velocity.normalized, transform.right);
-
-			animator.SetFloat("xInput", vX, 0.1f, Time.deltaTime);
-			animator.SetFloat("zInput", vZ, 0.1f, Time.deltaTime);
+			zAnimator.AnimHandler(vX, vZ, inAggroMode);
 
 
 			VisionArea();
@@ -101,26 +104,13 @@ namespace Enemy.Enemy_Types
 
 		public void FindRandomTarget() => targetPlayer = GameObject.FindWithTag("Player").transform;
 
-		// public bool InView() {
-		// 	for (float i = -fieldOfView; i < fieldOfView; i += 4) {
-		// 		Vector3 angle = DirFromAngle(i / 2);
-		// 		Vector3 origin = transform.position + Vector3.up;
-		// 		Vector3 dir = angle * viewDistance;
-		//
-		// 		Ray ray = new Ray(origin, dir);
-		// 		RaycastHit raycastHit;
-		// 		if (Physics.Raycast(ray, out raycastHit)) {
-		// 			if (raycastHit.transform.CompareTag("Player")) return true;
-		// 		}
-		// 	}
-		// 	return false;
-		// }
-
-		// public bool InRange() => handler.zoneOccupied;
-
 
 		public int SetRandomLevel() => Random.Range(0, 100);
-		public bool CheckIfAggro() => (aggressionLevel > 50);
+
+		public bool CheckIfAggro() {
+			inAggroMode = (aggressionLevel > 50);
+			return inAggroMode;
+		}
 
 		public Transform ClosestTarget(Collider[] targets) {
 			double dist = detectionRadius;
@@ -146,13 +136,13 @@ namespace Enemy.Enemy_Types
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-		public void ToggleRagdoll() {
-			if (rigidbodies != null || rigidbodies.Length != 0) {
-				foreach (var rb in rigidbodies) {
-					rb.isKinematic = animator.enabled;
-				}
-			}
-		}
+		// public void ToggleRagdoll() {
+		// 	if (rigidbodies != null || rigidbodies.Length != 0) {
+		// 		foreach (var rb in rigidbodies) {
+		// 			rb.isKinematic = animator.enabled;
+		// 		}
+		// 	}
+		// }
 
 
 		public virtual void OnDrawGizmosSelected() {

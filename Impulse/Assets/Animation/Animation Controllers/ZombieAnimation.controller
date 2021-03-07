@@ -282,8 +282,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: InputX
     m_Mirror: 0
-  m_BlendParameter: InputX
-  m_BlendParameterY: InputY
+  m_BlendParameter: movementX
+  m_BlendParameterY: movementY
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
@@ -327,8 +327,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isAggro
     m_EventTreshold: 0
-  - m_ConditionMode: 3
-    m_ConditionEvent: InputX
+  - m_ConditionMode: 1
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7427016331791701885}
@@ -380,8 +380,8 @@ AnimatorStateTransition:
   - m_ConditionMode: 2
     m_ConditionEvent: isAggro
     m_EventTreshold: 0
-  - m_ConditionMode: 3
-    m_ConditionEvent: InputX
+  - m_ConditionMode: 1
+    m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8794326159468246148}
@@ -435,13 +435,13 @@ AnimatorController:
   m_Name: ZombieAnimation
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: InputX
+  - m_Name: movementX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: InputY
+  - m_Name: movementY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -760,8 +760,8 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: InputX
     m_Mirror: 0
-  m_BlendParameter: InputX
-  m_BlendParameterY: InputY
+  m_BlendParameter: movementX
+  m_BlendParameterY: movementY
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1
