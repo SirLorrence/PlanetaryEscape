@@ -25493,7 +25493,7 @@ GameObject:
   - component: {fileID: 1852986220}
   - component: {fileID: 1852986221}
   m_Layer: 9
-  m_Name: Player
+  m_Name: Player GameObject
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25570,6 +25570,8 @@ MonoBehaviour:
   playerShoot: {fileID: 1852986220}
   weaponSelect: {fileID: 0}
   fullBodyAnimation: {fileID: 0}
+  head: {fileID: 0}
+  body: {fileID: 0}
   localDebug: 1
   jumpCooldown: 0.25
   jumpForce: 150

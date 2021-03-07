@@ -1,4 +1,5 @@
-﻿using Enemy.States;
+﻿using System;
+using Enemy.States;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,15 +8,20 @@ namespace Enemy.Enemy_Types
 	[RequireComponent(typeof(NavMeshAgent))]
 	public class ZombieCommon : AIEntity
 	{
-		public bool testDebug;
-		private void OnEnable() {
-			SetState(new FollowState(this));
+		private void Start() {
+			SetInitState(new FollowState(this));
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponent<NavMeshAgent>();
-			animator = GetComponent<Animator>();
+
+			// targets = PlayersInRange();
+			// targetPlayer = ClosestTarget(targets);
 		}
+		private void OnEnable() {
+			// navAgent.speed = wonderSpeed * speedMultiplier;
+		}
+
 		public override void Update() {
-			
+			currentState.DoActions();
 			base.Update();
 		}
 	}

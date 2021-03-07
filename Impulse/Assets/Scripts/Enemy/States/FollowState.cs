@@ -1,5 +1,6 @@
 ﻿using Enemy.Enemy_Types;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Enemy.States
 {
@@ -9,13 +10,17 @@ namespace Enemy.States
 		}
 
 		public override void DoActions() {
-			entity.targets = entity.PlayersInRange();
-			if (entity.InView(entity.targets)) entity.SetState(new AttackState(entity));
-			Idle();
-		}
+			var targets = aiEntity.PlayersInRange();
+			aiEntity.targetPlayer = aiEntity.ClosestTarget(targets);
+			aiEntity.navAgent.SetDestination(aiEntity.targetPlayer.position);
 
-		public void Idle() {
-			Debug.Log("Idle");
+			if (aiEntity.PlayerFound) {
+				aiEntity.navAgent.speed = (aiEntity.CheckIfAggro())
+					? aiEntity.chaseSpeed  * aiEntity.speedMultiplier
+					: aiEntity.followSpeed * aiEntity.speedMultiplier;
+			}
+
+			if (aiEntity.InRange) aiEntity.PushState(new AttackState(aiEntity));
 		}
 	}
 }

@@ -3,15 +3,15 @@ using UnityEngine;
 
 public class GameEntity : NetworkBehaviour
 {
-	public int health;
+	[Header("Health Values")] public int health;
 	public int armor;
+	public bool isAlive;
 	protected int maxHealth;
 	protected int maxArmor;
 
-	public bool isAlive;
-
 
 	#region Health System
+
 	public virtual void SetHealth(int value) {
 		health = value;
 		maxHealth = value;

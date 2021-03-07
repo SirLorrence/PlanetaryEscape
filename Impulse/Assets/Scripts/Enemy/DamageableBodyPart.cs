@@ -49,7 +49,7 @@ namespace Enemy
 					break;
 			}
 
-			entity.TakeDamage(amount * multiplier);
+			// entity.TakeDamage(amount * multiplier);
 		}
 	}
 }
