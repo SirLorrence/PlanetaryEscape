@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using Enemy.States;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
@@ -27,6 +28,9 @@ namespace Enemy.Enemy_Types
 		[Header("Aggression")] [Range(0, 100)] public int aggressionLevel;
 		public bool alwaysAggro;
 		public bool inAggroMode;
+
+		[Header("Damage Value")] public int dealAmount;
+		public AttackHandler attackHandler;
 
 		[Header("Speed Values")] public float wonderSpeed;
 		public float followSpeed;
@@ -61,6 +65,13 @@ namespace Enemy.Enemy_Types
 
 		#endregion
 
+		public virtual void Start() {
+			rigidbodies = GetComponentsInChildren<Rigidbody>();
+			navAgent = GetComponentInChildren<NavMeshAgent>();
+			zAnimator = gameObject.AddComponent<ZombieAnimationHandler>();
+			attackHandler.amount = dealAmount;
+		}
+
 		public virtual void Update() {
 			var vZ = Vector3.Dot(navAgent.velocity.normalized, transform.forward);
 			var vX = Vector3.Dot(navAgent.velocity.normalized, transform.right);
@@ -69,8 +80,8 @@ namespace Enemy.Enemy_Types
 
 			VisionArea();
 
-			Debug.Log($"Player Found :{playerFound}");
-			Debug.Log($"Can Attack :{inRange}");
+			// Debug.Log($"Player Found :{playerFound}");
+			// Debug.Log($"Can Attack :{inRange}");
 		}
 
 		public void SetInitState(NpcState aState) => currentState = aState;
@@ -107,6 +118,11 @@ namespace Enemy.Enemy_Types
 
 		public int SetRandomLevel() => Random.Range(0, 100);
 
+		public int GetRandomAttack() => Random.Range(0, 3);
+
+		public void SetAggroLevel() =>
+			aggressionLevel = (alwaysAggro) ? 100 : aggressionLevel = SetRandomLevel();
+
 		public bool CheckIfAggro() {
 			inAggroMode = (aggressionLevel > 50);
 			return inAggroMode;
@@ -114,6 +130,7 @@ namespace Enemy.Enemy_Types
 
 		public Transform ClosestTarget(Collider[] targets) {
 			double dist = detectionRadius;
+
 			Transform nearestTarget = null;
 			foreach (var target in targets) {
 				double d = Vector3.Distance(target.transform.position, transform.position);
@@ -136,13 +153,13 @@ namespace Enemy.Enemy_Types
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-		// public void ToggleRagdoll() {
-		// 	if (rigidbodies != null || rigidbodies.Length != 0) {
-		// 		foreach (var rb in rigidbodies) {
-		// 			rb.isKinematic = animator.enabled;
-		// 		}
-		// 	}
-		// }
+// public void ToggleRagdoll() {
+// 	if (rigidbodies != null || rigidbodies.Length != 0) {
+// 		foreach (var rb in rigidbodies) {
+// 			rb.isKinematic = animator.enabled;
+// 		}
+// 	}
+// }
 
 
 		public virtual void OnDrawGizmosSelected() {

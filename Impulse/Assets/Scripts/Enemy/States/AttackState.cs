@@ -16,12 +16,21 @@ namespace Enemy.States
 		}
 
 		public override void DoActions() {
-			Combat();
+			Attack();
+			if (!aiEntity.InRange) aiEntity.PopState();
 		}
 
-		public void Combat() {
+		public void Attack() {
+			int choice = aiEntity.GetRandomAttack();
+			aiEntity.zAnimator.animator.SetInteger(ZombieAnimationHandler.AttackChoice, choice);
+			aiEntity.zAnimator.animator.SetTrigger(ZombieAnimationHandler.AttackTrigger);
+			aiEntity.StartCoroutine(FinishAttack());
 			Debug.Log("Combat");
-			if (!aiEntity.InRange) aiEntity.PopState();
+		}
+
+		IEnumerator FinishAttack() {
+			float animationTime = aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
+			yield return new WaitForSeconds(animationTime);
 		}
 	}
 }

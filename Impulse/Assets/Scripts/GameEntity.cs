@@ -24,12 +24,15 @@ public class GameEntity : NetworkBehaviour
 
 	public virtual void TakeDamage(int damage) {
 		if (armor != 0) {
-			armor += (-damage);
-			if (armor >= maxArmor) armor = maxArmor;
+			ApplyValueChangeToArmor(-damage);
 			if (armor < 0) {
 				ApplyValueChangeToHealth(armor);
 				armor = 0;
 			}
+		}
+		else {
+			if (health != 0) ApplyValueChangeToHealth(-damage);
+			else health = 0;
 		}
 	}
 
@@ -62,7 +65,6 @@ public class GameEntity : NetworkBehaviour
 	private int ValueChange(int targetValue, int maxValue, int value) {
 		targetValue += value;
 		if (targetValue >= maxValue) targetValue = maxValue;
-		if (targetValue < 0) armor = 0;
 		return targetValue;
 	}
 

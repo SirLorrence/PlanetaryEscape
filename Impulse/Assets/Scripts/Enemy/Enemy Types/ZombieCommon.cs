@@ -9,14 +9,13 @@ namespace Enemy.Enemy_Types
 	[RequireComponent(typeof(Rigidbody))]
 	public class ZombieCommon : AIEntity
 	{
-		private void Start() {
+		public override void Start() {
 			SetInitState(new FollowState(this));
-			rigidbodies = GetComponentsInChildren<Rigidbody>();
-			navAgent = GetComponentInChildren<NavMeshAgent>();
-			zAnimator = gameObject.AddComponent<ZombieAnimationHandler>();
+			base.Start();
 		}
 
 		private void OnEnable() {
+			SetAggroLevel();
 			navAgent.speed = wonderSpeed * speedMultiplier;
 		}
 

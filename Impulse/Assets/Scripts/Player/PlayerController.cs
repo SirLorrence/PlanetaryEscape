@@ -82,6 +82,8 @@ public class PlayerController : GameEntity
 			playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
 			playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 			playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+			playerActions.PlayerControls.Aim.performed += context => ADS = true;
+			playerActions.PlayerControls.Aim.canceled += context => ADS = false;
 		}
 	}
 
@@ -104,6 +106,8 @@ public class PlayerController : GameEntity
 		playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
 		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+		playerActions.PlayerControls.Aim.performed += context => ADS = true;
+		playerActions.PlayerControls.Aim.canceled += context => ADS = false;
 
 		base.OnStartAuthority();
 	}
@@ -154,7 +158,7 @@ public class PlayerController : GameEntity
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 		//something is wrong with this line prevent the player to look up and down 
 		// body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0); 
-		
+
 		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
