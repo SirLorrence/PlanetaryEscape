@@ -1,42 +1,48 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Enemy.States;
-using UnityEditor;
+using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Enemy.Enemy_Types
 {
-	public class AIEntity : MonoBehaviour
+	public class AIEntity : GameEntity
 	{
 		/// <summary>
 		/// this class works like an black board
 		/// hold all the ai data
 		/// </summary>
-		public int health;
-
-		public int shield;
-		public float detectionRadius;
-		private int playerLayer = 1 << 9;
 		[Range(0, 360)] public float fieldOfView;
-
-		protected NpcState currentState;
 
 		[HideInInspector] public NavMeshAgent navAgent;
 		[HideInInspector] public Collider[] targets;
-
-		public Weapons weapon;
 		public Transform targetPlayer;
-
-
-		// public Transform Hand;
+		public float detectionRadius;
 		public float combatDonut;
-		public float exclusionZone;
+		public bool testAction;
+		public Animator animator;
+		public bool toggleBody;
+
+		public bool useRandom;
+		[Range(0,100)]public int aggressionLevel;
+		
+		protected Rigidbody[] rigidbodies;
+		protected NpcState currentState;
+
+		private int playerLayer = 1 << 9;
 
 		public void SetState(NpcState aState) {
 			currentState = aState;
 		}
+
+		public virtual void Update() {
+			
+			var vZ = Vector3.Dot(navAgent.velocity.normalized, transform.forward);
+			var vX = Vector3.Dot(navAgent.velocity.normalized, transform.right);
+		
+			animator.SetFloat("xInput", vX, 0.1f, Time.deltaTime);
+			animator.SetFloat("zInput", vZ, 0.1f, Time.deltaTime);
+		}
+
 
 		public bool InView(Collider[] targets) {
 			foreach (var t in targets) {
@@ -44,7 +50,6 @@ namespace Enemy.Enemy_Types
 				if (Vector3.Angle(transform.forward, dist) < fieldOfView / 2)
 					return true;
 			}
-
 			return false;
 		}
 
@@ -63,11 +68,6 @@ namespace Enemy.Enemy_Types
 		}
 
 		public Collider[] PlayersInRange() => Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
-
-		public bool testAction;
-		protected Rigidbody[] rigidbodies;
-		public Animator animator;
-		public bool toggleBody;
 
 
 		public Vector3 DirFromAngle(float angleInDegrees) {
@@ -110,7 +110,6 @@ namespace Enemy.Enemy_Types
 				Gizmos.color = Color.blue;
 				Gizmos.DrawWireSphere(targetPlayer.position, combatDonut);
 				Gizmos.color = Color.red;
-				Gizmos.DrawWireSphere(targetPlayer.position, exclusionZone);
 			}
 
 			if (coverPos != Vector3.zero) {
