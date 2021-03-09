@@ -17,13 +17,15 @@ public class BodyAnimation : MonoBehaviour
 	//arms specific
 	private static readonly int Walking = Animator.StringToHash("Walk");
 
-
 	//universal 
 	private static readonly int IsRunning = Animator.StringToHash("isSprinting");
 	private static readonly int IsAiming = Animator.StringToHash("Aim");
 	private static readonly int Reloading = Animator.StringToHash("Reload");
 
-	private void Update() => fpsAnimator = activeAnimator.anim;
+	private void Update()
+	{
+		 fpsAnimator = activeAnimator.anim;
+	}
 
 	public void CrouchAnim(bool crouched) => bodyAnimator.SetBool(IsCrouch, crouched);
 	public void InAirAnim(bool grounded) => bodyAnimator.SetBool(IsGrounded, grounded);
@@ -33,14 +35,18 @@ public class BodyAnimation : MonoBehaviour
 		bodyAnimator.SetFloat(ZInput, z, 0.1f, Time.deltaTime);
 
 		if (bodyAnimator.GetFloat(XInput) > 0.2f || bodyAnimator.GetFloat(XInput) < -0.2f ||
-		    bodyAnimator.GetFloat(ZInput) > 0.2f || bodyAnimator.GetFloat(ZInput) < -0.2f) {
+			bodyAnimator.GetFloat(ZInput) > 0.2f || bodyAnimator.GetFloat(ZInput) < -0.2f)
+		{
 			fpsAnimator.SetBool(Walking, true);
 		}
-		else fpsAnimator.SetBool(Walking, false);
+		else
+		{
+			if (fpsAnimator != null) fpsAnimator.SetBool(Walking, false);
+		}
 	}
 
 	public void AimDownAnim(bool aiming) {
-		fpsAnimator.SetBool(IsAiming, aiming);
+		if (fpsAnimator != null) fpsAnimator.SetBool(IsAiming, aiming);
 		bodyAnimator.SetBool(IsAiming, aiming);
 	}
 
@@ -53,7 +59,7 @@ public class BodyAnimation : MonoBehaviour
 
 
 	public void SprintAnim(bool sprinting) {
-		fpsAnimator.SetBool(IsRunning, sprinting);
+		if (fpsAnimator != null) fpsAnimator.SetBool(IsRunning, sprinting);
 		bodyAnimator.SetBool(IsRunning, sprinting);
 	}
 }

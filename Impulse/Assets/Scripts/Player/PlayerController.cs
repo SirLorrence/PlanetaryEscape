@@ -102,7 +102,7 @@ public class PlayerController : GameEntity
 		//Weapon input
 		playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
 		playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
-		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
+		//playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
 
 		base.OnStartAuthority();
@@ -122,10 +122,12 @@ public class PlayerController : GameEntity
 	}
 
 	private void FixedUpdate() {
+		if (!hasAuthority) return;
 		UpdatePlayer();
 	}
 
 	private void LateUpdate() {
+		if (!hasAuthority) return;
 		UpdateCamera();
 	}
 
@@ -144,7 +146,7 @@ public class PlayerController : GameEntity
 	void UpdatePlayer() {
 		Movement();
 		WeaponSwitch();
-		if (inputShoot) playerShoot.Shoot();
+		//if (inputShoot) playerShoot.Shoot();
 	}
 
 	void UpdateCamera() {
@@ -152,10 +154,10 @@ public class PlayerController : GameEntity
 		yawRotation += inputLook.y   * sensitivityX;
 		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
-		body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		//body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 		// If inverse positive Y
 		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
-		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+		//head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
 	}
 
 	void WeaponSwitch() {
