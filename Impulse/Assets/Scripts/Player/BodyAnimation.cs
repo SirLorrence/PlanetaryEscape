@@ -17,7 +17,6 @@ public class BodyAnimation : MonoBehaviour
 	//arms specific
 	private static readonly int Walking = Animator.StringToHash("Walk");
 
-
 	//universal 
 	private static readonly int IsRunning = Animator.StringToHash("isSprinting");
 	private static readonly int IsAiming = Animator.StringToHash("Aim");
