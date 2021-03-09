@@ -80,7 +80,7 @@ public class PlayerController : GameEntity
 			//Weapon input
 			playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
 			playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
-			playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
+			//playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
 			playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
 		}
 	}
