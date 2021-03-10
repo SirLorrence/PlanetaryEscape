@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using Enemy.States;
 using Mirror;
@@ -16,6 +17,9 @@ namespace Enemy.Enemy_Types
 	public class AIEntity : GameEntity
 	{
 		#region Fields
+
+		[Header("Drop Chance")] [Range(0, 100)]
+		public int dropPercent;
 
 		[Header("Detection Values")] [Range(0, 360)]
 		public float fieldOfView;
@@ -37,18 +41,28 @@ namespace Enemy.Enemy_Types
 		public float chaseSpeed;
 		public float speedMultiplier = 1;
 
-		[Header("Body Debug")] public bool toggleBody;
+		[Header("Visual Debug and Developer Override")]
+		public bool toggleBody;
 
-		[Header("Visual Debug")] public bool showViewCast;
+		public bool showViewCast;
 		public bool showRadius;
-
 		public bool testStateChange;
+
+		public enum StateOverride
+		{
+			Follow,
+			Attack,
+			Death
+		}
+
+		public StateOverride stateOverride;
+
 
 		[HideInInspector] public Collider[] targets;
 
 		[HideInInspector] public NavMeshAgent navAgent;
 
-		[HideInInspector] public ZombieAnimationHandler zAnimator;
+		[HideInInspector] public ZombieAnimationHandler animationHandler;
 
 
 		protected Rigidbody[] rigidbodies;
@@ -68,28 +82,42 @@ namespace Enemy.Enemy_Types
 		public virtual void Start() {
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponentInChildren<NavMeshAgent>();
-			zAnimator = gameObject.AddComponent<ZombieAnimationHandler>();
+			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
 			attackHandler.amount = dealAmount;
+			if (testStateChange) {
+				switch (stateOverride) {
+					case StateOverride.Follow:
+						SetState(new FollowState(this));
+						break;
+					case StateOverride.Attack:
+						SetState(new AttackState(this));
+						break;
+					case StateOverride.Death:
+						SetState(new DeathState(this));
+						break;
+				}
+			}
+			else SetState(new FollowState(this));
 		}
 
 		public virtual void Update() {
 			var vZ = Vector3.Dot(navAgent.velocity.normalized, transform.forward);
 			var vX = Vector3.Dot(navAgent.velocity.normalized, transform.right);
-			zAnimator.AnimHandler(vX, vZ, inAggroMode);
-
+			animationHandler.AnimHandler(vX, vZ, inAggroMode);
 
 			VisionArea();
+			if (health <= 0) SetState(new DeathState(this));
 
 			// Debug.Log($"Player Found :{playerFound}");
 			// Debug.Log($"Can Attack :{inRange}");
 		}
 
-		public void SetInitState(NpcState aState) => currentState = aState;
+		public void SetState(NpcState aState) => currentState = aState;
 
 		//for push-down automata
 		public void PushState(NpcState state) {
 			pastState = currentState;
-			currentState = state;
+			SetState(state);
 		}
 
 		public void PopState() => currentState = pastState;
@@ -119,6 +147,8 @@ namespace Enemy.Enemy_Types
 		public int SetRandomLevel() => Random.Range(0, 100);
 
 		public int GetRandomAttack() => Random.Range(0, 3);
+
+		public void SpawnItem(GameObject item) => Instantiate(item, transform.position + Vector3.up, transform.rotation);
 
 		public void SetAggroLevel() =>
 			aggressionLevel = (alwaysAggro) ? 100 : aggressionLevel = SetRandomLevel();
@@ -152,6 +182,7 @@ namespace Enemy.Enemy_Types
 			return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0,
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
+
 
 // public void ToggleRagdoll() {
 // 	if (rigidbodies != null || rigidbodies.Length != 0) {
@@ -190,5 +221,10 @@ namespace Enemy.Enemy_Types
 		protected readonly AIEntity aiEntity;
 		protected NpcState(AIEntity aiEntity) => this.aiEntity = aiEntity; // creates the states own constructor
 		public abstract void DoActions();
+
+		public virtual IEnumerator WaitForAnimationFinish(AIEntity entity) {
+			float animationTime = entity.animationHandler.animator.GetCurrentAnimatorStateInfo(0).length;
+			yield return new WaitForSeconds(animationTime);
+		}
 	}
 }

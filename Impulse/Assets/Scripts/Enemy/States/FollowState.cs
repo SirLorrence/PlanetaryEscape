@@ -30,20 +30,20 @@ namespace Enemy.States
 				changedSpeed = true;
 			}
 
-			if (aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).IsName("Scream")) {
-				aiEntity.StartCoroutine(Rage());
+			if (aiEntity.animationHandler.animator.GetCurrentAnimatorStateInfo(0).IsName("Scream")) {
+				aiEntity.StartCoroutine(WaitForAnimationFinish(aiEntity));
 			}
 
 			if (aiEntity.InRange)
 				aiEntity.PushState(new AttackState(aiEntity));
 		}
 
-		private IEnumerator Rage() {
-			float animationTime = aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
+		public override IEnumerator WaitForAnimationFinish(AIEntity entity) {
 			aiEntity.navAgent.SetDestination(aiEntity.transform.position);
-			Debug.Log("Wait");
-			yield return new WaitForSeconds(animationTime);
+			return base.WaitForAnimationFinish(entity);
 		}
+
+	
 	}
 }
 

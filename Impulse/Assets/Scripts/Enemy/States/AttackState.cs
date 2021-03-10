@@ -22,15 +22,10 @@ namespace Enemy.States
 
 		public void Attack() {
 			int choice = aiEntity.GetRandomAttack();
-			aiEntity.zAnimator.animator.SetInteger(ZombieAnimationHandler.AttackChoice, choice);
-			aiEntity.zAnimator.animator.SetTrigger(ZombieAnimationHandler.AttackTrigger);
-			aiEntity.StartCoroutine(FinishAttack());
+			aiEntity.animationHandler.animator.SetInteger(ZombieAnimationHandler.AttackChoice, choice);
+			aiEntity.animationHandler.animator.SetTrigger(ZombieAnimationHandler.AttackTrigger);
+			aiEntity.StartCoroutine(WaitForAnimationFinish(aiEntity));
 			Debug.Log("Combat");
-		}
-
-		IEnumerator FinishAttack() {
-			float animationTime = aiEntity.zAnimator.animator.GetCurrentAnimatorStateInfo(0).length;
-			yield return new WaitForSeconds(animationTime);
 		}
 	}
 }
