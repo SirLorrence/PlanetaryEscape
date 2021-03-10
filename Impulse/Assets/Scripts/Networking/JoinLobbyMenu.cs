@@ -32,7 +32,7 @@ public class JoinLobbyMenu : MonoBehaviour
         networkManager.networkAddress = ipAddress;
         networkManager.StartClient();
 
-        joinButton.interactable = false;
+        //joinButton.interactable = false;
     }
 
     private void HandleClientConnected()

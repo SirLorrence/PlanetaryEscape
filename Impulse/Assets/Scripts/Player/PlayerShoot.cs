@@ -18,32 +18,29 @@ public class PlayerShoot : NetworkBehaviour
 
     private float timer;
 
-    
-    void OnEnable() {
-        timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
+    void OnEnable()
+    {
+        timer = 0;
     }
 
-    public void Shoot()
+    public void Shoot(WeapoInformation gun)
     {
         if (timer < Time.realtimeSinceStartup)
         {
-            if (weapons[weaponSelect.WeaponSelected].currentAmmoInMag > 0)
+            if (gun.currentAmmoInMag > 0)
             {
-                weapons[weaponSelect.WeaponSelected].currentAmmoInMag--;
+                gun.currentAmmoInMag--;
 
-                timer = Time.realtimeSinceStartup + (1 / weapons[weaponSelect.WeaponSelected].firerate);
+                timer = Time.realtimeSinceStartup + (1 / gun.firerate);
 
-                //Hipfire Calculations
-                //var randomPosition = new Vector3(UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360), UnityEngine.Random.Range(0, 360));
-                //randomPosition = randomPosition.normalized * weaponList[(int)wo.gunType].bulletSpread;
-                //gunTip.rotation = new Quaternion(gunTip.rotation.x + randomPosition.x, gunTip.rotation.y + randomPosition.y, gunTip.rotation.z + randomPosition.z, 0);
-
-                GameObject bullet = ObjectPooler.Instance.GetGameObject(0);
-                bullet.transform.position = gunTip.transform.position;
-                bullet.transform.rotation = gunTip.transform.rotation;
-                bullet.GetComponent<Bullet>().StartBullet(weapons[weaponSelect.WeaponSelected].bulletSpeed, weapons[weaponSelect.WeaponSelected].damage, true);
-
-                bullet.SetActive(true);
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, transform.forward, out hit, 100))
+                {
+                    if (hit.transform.CompareTag("Enemy"))
+                    {
+                        hit.transform.GetComponent<DamageableBodyPart>().TakeDamage(gun.damage);
+                    }
+                }
             }
             else
             {
@@ -52,31 +49,31 @@ public class PlayerShoot : NetworkBehaviour
         }
     }
 
-    public void Reload()
+    public void Reload(WeapoInformation gun)
     {
-        if (weapons[weaponSelect.WeaponSelected].reserveAmmo <= 0)
+        if (gun.reserveAmmo <= 0)
         {
             //No Ammo
         }
-        else if (weapons[weaponSelect.WeaponSelected].reserveAmmo > weapons[weaponSelect.WeaponSelected].maxAmmoInMag)
+        else if (gun.reserveAmmo > gun.maxAmmoInMag)
         {
-            weapons[weaponSelect.WeaponSelected].reserveAmmo += weapons[weaponSelect.WeaponSelected].currentAmmoInMag;
+            weapons[weaponSelect.WeaponSelected].reserveAmmo += gun.currentAmmoInMag;
 
-            weapons[weaponSelect.WeaponSelected].reserveAmmo -= weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
-            weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
+            gun.reserveAmmo -= gun.maxAmmoInMag;
+            gun.currentAmmoInMag = gun.maxAmmoInMag;
         }
         else
         {
-            weapons[weaponSelect.WeaponSelected].reserveAmmo += weapons[weaponSelect.WeaponSelected].currentAmmoInMag;
-            if (weapons[weaponSelect.WeaponSelected].reserveAmmo > weapons[weaponSelect.WeaponSelected].maxAmmoInMag)
+            gun.reserveAmmo += gun.currentAmmoInMag;
+            if (gun.reserveAmmo > gun.maxAmmoInMag)
             {
-                weapons[weaponSelect.WeaponSelected].reserveAmmo -= weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
-                weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].maxAmmoInMag;
+                gun.reserveAmmo -= gun.maxAmmoInMag;
+                gun.currentAmmoInMag = gun.maxAmmoInMag;
             }
             else
             {
-                weapons[weaponSelect.WeaponSelected].currentAmmoInMag = weapons[weaponSelect.WeaponSelected].reserveAmmo;
-                weapons[weaponSelect.WeaponSelected].reserveAmmo = 0;
+                gun.currentAmmoInMag = gun.reserveAmmo;
+                gun.reserveAmmo = 0;
             }
         }
     }
