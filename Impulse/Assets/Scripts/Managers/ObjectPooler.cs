@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Collections;
 
 public class ObjectPooler : MonoBehaviour
 {
+    #region Variables
     public bool debug = false;
     [Header("GameObjects to be Pooled")] public GameObjectToBePooled[] gameObjectsToBePooled;
 
-    private List<GameObject> pooledGameObjects = new List<GameObject>();
+    private List<GameObject> _pooledGameObjects = new List<GameObject>();
     private float timer;
 
     private bool isInitialized = false;
+    #endregion
 
     #region Singleton
 
@@ -30,9 +31,10 @@ public class ObjectPooler : MonoBehaviour
 
     #endregion
 
+    #region Initialize
     public void Initialize()
     {
-        if (debug) {print("Pooling has started"); timer = Time.realtimeSinceStartup; } 
+        if (debug) { print("Pooling has started"); timer = Time.realtimeSinceStartup; }
 
         for (int i = 0; i < gameObjectsToBePooled.Length; i++)
         {
@@ -41,14 +43,17 @@ public class ObjectPooler : MonoBehaviour
                 GameObject go = Instantiate(gameObjectsToBePooled[i].gameObjectToBePooled);
                 go.SetActive(false);
                 go.transform.SetParent(transform);
-                pooledGameObjects.Add(go);
+                _pooledGameObjects.Add(go);
             }
         }
         isInitialized = true;
 
-        if (debug) {print("Pooling has ended, " + pooledGameObjects.Count + " Pooled Objects"); print("Generating Pool Took " + (Time.realtimeSinceStartup - timer));}
+        if (debug) { print("Pooling has ended, " + _pooledGameObjects.Count + " Pooled Objects"); print("Generating Pool Took " + (Time.realtimeSinceStartup - timer)); }
     }
 
+    #endregion
+
+    #region Modifying the Pool 
     public GameObject GetGameObject(int index)
     {
         if (!isInitialized) Initialize();
@@ -63,7 +68,7 @@ public class ObjectPooler : MonoBehaviour
 
         for (int i = startPosInList; i < startPosInList + gameObjectsToBePooled[index].amountToBePooled; i++)
         {
-            if (!pooledGameObjects[i].activeSelf) { if (debug) print("Object " + pooledGameObjects[i].name + " Found at position " + i); return pooledGameObjects[i];}
+            if (!_pooledGameObjects[i].activeSelf) { if (debug) print("Object " + _pooledGameObjects[i].name + " Found at position " + i); return _pooledGameObjects[i];}
         }
 
         if (debug) print("No Objects Ready in Pool " + gameObjectsToBePooled[index].name);
@@ -71,17 +76,44 @@ public class ObjectPooler : MonoBehaviour
         if (gameObjectsToBePooled[index].loadMoreIfNoneLeft)
         {
             if (debug) print("Added Object in Pool " + gameObjectsToBePooled[index].name);
-            pooledGameObjects.Insert(startPosInList + gameObjectsToBePooled[index].amountToBePooled, gameObjectsToBePooled[index].gameObjectToBePooled);
+            _pooledGameObjects.Insert(startPosInList + gameObjectsToBePooled[index].amountToBePooled, gameObjectsToBePooled[index].gameObjectToBePooled);
             gameObjectsToBePooled[index].amountToBePooled++;
-            return pooledGameObjects[startPosInList + gameObjectsToBePooled[index].amountToBePooled - 1];
+            return _pooledGameObjects[startPosInList + gameObjectsToBePooled[index].amountToBePooled - 1];
         }
 
         return null;
     }
 
+    public bool AreObjectsLeftInPool(string name)
+    {
+        if (!isInitialized) return false;
+
+        int startPosInList = 0;
+        int index = 0;
+        for (int i = 0; i < gameObjectsToBePooled.Length; i++)
+        {
+            if (gameObjectsToBePooled[i].name != name)
+            {
+                startPosInList += gameObjectsToBePooled[i].amountToBePooled;
+            }
+            else
+            {
+                index = i;
+                break;
+            }
+        }
+
+        for (int i = startPosInList; i < startPosInList + gameObjectsToBePooled[index].amountToBePooled; i++)
+        {
+            if (!_pooledGameObjects[i].activeSelf) return true;
+        }
+
+        return false;
+    }
+
     public void ResetPool()
     {
-        foreach (var objectInPool in pooledGameObjects)
+        foreach (var objectInPool in _pooledGameObjects)
         {
             if (objectInPool.activeSelf)
             {
@@ -89,7 +121,6 @@ public class ObjectPooler : MonoBehaviour
             }
         }
     }
-
     public void SetObjectInPool(GameObject go)
     {
         if (debug) print(go.name + " Set in Pool");
@@ -97,8 +128,10 @@ public class ObjectPooler : MonoBehaviour
         go.SetActive(false);
         go.transform.position = Vector3.zero;
     }
+    #endregion
 }
 
+#region Structs
 [Serializable]
 public struct GameObjectToBePooled
 {
@@ -110,3 +143,4 @@ public struct GameObjectToBePooled
     [Header("Settings")] 
     public bool loadMoreIfNoneLeft;
 }
+#endregion
