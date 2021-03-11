@@ -1,375 +1,269 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Mirror;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : NetworkBehaviour
+public class PlayerController : GameEntity
 {
-    #region Variables
-    [Header("Player Information")]
-    public GameObject playerGO;
-    public Transform orientation;
-    public CapsuleCollider capsuleCollider;
-    public int playerNum = 0;
-    public CameraFollow cameraFollow;
-    public GameObject camera;
+	#region Fields
 
-    [Header("Gun Info")]
-    public GameObject gun;
+	[Header("Player Information")] public int playerNum = 0;
+	public float sensitivityY, sensitivityX;
+	public Transform camera;
+	public Transform camPivot;
+	public PlayerShoot playerShoot;
+	public WeaponSelect weaponSelect;
+	public BodyAnimation fullBodyAnimation; // animation ref
+	public GameObject head;
+	public GameObject body;
+	public bool localDebug;
 
-    [Header("Speed Settings")]
-    public float moveSpeed = 4500;
-    public float sprintMult = 1.5f;
-    public float maxWalkSpeed = 10;
-    public float maxSprintSpeed = 20;
-    public float maxSpeed = 10;
-
-    [Header("Speed Settings")]
-    public float airSpeedMult = 0.25f;
-
-    [Header("Friction Settings")]
-    public float counterMovement = 0.10f;
-    private float threshold = 0.01f;
-    public float maxSlopeAngle = 35f;
-
-    [Header("Layer Masks")]
-    public LayerMask whatIsGround;
-    public LayerMask whatIsWall;
-
-    [Header("Jump Settings")]
-    public float jumpCooldown = 0.25f;
-    public float jumpForce = 550f;
-    public float gravityForce = 20;
-    public bool airJumps = true;
-    public int amountOfAirJumps = 2;
-
-    [Header("Crouch Settings")]
-    public float slideForce = 400;
-    public float slideCounterMovement = 0.2f;
-
-    [Header("Wall Running Settings")] 
-    public float wallRunForce;
-    public float maxWallRunTime;
-    public float maxWallSpeed;
-    public bool isLeftWall;
-    public bool isRightWall;
-    public bool isWallRunning;
-    public float maxCameraTilt;
-    public float cameraTilt;
+	[Header("Jump Settings")] public float jumpCooldown = 0.25f;
+	public float jumpForce = 550f;
+	public float gravityForce = 20;
+	public LayerMask layerMask;
+	[SerializeField] private bool isGrounded;
 
 
-    //Physics
-    private Rigidbody rb;
-    private bool cancellingGrounded;
+	[Header("Speed Settings")] public float setSpeed;
+	public float maxWalkSpeed = 10;
+	public float maxSprintSpeed = 20;
+	public float maxCrouchSpeed = 10;
+	private float airSpeed = 0.75f;
 
-    //Scale
-    private Vector3 crouchScale = new Vector3(1, 0.5f, 1);
-    private Vector3 playerScale;
+	//Input
+	private PlayerActions playerActions;
+	private float pitchRotation, yawRotation, camClamp = -60;
+	public bool canJump, isSprinting, isCrouching, isShooting, ADS, inputShoot;
+	private int wSwitch;
 
-    //Jumping
-    private bool readyToJump = true;
-    private bool grounded;
-    private int currentJumpsRemaining = 1;
+	//movement variables
+	private Rigidbody rb;
+	private Vector2 inputMovement;
+	private Vector2 inputLook;
 
-    //Input
-    private float x, y;
-    private bool jumping, sprinting, crouching, shooting;
-
-    //Sliding
-    private Vector3 normalVector = Vector3.up;
-
-    //ADS
-    private bool isADS;
-
-    #endregion
-
-    void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
-
-    public override void OnStartAuthority()
-    {
-        playerScale = transform.localScale;
-        currentJumpsRemaining = amountOfAirJumps;
-        if (hasAuthority)
-        {
-            camera.SetActive(true);
-        }
-
-        base.OnStartAuthority();
-    }
-
-    //Applies Movement 
-    private void FixedUpdate()
-    {
-        //Movement();
-    }
-
-    // Gets User Input from the Input Manager
-    public void UpdatePlayer(float x, float y, bool jumping, bool crouching, bool sprinting, bool shooting, bool startCrouch, bool stopCrouch, bool reload, bool startAds, bool stopAds)
-    {
-        this.x = x;
-        this.y = y;
-        this.jumping = jumping;
-        this.crouching = crouching;
-        this.sprinting = sprinting;
-        this.shooting = shooting;
+	//Sliding
+	private Vector3 normalVector = Vector3.up;
 
 
-        if (startAds) StartADS();
-        if (stopAds) StopADS();
-        if (startCrouch) StartCrouch();
-        if (stopCrouch) StopCrouch();
-        if (shooting) GlobalShootingSystem.Instance.Shoot(gun, camera.transform.position, camera.transform.forward, true, isADS);
-        if (reload) GlobalShootingSystem.Instance.Reload(gun);
+	//collider variables
+	private CapsuleCollider mCollider;
+	private float colliderCenterScale, colliderHeight;
+	private float crouchValue = 0.25f;
 
-        cameraFollow.UpdateCamera();
-        Movement();
-    }
-    public void StartADS()
-    {
-        isADS = true;
-        Vector3.Lerp(gun.transform.localPosition, new Vector3(0, -0.1f, 0.5f), 0.5f);
-    }
+	public enum MovementAction
+	{
+		Walking,
+		Crouching,
+		Running,
+	}
 
-    public void StopADS()
-    {
-        isADS = false;
-        Vector3.Lerp(gun.transform.localPosition, new Vector3(0.636f, -0.149f, 0.417f), 0.5f);
-    }
+	public MovementAction movementAction;
 
-    private void StartCrouch()
-    {
-        playerGO.transform.localScale = crouchScale;
-        capsuleCollider.height = crouchScale.y * 2;
-        playerGO.transform.position = new Vector3(playerGO.transform.position.x, playerGO.transform.position.y - 0.5f, playerGO.transform.position.z);
-
-        if (grounded && rb.velocity.magnitude > 0.5f)
-        {
-            rb.AddForce(orientation.transform.forward * slideForce);
-        }
-    }
-
-    private void StopCrouch()
-    {
-        playerGO.transform.localScale = playerScale;
-        capsuleCollider.height = playerScale.y * 2;
-        playerGO.transform.position = new Vector3(playerGO.transform.position.x, playerGO.transform.position.y + 0.5f, playerGO.transform.position.z);
-    }
-
-    private void Movement()
-    {
-        AddGravity();
-
-        //Find actual velocity relative to where player is looking
-        Vector2 mag = FindVelRelativeToLook();
-        float xMag = mag.x, yMag = mag.y;
-
-        ApplyFriction(x, y, mag);
-        if (readyToJump && jumping) Jump();
-
-        //Set Max Speed
-        maxSpeed = sprinting && canSprint() && x == 0 && y >= 0.9f? maxSprintSpeed : maxWalkSpeed;
-        //maxSpeed = maxSprintSpeed;
+	#endregion
 
 
-        //If sliding down a ramp, add force down so player stays grounded and builds speed
-        if (crouching && grounded && readyToJump)
-        {
-            rb.AddForce(Vector3.down * Time.deltaTime * 3000);
-            return;
-        }
+	void Awake() {
+		rb = GetComponent<Rigidbody>();
+		if (localDebug) {
+			playerActions = new PlayerActions();
+			//movement input
+			playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
+			playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
+			playerActions.PlayerControls.Look.performed += context => inputLook = context.ReadValue<Vector2>();
+			playerActions.PlayerControls.Look.canceled += context => inputLook = Vector2.zero;
+			playerActions.PlayerControls.Sprint.performed += context => isSprinting = true;
+			playerActions.PlayerControls.Sprint.canceled += context => isSprinting = false;
+			playerActions.PlayerControls.Crouch.performed += context => isCrouching = !isCrouching;
+			playerActions.PlayerControls.Jump.performed += context => Jump();
+			//Weapon input
+			playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
+			playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
+			playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
+			playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+		}
+	}
 
-        //If speed is larger than maxSpeed, overwrite the input
-        if (x > 0 && xMag > maxSpeed) x = 0;
-        if (x < 0 && xMag < -maxSpeed) x = 0;
-        if (y > 0 && yMag > maxSpeed) y = 0;
-        if (y < 0 && yMag < -maxSpeed) y = 0;
+	public override void OnStartAuthority() {
+		gameObject.GetComponent<NetworkAnimator>().enabled = false;
 
-        //For Change In Movement
-        float multiplier = 1f, multiplierV = 1f;
+		playerActions = new PlayerActions();
 
-        // Reduce Movement in air
-        if (!grounded)
-        {
-            multiplier = airSpeedMult;
-            multiplierV = airSpeedMult;
-        }
-        //Increased Movement if Sprinting 
-        if (grounded && sprinting && !crouching)
-        {
-            multiplierV = sprintMult;
-        }
-        // Movement while sliding
-        if (grounded && crouching) multiplierV = 0f;
+		//movement input
+		playerActions.PlayerControls.Move.performed += context => inputMovement = context.ReadValue<Vector2>();
+		playerActions.PlayerControls.Move.canceled += context => inputMovement = Vector2.zero;
+		playerActions.PlayerControls.Look.performed += context => inputLook = context.ReadValue<Vector2>();
+		playerActions.PlayerControls.Look.canceled += context => inputLook = Vector2.zero;
+		playerActions.PlayerControls.Sprint.performed += context => isSprinting = true;
+		playerActions.PlayerControls.Sprint.canceled += context => isSprinting = false;
+		playerActions.PlayerControls.Crouch.performed += context => isCrouching = !isCrouching;
+		playerActions.PlayerControls.Jump.performed += context => Jump();
+		//Weapon input
+		playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
+		playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
+		playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
+		playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
 
-        //Apply forces to move player
-        rb.AddForce(orientation.transform.forward * y * moveSpeed * Time.deltaTime * multiplier * multiplierV);
-        rb.AddForce(orientation.transform.right * x * moveSpeed * Time.deltaTime * multiplier);
-    }
+		base.OnStartAuthority();
+	}
 
-    private bool canSprint()
-    {
-        if (shooting && grounded)
-        {
-            return false;
-        }
-        else if (shooting && !grounded)
-        {
-            return true;
-        }
-        else
-        {
-            return true;
-        }
-    }
 
-    private void AddGravity()
-    {
-        rb.AddForce(Vector3.down * Time.deltaTime * gravityForce);
-    }
-    private void Jump()
-    {
-        if (grounded && readyToJump)
-        {
-            currentJumpsRemaining = amountOfAirJumps;
-            //If jumping while falling, reset y velocity.
-            Vector3 vel = rb.velocity;
-            if (rb.velocity.y < 0.5f)
-                rb.velocity = new Vector3(vel.x, 0, vel.z);
-            else if (rb.velocity.y > 0)
-                rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
+	void Start() {
+		SetHealth(100);
+		SetArmor(100);
+		fullBodyAnimation = GetComponent<BodyAnimation>();
+		weaponSelect = GetComponent<WeaponSelect>();
 
-            //Add jump forces
-            rb.AddForce(Vector2.up * jumpForce * 1.5f);
-            rb.AddForce(normalVector * jumpForce * 0.5f);
+		mCollider = GetComponent<CapsuleCollider>();
+		colliderCenterScale = mCollider.center.y;
+		colliderHeight = mCollider.height;
+		if (fullBodyAnimation == null) fullBodyAnimation = gameObject.AddComponent<BodyAnimation>();
+	}
 
-            if (!airJumps)
-            {
-                readyToJump = false;
-                Invoke(nameof(ResetJump), jumpCooldown);
-            }
-        }
-        else if (airJumps && currentJumpsRemaining > 0)
-        {
-            --currentJumpsRemaining;
+	private void FixedUpdate() {
+		UpdatePlayer();
+	}
 
-            //If jumping while falling, reset y velocity.
-            Vector3 vel = rb.velocity;
-            if (rb.velocity.y < 0.5f)
-                rb.velocity = new Vector3(vel.x, 0, vel.z);
-            else if (rb.velocity.y > 0)
-                rb.velocity = new Vector3(vel.x, vel.y / 2, vel.z);
+	private void LateUpdate() {
+		UpdateCamera();
+	}
 
-            //Add jump forces
-            rb.AddForce(Vector2.up * jumpForce * 1.5f);
-            rb.AddForce(normalVector * jumpForce * 0.5f);
-        }
-    }
+	private void OnEnable() {
+		playerActions.PlayerControls.Enable();
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+	}
 
-    private void ResetJump()
-    {
-        readyToJump = true;
-    }
+	private void OnDisable() {
+		playerActions.PlayerControls.Disable();
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+	}
 
-    private void WaitForGrounded()
-    {
-        currentJumpsRemaining = amountOfAirJumps;
-    }
+	void UpdatePlayer() {
+		Movement();
+		WeaponSwitch();
+		if (inputShoot) playerShoot.Shoot();
+	}
 
-    private void ApplyFriction(float x, float y, Vector2 mag)
-    {
-        if (!grounded || jumping) return;
+	void UpdateCamera() {
+		pitchRotation += inputLook.x * sensitivityY;
+		yawRotation += inputLook.y   * sensitivityX;
+		yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
+		gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		body.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
+		// If inverse positive Y
+		camera.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+		head.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+	}
 
-        //Slow down sliding
-        if (crouching)
-        {
-            rb.AddForce(moveSpeed * Time.deltaTime * -rb.velocity.normalized * slideCounterMovement);
-            return;
-        }
+	void WeaponSwitch() {
+		//for keyboard, can be used along side on the input system key
+		if (Keyboard.current.digit1Key.isPressed) wSwitch = 0;
+		if (Keyboard.current.digit2Key.isPressed) wSwitch = 1;
 
-        //Counter movement
-        if (Math.Abs(mag.x) > threshold && Math.Abs(x) < 0.05f || (mag.x < -threshold && x > 0) || (mag.x > threshold && x < 0))
-        {
-            rb.AddForce(moveSpeed * orientation.transform.right * Time.deltaTime * -mag.x * counterMovement);
-        }
-        if (Math.Abs(mag.y) > threshold && Math.Abs(y) < 0.05f || (mag.y < -threshold && y > 0) || (mag.y > threshold && y < 0))
-        {
-            rb.AddForce(moveSpeed * orientation.transform.forward * Time.deltaTime * -mag.y * counterMovement);
-        }
+		var weaponSelected = (wSwitch % weaponSelect.weaponCount);
 
-        //Limit diagonal running. This will also cause a full stop if sliding fast and un-crouching, so not optimal.
-        if (Mathf.Sqrt((Mathf.Pow(rb.velocity.x, 2) + Mathf.Pow(rb.velocity.z, 2))) > maxSpeed)
-        {
-            float fallSpeed = rb.velocity.y;
-            Vector3 n = rb.velocity.normalized * maxSpeed;
-            rb.velocity = new Vector3(n.x, fallSpeed, n.z);
-        }
-    }
+		switch (weaponSelected) {
+			case 0:
+				weaponSelect.WeaponSelected = 0;
+				break;
+			case 1:
+				weaponSelect.WeaponSelected = 1;
+				break;
+		}
+	}
 
-    //Find the velocity relative to where the player is looking
-    //Useful for vectors calculations regarding movement and limiting movement
-    public Vector2 FindVelRelativeToLook()
-    {
-        float lookAngle = orientation.transform.eulerAngles.y;
-        float moveAngle = Mathf.Atan2(rb.velocity.x, rb.velocity.z) * Mathf.Rad2Deg;
+	private void Movement() {
+		AnimationHandler();
+		AddGravity();
+		SpeedHandler();
+		CrouchColliderHandler();
+		isGrounded = GroundCheck();
 
-        float u = Mathf.DeltaAngle(lookAngle, moveAngle);
-        float v = 90 - u;
+		// Reduce Movement in air
+		if (!isGrounded) setSpeed *= airSpeed;
 
-        float magnitude = rb.velocity.magnitude;
-        float yMag = magnitude * Mathf.Cos(u * Mathf.Deg2Rad);
-        float xMag = magnitude * Mathf.Cos(v * Mathf.Deg2Rad);
+		//Increased Movement if Sprinting 
+		if (isGrounded && isSprinting && !isCrouching && !ADS) movementAction = MovementAction.Running;
 
-        return new Vector2(xMag, yMag);
-    }
+		// Sprint forward if the input is above the threshold 
+		if (isSprinting) isSprinting = (inputMovement.y >= 0.7);
 
-    private bool IsFloor(Vector3 v) => Vector3.Angle(Vector3.up, v) < maxSlopeAngle;
+		// Movement while sliding
+		if (isGrounded && isCrouching) movementAction = MovementAction.Crouching;
 
-    //Handle ground detection
-    private void OnCollisionStay(Collision other)
-    {
-        //Make sure we are only checking for walkable layers
-        int layer = other.gameObject.layer;
-        if (whatIsGround != (whatIsGround | (1 << layer))) return;
-        
-        //Iterate through every collision in a physics update
-        for (int i = 0; i < other.contactCount; i++)
-        {
-            Vector3 normal = other.contacts[i].normal;
-            if (IsFloor(normal))
-            {
-                currentJumpsRemaining = amountOfAirJumps;
-                grounded = true;
-                cancellingGrounded = false;
-                normalVector = normal;
-                CancelInvoke(nameof(StopGrounded));
-            }
-        }
-        
+		if (isGrounded && !isCrouching && !isSprinting) movementAction = MovementAction.Walking;
 
-        //Invoke ground cancel, since we can't check normals with CollisionExit
-        float delay = 3f;
-        if (!cancellingGrounded)
-        {
-            cancellingGrounded = true;
-            Invoke(nameof(StopGrounded), Time.deltaTime * delay);
-        }
+		var movement = (inputMovement.x * transform.right + inputMovement.y * transform.forward).normalized;
 
-        //if (whatIsWall != (whatIsWall | (1 << layer)))
-        //{
-        //    if (Mathf.Abs(Vector3.Dot(other.GetContact(0).normal, Vector3.up)) < 0.1f)
-        //    {
+		rb.MovePosition(transform.position + (movement * (setSpeed * Time.deltaTime)));
+	}
 
-        //    }
+	public void AnimationHandler() {
+		fullBodyAnimation.MovementAnim(inputMovement.x, inputMovement.y);
+		fullBodyAnimation.CrouchAnim(isCrouching);
+		fullBodyAnimation.InAirAnim(isGrounded);
+		fullBodyAnimation.SprintAnim((isGrounded && !ADS)
+			? isSprinting
+			: false); //cancels sprint while in air and aiming
+		fullBodyAnimation.AimDownAnim(ADS);
+		// fullBodyAnimation.ReloadAnim(reloa);
+	}
 
-        //}
-    }
+	private void AddGravity() => rb.AddForce(Vector3.down * Time.deltaTime * gravityForce);
+	private bool GroundCheck() => (Physics.CheckSphere(transform.position, .5f, layerMask));
 
-    private void StopGrounded()
-    {
-        grounded = false;
-    }
+	private void Jump() {
+		if (isGrounded) {
+			//Add jump forces
+			rb.AddForce(Vector2.up   * jumpForce * 1.5f);
+			rb.AddForce(normalVector * jumpForce * 0.5f);
+		}
+	}
 
+	private void SpeedHandler() {
+		switch (movementAction) {
+			case MovementAction.Crouching:
+				setSpeed = maxCrouchSpeed;
+				break;
+			case MovementAction.Walking:
+				setSpeed = maxWalkSpeed;
+				break;
+			case MovementAction.Running:
+				setSpeed = maxSprintSpeed;
+				break;
+		}
+	}
+
+	private void CrouchColliderHandler() {
+		if (isCrouching) {
+			camera.localPosition = new Vector3(0, -.4f, 0);
+			mCollider.center = new Vector3(0, colliderCenterScale - crouchValue, 0);
+			mCollider.height = colliderHeight - (crouchValue * 2);
+		}
+		else {
+			camera.localPosition = Vector3.zero;
+			mCollider.center = new Vector3(0, colliderCenterScale, 0);
+			mCollider.height = colliderHeight;
+		}
+	}
+
+
+	private void OnDrawGizmosSelected() {
+		if (mCollider != null) Gizmos.DrawSphere(mCollider.gameObject.transform.position, .5f);
+	}
+
+
+	private void OnGUI() {
+		GUILayout.BeginArea(new Rect(10, 10, 100, 250));
+		GUILayout.Box("Stats");
+		GUILayout.TextField("Armor: " + armor, 50);
+		GUILayout.TextField("Heath: " + health, 50);
+		GUILayout.TextField("Mag: "   + playerShoot.weapons[0].currentAmmoInMag, 100);
+		GUILayout.TextField("Ammo: "  + playerShoot.weapons[0].reserveAmmo, 100);
+
+		GUILayout.EndArea();
+	}
 }

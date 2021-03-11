@@ -8,14 +8,17 @@ public class WeapoInformation : MonoBehaviour
     public int reserveAmmo;
     public int currentAmmoInMag;
 
-    public GlobalShootingSystem.Guns gunType;
+    [Header("Gun Stats")]
+    public bool isFullAuto = true;
+    public int maxAmmoInMag = 10;
+    public int maxReserveAmmo = 50;
+    public float bulletSpeed = 10;
+    public float damage = 1;
+    public float firerate = 2;
 
     public void OnEnable()
     {
-        //WeaponObjects wo = GlobalShootingSystem.Instance.weaponList[(int)gunType];
-        //reserveAmmo = wo.reserveAmmo;
-        //currentAmmoInMag = wo.magasineSize;
-        reserveAmmo = 50;
-        currentAmmoInMag = 10;
+        reserveAmmo = maxReserveAmmo;
+        currentAmmoInMag = maxAmmoInMag;
     }
 }

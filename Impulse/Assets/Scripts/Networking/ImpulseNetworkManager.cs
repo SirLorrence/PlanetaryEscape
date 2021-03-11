@@ -152,13 +152,12 @@ public class ImpulseNetworkManager : NetworkManager
 
     public override void OnServerSceneChanged(string sceneName)
     {
-        if (sceneName.StartsWith("PVE_MAP"))
-        {
-            GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
-            NetworkServer.Spawn(playerSpawnSystemInstance);
-        }
+        //if (sceneName.StartsWith("PVE_MAP"))
+        //{
+        GameObject playerSpawnSystemInstance = Instantiate(playerSpawnSystem);
+        NetworkServer.Spawn(playerSpawnSystemInstance);
+        //}
     }
-
 
     public override void OnServerReady(NetworkConnection conn)
     {
