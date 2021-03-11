@@ -1,63 +1,169 @@
 ﻿using System;
+using System.Collections;
+using System.Runtime.CompilerServices;
+using Enemy.States;
 using Mirror;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Analytics;
+using Random = UnityEngine.Random;
 
 namespace Enemy.Enemy_Types
 {
+	/// <summary>
+	/// this class works like an black board
+	/// hold all the ai data
+	/// </summary>
 	public class AIEntity : GameEntity
 	{
-		/// <summary>
-		/// this class works like an black board
-		/// hold all the ai data
-		/// </summary>
-		[Range(0, 360)] public float fieldOfView;
+		#region Fields
 
-		[HideInInspector] public NavMeshAgent navAgent;
-		[HideInInspector] public Collider[] targets;
+		[Header("Drop Chance")] [Range(0, 100)]
+		public int dropPercent;
+
+		[Header("Detection Values")] [Range(0, 360)]
+		public float fieldOfView;
+
 		public Transform targetPlayer;
 		public float detectionRadius;
-		public float combatDonut;
-		public bool testAction;
-		public Animator animator;
+		public float viewDistance = 10;
+		public double attackDist;
+
+		[Header("Aggression")] [Range(0, 100)] public int aggressionLevel;
+		public bool alwaysAggro;
+		public bool inAggroMode;
+
+		[Header("Damage Value")] public int dealAmount;
+		public AttackHandler attackHandler;
+
+		[Header("Speed Values")] public float wonderSpeed;
+		public float followSpeed;
+		public float chaseSpeed;
+		public float speedMultiplier = 1;
+
+		[Header("Visual Debug and Developer Override")]
 		public bool toggleBody;
 
-		public bool useRandom;
-		[Range(0,100)]public int aggressionLevel;
-		
+		public bool showViewCast;
+		public bool showRadius;
+		public bool testStateChange;
+
+		public enum StateOverride
+		{
+			Follow,
+			Attack,
+			Death
+		}
+
+		public StateOverride stateOverride;
+
+
+		[HideInInspector] public Collider[] targets;
+
+		[HideInInspector] public NavMeshAgent navAgent;
+
+		[HideInInspector] public ZombieAnimationHandler animationHandler;
+
+
 		protected Rigidbody[] rigidbodies;
+
 		protected NpcState currentState;
+		protected NpcState pastState;
+
+		protected bool playerFound, inRange;
+
+		public bool PlayerFound => playerFound;
+		public bool InRange => inRange;
 
 		private int playerLayer = 1 << 9;
 
-		public void SetState(NpcState aState) {
-			currentState = aState;
+		#endregion
+
+		public virtual void Start() {
+			rigidbodies = GetComponentsInChildren<Rigidbody>();
+			navAgent = GetComponentInChildren<NavMeshAgent>();
+			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
+			attackHandler.amount = dealAmount;
+			if (testStateChange) {
+				switch (stateOverride) {
+					case StateOverride.Follow:
+						SetState(new FollowState(this));
+						break;
+					case StateOverride.Attack:
+						SetState(new AttackState(this));
+						break;
+					case StateOverride.Death:
+						SetState(new DeathState(this));
+						break;
+				}
+			}
+			else SetState(new FollowState(this));
 		}
 
 		public virtual void Update() {
-			
 			var vZ = Vector3.Dot(navAgent.velocity.normalized, transform.forward);
 			var vX = Vector3.Dot(navAgent.velocity.normalized, transform.right);
-		
-			animator.SetFloat("xInput", vX, 0.1f, Time.deltaTime);
-			animator.SetFloat("zInput", vZ, 0.1f, Time.deltaTime);
+			animationHandler.AnimHandler(vX, vZ, inAggroMode);
+
+			VisionArea();
+			if (health <= 0) SetState(new DeathState(this));
+
+			// Debug.Log($"Player Found :{playerFound}");
+			// Debug.Log($"Can Attack :{inRange}");
 		}
 
+		public void SetState(NpcState aState) => currentState = aState;
 
-		public bool InView(Collider[] targets) {
-			foreach (var t in targets) {
-				Vector3 dist = t.transform.position - transform.position;
-				if (Vector3.Angle(transform.forward, dist) < fieldOfView / 2)
-					return true;
+		//for push-down automata
+		public void PushState(NpcState state) {
+			pastState = currentState;
+			SetState(state);
+		}
+
+		public void PopState() => currentState = pastState;
+
+
+		public void VisionArea() {
+			for (float i = -fieldOfView; i < fieldOfView; i += 4) {
+				Vector3 angle = DirFromAngle(i / 2);
+				Vector3 origin = transform.position + Vector3.up;
+				Vector3 dir = angle;
+
+				Ray ray = new Ray(origin, dir);
+				RaycastHit raycastHit;
+				if (Physics.Raycast(ray, out raycastHit, viewDistance)) {
+					if (raycastHit.transform.CompareTag("Player")) {
+						playerFound = true;
+						inRange = raycastHit.distance <= attackDist;
+					}
+				}
+				else inRange = false;
 			}
-			return false;
+		}
+
+		public void FindRandomTarget() => targetPlayer = GameObject.FindWithTag("Player").transform;
+
+
+		public int SetRandomLevel() => Random.Range(0, 100);
+
+		public int GetRandomAttack() => Random.Range(0, 3);
+
+		public void SpawnItem(GameObject item) => Instantiate(item, transform.position + Vector3.up, transform.rotation);
+
+		public void SetAggroLevel() =>
+			aggressionLevel = (alwaysAggro) ? 100 : aggressionLevel = SetRandomLevel();
+
+		public bool CheckIfAggro() {
+			inAggroMode = (aggressionLevel > 50);
+			return inAggroMode;
 		}
 
 		public Transform ClosestTarget(Collider[] targets) {
 			double dist = detectionRadius;
+
 			Transform nearestTarget = null;
 			foreach (var target in targets) {
-				double d = target.transform.position.x - transform.position.x;
+				double d = Vector3.Distance(target.transform.position, transform.position);
 				if (d < dist) {
 					dist = d;
 					nearestTarget = target.transform;
@@ -67,62 +173,58 @@ namespace Enemy.Enemy_Types
 			return nearestTarget;
 		}
 
-		public Collider[] PlayersInRange() => Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
-
+		public Collider[] PlayersInRange() =>
+			Physics.OverlapSphere(transform.position, detectionRadius, playerLayer);
 
 		public Vector3 DirFromAngle(float angleInDegrees) {
 			angleInDegrees += transform.eulerAngles.y;
 			//swapping around the sin and cos 
-			return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0, Mathf.Cos(angleInDegrees * Mathf.Deg2Rad));
+			return new Vector3(Mathf.Sin(angleInDegrees * Mathf.Deg2Rad), 0,
+				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-		public void TakeDamage(float damageAmount) {
-			GameObject go = ObjectPooler.Instance.GetGameObject(0);
-			go.transform.position = gameObject.transform.position + new Vector3(0, 2, 0);
-			DamagePopup damagePopup = go.GetComponent<DamagePopup>();
-			damagePopup.gameObject.SetActive(true);
-			damagePopup.Setup((int) damageAmount);
-			health -= 1;
-		}
 
-		public void ToggleRagdoll() {
-			if (rigidbodies != null || rigidbodies.Length != 0) {
-				foreach (var rb in rigidbodies) {
-					rb.isKinematic = animator.enabled;
-				}
-			}
-		}
+// public void ToggleRagdoll() {
+// 	if (rigidbodies != null || rigidbodies.Length != 0) {
+// 		foreach (var rb in rigidbodies) {
+// 			rb.isKinematic = animator.enabled;
+// 		}
+// 	}
+// }
 
-		[HideInInspector] public Vector3 coverPos;
 
 		public virtual void OnDrawGizmosSelected() {
-			Gizmos.color = Color.green;
-			//radius  
-			Gizmos.DrawWireSphere(transform.position, detectionRadius);
-
-			var viewAngleA = DirFromAngle(-fieldOfView / 2);
-			var viewAngleB = DirFromAngle(fieldOfView  / 2);
-
-			Gizmos.DrawLine(transform.position, transform.position + viewAngleA * detectionRadius);
-			Gizmos.DrawLine(transform.position, transform.position + viewAngleB * detectionRadius);
-
-			if (targetPlayer != null) {
-				Gizmos.color = Color.blue;
-				Gizmos.DrawWireSphere(targetPlayer.position, combatDonut);
-				Gizmos.color = Color.red;
+			if (showRadius) {
+				Gizmos.color = Color.green;
+				Gizmos.DrawWireSphere(transform.position, detectionRadius);
 			}
 
-			if (coverPos != Vector3.zero) {
-				Gizmos.color = Color.black;
-				Gizmos.DrawSphere(coverPos, .25f);
+			if (showViewCast) {
+				for (float i = -fieldOfView; i < fieldOfView; i += 4) {
+					var angle = DirFromAngle(i / 2);
+					RaycastHit hit;
+					Ray ray = new Ray(transform.position + Vector3.up, Vector3.up + angle * viewDistance);
+					if (Physics.Raycast(ray, out hit)) {
+						Debug.DrawRay(transform.position + Vector3.up, angle * hit.distance, Color.red);
+					}
+					else {
+						Debug.DrawRay(transform.position + Vector3.up, angle * viewDistance, Color.green);
+						Debug.DrawRay(transform.position + Vector3.up, angle * (float) attackDist, Color.blue);
+					}
+				}
 			}
 		}
 	}
 
 	public abstract class NpcState
 	{
-		protected readonly AIEntity entity;
-		public NpcState(AIEntity aiEntity) => entity = aiEntity; // creates the states own constructor
+		protected readonly AIEntity aiEntity;
+		protected NpcState(AIEntity aiEntity) => this.aiEntity = aiEntity; // creates the states own constructor
 		public abstract void DoActions();
+
+		public virtual IEnumerator WaitForAnimationFinish(AIEntity entity) {
+			float animationTime = entity.animationHandler.animator.GetCurrentAnimatorStateInfo(0).length;
+			yield return new WaitForSeconds(animationTime);
+		}
 	}
 }

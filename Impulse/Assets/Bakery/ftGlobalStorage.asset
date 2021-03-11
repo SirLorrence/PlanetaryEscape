@@ -1145,9 +1145,70 @@ MonoBehaviour:
   - Assets/Zombie Slaughter/Meshes/Zombie Guy 1 Mesh.FBX
   - Assets/Zombie Slaughter/Meshes/Zombie Guy 3 Mesh.FBX
   - 
-  - Assets/3DAssets/GruntPlayer/GruntHands.fbx
-  - Assets/3DAssets/GruntPlayer/Grunt.fbx
-  uvOverlapAssetList: 0000000000000000
+  - Assets/Zombie Animations/running crawl.fbx
+  - Assets/Extra Zombie Animations/running crawl.fbx
+  - Assets/Extra Zombie Animations/zombie scream.fbx
+  - Assets/Extra Zombie Animations/zombie agonizing.fbx
+  - Assets/Animation/Reloading/Shotgun Reload.fbx
+  - Assets/Animation/Pistol Locomotion/pistol kneeling idle.fbx
+  - Assets/3DAssets/Level/LevelUnity_4.fbx
+  - Assets/Extra Zombie Animations/zombie run.fbx
+  - Assets/Animation/Rifle Locomotion/Running/run right.fbx
+  - Assets/Extra Zombie Animations/zombie attack.fbx
+  - Assets/Extra Zombie Animations/zombie reaction hit (2).fbx
+  - Assets/Extra Zombie Animations/zombie idle.fbx
+  - Assets/Animation/Pistol Locomotion/pistol kneel to stand.fbx
+  - Assets/Extra Zombie Animations/zombie biting.fbx
+  - Assets/Meshes/ybot.fbx
+  - Assets/Animation/Pistol Locomotion/pistol jump (2).fbx
+  - Assets/Animation/Rifle Locomotion/Running/run forward right.fbx
+  - Assets/Extra Zombie Animations/zombie attack 1.fbx
+  - Assets/Extra Zombie Animations/walking.fbx
+  - Assets/Extra Zombie Animations/zombie transition (2).fbx
+  - Assets/Extra Zombie Animations/zombie kicking (2).fbx
+  - Assets/Meshes/Zombie Meshes/Zombie Guy 2 Mesh.FBX
+  - Assets/Meshes/Zombie Meshes/Zombie Guy 1 Mesh.FBX
+  - Assets/Extra Zombie Animations/zombie walk.fbx
+  - Assets/Extra Zombie Animations/zombie dying.fbx
+  - Assets/Extra Zombie Animations/zombie idle 1.fbx
+  - Assets/Extra Zombie Animations/zombie kicking.fbx
+  - Assets/Extra Zombie Animations/zombie idle (4).fbx
+  - Assets/Animation/Rifle Locomotion/Running/run backward.fbx
+  - Assets/Meshes/Zombie Meshes/Zombie Guy 3 Mesh.FBX
+  - Assets/Extra Zombie Animations/zombie headbutt.fbx
+  - Assets/Extra Zombie Animations/zombiegirl_w_kurniawan 1.fbx
+  - Assets/Animation/Rifle Locomotion/Running/run forward.fbx
+  - Assets/Extra Zombie Animations/zombie reaction hit.fbx
+  - Assets/Meshes/Demo Background.FBX
+  - Assets/Extra Zombie Animations/zombie scratch idle.fbx
+  - Assets/Extra Zombie Animations/zombie biting (2).fbx
+  - Assets/Animation/Reloading/Idle Reload.fbx
+  - Assets/Extra Zombie Animations/zombie idle (2).fbx
+  - Assets/Extra Zombie Animations/zombie idle (3).fbx
+  - Assets/Extra Zombie Animations/zombie punching (2).fbx
+  - Assets/Animation/Rifle Locomotion/Running/run backward left.fbx
+  - Assets/Extra Zombie Animations/zombie stumbling.fbx
+  - Assets/Animation/Rifle Locomotion/Running/run forward left.fbx
+  - Assets/Animation/Pistol Locomotion/pistol jump.fbx
+  - Assets/Extra Zombie Animations/zombie death.fbx
+  - Assets/Extra Zombie Animations/zombie crawl.fbx
+  - Assets/Extra Zombie Animations/zombie stand up (2).fbx
+  - Assets/Animation/Reloading/Crouch Reload.fbx
+  - Assets/Extra Zombie Animations/zombie transition.fbx
+  - Assets/Meshes/Zombie Meshes/Zombie Girl 1 Mesh.FBX
+  - Assets/Extra Zombie Animations/zombie neck bite.fbx
+  - Assets/Extra Zombie Animations/zombie stand up (3).fbx
+  - Assets/Extra Zombie Animations/zombie stand up.fbx
+  - Assets/Extra Zombie Animations/walking (2).fbx
+  - Assets/Extra Zombie Animations/zombiegirl_w_kurniawan.fbx
+  - Assets/Extra Zombie Animations/zombie turn.fbx
+  - Assets/Extra Zombie Animations/zombie punching.fbx
+  - Assets/Extra Zombie Animations/zombie running.fbx
+  - Assets/Animation/Pistol Locomotion/pistol run backward.fbx
+  - Assets/Animation/Rifle Locomotion/Running/run backward right.fbx
+  - Assets/Animation/Rifle Locomotion/Running/run left.fbx
+  uvOverlapAssetList: 0000000000000000010100000000000001010000010100000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000101000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
   xatlasWarningShown: 0
   foundCompatibleSetup: 0
   gpuName: 
