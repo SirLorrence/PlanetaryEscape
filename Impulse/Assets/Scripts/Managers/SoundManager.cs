@@ -13,8 +13,6 @@ public class SoundManager : MonoBehaviour
     private Hashtable _audioTable; //Relation between Audio Types (Key) and Audio Tracks (Value)
     private Hashtable _jobTable; //Relation between Audio Types (Key) and Jobs (Value)
 
-    #region Unity Functions
-
     #region Singleton
     //Singleton Instantiation
     public static SoundManager Instance { get; private set; }
@@ -33,11 +31,11 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
+
     private void OnDisable()
     {
-
+        Dispose();
     }
-    #endregion
 
     #region Public Functions
     public void PlayAudio(AudioTypes audioType)
@@ -54,7 +52,7 @@ public class SoundManager : MonoBehaviour
     }
     #endregion
 
-    #region Private Functions
+    #region Setup/Destroy Functions
     private void Configure()
     {
         _audioTable = new Hashtable();
@@ -70,7 +68,9 @@ public class SoundManager : MonoBehaviour
             StopCoroutine(job);
         }
     }
+    #endregion
 
+    #region AudioJob 
     private void PopulateAudioTable()
     {
         foreach (var track in tracks)
@@ -169,7 +169,9 @@ public class SoundManager : MonoBehaviour
         StopCoroutine(runningJob);
         _jobTable.Remove(type);
     }
+    #endregion
 
+    #region Logging Functions
     private void Log(string msg)
     {
         if (!debug) return;

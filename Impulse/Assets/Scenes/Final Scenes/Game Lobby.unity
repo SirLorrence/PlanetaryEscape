@@ -380,7 +380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187481995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.75, y: 0.72, z: -6.63}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1120,7 +1120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329033075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 642.583, y: 266.12698, z: 1.8259277}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -4878,18 +4878,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 1
   tracks:
-  - audioSource: {fileID: 1699573039}
-    audioObjects:
-    - audioType: 0
-      audioClip: {fileID: 8300000, guid: 4262074fa0ddd2842b0a652087369197, type: 3}
-    - audioType: 1
-      audioClip: {fileID: 8300000, guid: 8e67e69606be5624686c4c8ce995186b, type: 3}
-  - audioSource: {fileID: 1484854161}
-    audioObjects:
-    - audioType: 7
-      audioClip: {fileID: 8300000, guid: c0ab1ebbc0e69ba41af25389e54c6cee, type: 3}
-    - audioType: 8
-      audioClip: {fileID: 8300000, guid: 3d2e943bf2395a446bb8069b04b88488, type: 3}
+  - source: {fileID: 0}
+    audio: []
+  - source: {fileID: 0}
+    audio: []
 --- !u!4 &1901015497
 Transform:
   m_ObjectHideFlags: 0
@@ -4898,7 +4890,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901015495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 580.34045, y: 297.33652, z: -96.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1699573038}
