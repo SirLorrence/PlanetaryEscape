@@ -1,40 +1,38 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Mirror;
-using TMPro;
-using UnityEngine.UI;
+﻿using Mirror;
 
-public class NetworkGamePlayer : NetworkBehaviour
+namespace Networking
 {
-    [SyncVar]
-    public string DisplayName = "Loading...";
+    public class NetworkGamePlayer : NetworkBehaviour
+    {
+        [SyncVar]
+        public string DisplayName = "Loading...";
    
-    private ImpulseNetworkManager _room;
+        private ImpulseNetworkManager _room;
 
-    private ImpulseNetworkManager room
-    {
-        get
+        private ImpulseNetworkManager room
         {
-            if (_room != null) return _room;
-            return _room = NetworkManager.singleton as ImpulseNetworkManager;
+            get
+            {
+                if (_room != null) return _room;
+                return _room = NetworkManager.singleton as ImpulseNetworkManager;
+            }
         }
-    }
 
 
-    public override void OnStartClient()
-    {
-        DontDestroyOnLoad(this);
-        room.GamePlayers.Add(this);
-    }
+        public override void OnStartClient()
+        {
+            DontDestroyOnLoad(this);
+            room.GamePlayers.Add(this);
+        }
 
-    public override void OnStopClient()
-    {
-        room.GamePlayers.Remove(this);
-    }
+        public override void OnStopClient()
+        {
+            room.GamePlayers.Remove(this);
+        }
 
-    public void SetDisplayName(string name)
-    {
-        DisplayName = name;
+        public void SetDisplayName(string name)
+        {
+            DisplayName = name;
+        }
     }
 }

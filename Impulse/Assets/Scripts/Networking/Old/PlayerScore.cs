@@ -1,30 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Mirror;
 using UnityEngine;
-using Mirror;
 
-public class PlayerScore : NetworkBehaviour
+namespace Networking.Old
 {
-    [SyncVar]
-    public int playerNumber;
-
-    [SyncVar]
-    public int scoreIndex;
-
-    [SyncVar]
-    public int matchIndex;
-
-    [SyncVar]
-    public uint score;
-
-    public int clientMatchIndex = -1;
-
-    void OnGUI()
+    public class PlayerScore : NetworkBehaviour
     {
-        if (!isServerOnly && !isLocalPlayer && clientMatchIndex < 0)
-            clientMatchIndex = NetworkClient.connection.identity.GetComponent<PlayerScore>().matchIndex;
+        [SyncVar]
+        public int playerNumber;
 
-        if (isLocalPlayer || matchIndex == clientMatchIndex)
-            GUI.Box(new Rect(10f + (scoreIndex * 110), 10f, 100f, 25f), $"P{playerNumber}: {score}");
+        [SyncVar]
+        public int scoreIndex;
+
+        [SyncVar]
+        public int matchIndex;
+
+        [SyncVar]
+        public uint score;
+
+        public int clientMatchIndex = -1;
+
+        void OnGUI()
+        {
+            if (!isServerOnly && !isLocalPlayer && clientMatchIndex < 0)
+                clientMatchIndex = NetworkClient.connection.identity.GetComponent<PlayerScore>().matchIndex;
+
+            if (isLocalPlayer || matchIndex == clientMatchIndex)
+                GUI.Box(new Rect(10f + (scoreIndex * 110), 10f, 100f, 25f), $"P{playerNumber}: {score}");
+        }
     }
 }

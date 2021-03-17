@@ -1,18 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerSpawnPoint : MonoBehaviour
+namespace Networking
 {
-    private void Awake() => PlayerSpawnSystem.AddSpawnPoint(transform);
-
-    private void OnDestroy() => PlayerSpawnSystem.RemoveSpawnPoint(transform);
-
-    private void OnDrawGizmos()
+    public class PlayerSpawnPoint : MonoBehaviour
     {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawSphere(transform.position, 1);
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
+        private void Awake() => PlayerSpawnSystem.AddSpawnPoint(transform);
+
+        private void OnDestroy() => PlayerSpawnSystem.RemoveSpawnPoint(transform);
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(transform.position, 1);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(transform.position, transform.position + transform.forward * 2);
+        }
     }
 }

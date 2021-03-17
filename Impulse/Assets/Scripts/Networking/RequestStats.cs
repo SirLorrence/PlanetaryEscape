@@ -1,69 +1,69 @@
-﻿using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System.Collections;
-using Steamworks;
+﻿using TMPro;
+using UnityEngine;
 
-public class RequestStats : MonoBehaviour
+namespace Networking
 {
-    [SerializeField] private TMP_Text totalKills;
-    [SerializeField] private TMP_Text maxKills;
-    [SerializeField] private TMP_Text timePlayed;
-    [SerializeField] private TMP_Text totalGamesPlayed;
-
-
-    [SerializeField] private SteamStatsAndAchievements steamStatsAndAchievements;
-
-    private void OnEnable()
+    public class RequestStats : MonoBehaviour
     {
-        RequestTotalKillsData();
-        RequestMaxKillsData();
-        RequestTimePlayedData();
-        RequestGamesPlayedData();
-    }
+        [SerializeField] private TMP_Text totalKills;
+        [SerializeField] private TMP_Text maxKills;
+        [SerializeField] private TMP_Text timePlayed;
+        [SerializeField] private TMP_Text totalGamesPlayed;
 
-    public void RequestTotalKillsData()
-    {
-        totalKills.text = "";
-        if (steamStatsAndAchievements != null)
+
+        [SerializeField] private SteamStatsAndAchievements steamStatsAndAchievements;
+
+        private void OnEnable()
         {
-            if (steamStatsAndAchievements.AreStatsValid)
-            {
-                totalKills.text = steamStatsAndAchievements.TotalKills + " Total Kills";
-            }
+            RequestTotalKillsData();
+            RequestMaxKillsData();
+            RequestTimePlayedData();
+            RequestGamesPlayedData();
         }
+
+        public void RequestTotalKillsData()
+        {
+            totalKills.text = "";
+            if (steamStatsAndAchievements != null)
+            {
+                if (steamStatsAndAchievements.AreStatsValid)
+                {
+                    totalKills.text = steamStatsAndAchievements.TotalKills + " Total Kills";
+                }
+            }
         
-    }
-    public void RequestMaxKillsData()
-    {
-        totalKills.text = "";
-        if (steamStatsAndAchievements != null)
+        }
+        public void RequestMaxKillsData()
         {
-            if (steamStatsAndAchievements.AreStatsValid)
+            totalKills.text = "";
+            if (steamStatsAndAchievements != null)
             {
-                maxKills.text = "Max Kills " + steamStatsAndAchievements.MaxKills;
+                if (steamStatsAndAchievements.AreStatsValid)
+                {
+                    maxKills.text = "Max Kills " + steamStatsAndAchievements.MaxKills;
+                }
             }
         }
-    }
-    public void RequestTimePlayedData()
-    {
-        totalKills.text = "";
-        if (steamStatsAndAchievements != null)
+        public void RequestTimePlayedData()
         {
-            if (steamStatsAndAchievements.AreStatsValid)
+            totalKills.text = "";
+            if (steamStatsAndAchievements != null)
             {
-                timePlayed.text = steamStatsAndAchievements.TotalTimeSurvived + " seconds Played";
+                if (steamStatsAndAchievements.AreStatsValid)
+                {
+                    timePlayed.text = steamStatsAndAchievements.TotalTimeSurvived + " seconds Played";
+                }
             }
         }
-    }
-    public void RequestGamesPlayedData()
-    {
-        totalKills.text = "";
-        if (steamStatsAndAchievements != null)
+        public void RequestGamesPlayedData()
         {
-            if (steamStatsAndAchievements.AreStatsValid)
+            totalKills.text = "";
+            if (steamStatsAndAchievements != null)
             {
-                totalGamesPlayed.text = steamStatsAndAchievements.GamesPlayed + " Games Played";
+                if (steamStatsAndAchievements.AreStatsValid)
+                {
+                    totalGamesPlayed.text = steamStatsAndAchievements.GamesPlayed + " Games Played";
+                }
             }
         }
     }

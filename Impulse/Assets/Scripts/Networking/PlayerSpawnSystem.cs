@@ -1,39 +1,41 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Mirror;
+using UnityEngine;
 
-public class PlayerSpawnSystem : NetworkBehaviour
+namespace Networking
 {
-    [SerializeField] private GameObject playerPrefab;
-
-    public static List<Transform> spawnPoints = new List<Transform>();
-
-    private int nextIndex;
-
-    public static void AddSpawnPoint(Transform transform)
+    public class PlayerSpawnSystem : NetworkBehaviour
     {
-        spawnPoints.Add(transform);
+        [SerializeField] private GameObject playerPrefab;
 
-        spawnPoints = spawnPoints.OrderBy(x => x.GetSiblingIndex()).ToList();
-    }
+        public static List<Transform> spawnPoints = new List<Transform>();
 
-    public static void RemoveSpawnPoint(Transform transform) => spawnPoints.Remove(transform);
+        private int nextIndex;
 
-    public override void OnStartServer() => ImpulseNetworkManager.OnServerReadied += SpawnPlayer;
+        public static void AddSpawnPoint(Transform transform)
+        {
+            spawnPoints.Add(transform);
 
-    [Server]
-    public void SpawnPlayer(NetworkConnection conn)
-    {
-        Transform spawnPoint = spawnPoints.ElementAt(nextIndex);
+            spawnPoints = spawnPoints.OrderBy(x => x.GetSiblingIndex()).ToList();
+        }
 
-        if (spawnPoint == null) { print("Spawnpoint Null"); return; }
+        public static void RemoveSpawnPoint(Transform transform) => spawnPoints.Remove(transform);
 
-        GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
-        NetworkServer.Spawn(playerInstance, conn);
+        public override void OnStartServer() => ImpulseNetworkManager.OnServerReadied += SpawnPlayer;
 
-        nextIndex++;
+        [Server]
+        public void SpawnPlayer(NetworkConnection conn)
+        {
+            Transform spawnPoint = spawnPoints.ElementAt(nextIndex);
 
+            if (spawnPoint == null) { print("Spawnpoint Null"); return; }
+
+            GameObject playerInstance = Instantiate(playerPrefab, spawnPoints[nextIndex].position, spawnPoints[nextIndex].rotation);
+            NetworkServer.Spawn(playerInstance, conn);
+
+            nextIndex++;
+
+        }
     }
 }

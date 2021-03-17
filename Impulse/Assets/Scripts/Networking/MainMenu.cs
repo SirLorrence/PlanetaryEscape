@@ -1,18 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MainMenu : MonoBehaviour
+namespace Networking
 {
-    [SerializeField] private ImpulseNetworkManager networkManager;
-
-    [Header("UI")]
-    [SerializeField] private GameObject landingPage;
-
-    public void HostLobby()
+    public class MainMenu : MonoBehaviour
     {
-        networkManager.StartHost();
+        [SerializeField] private ImpulseNetworkManager networkManager;
 
-        landingPage.SetActive(true);
+        [Header("UI")]
+        [SerializeField] private GameObject landingPage;
+
+        public void HostLobby()
+        {
+            networkManager.StartHost();
+
+            landingPage.SetActive(true);
+        }
     }
 }

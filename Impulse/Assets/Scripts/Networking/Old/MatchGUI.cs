@@ -1,43 +1,44 @@
-﻿using System.Collections;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Mirror;
 
-public class MatchGUI : MonoBehaviour
+namespace Networking.Old
 {
-    Guid matchId;
-
-    [Header("GUI Elements")]
-    public Image image;
-    public Toggle toggleButton;
-    public Text matchName;
-    public Text playerCount;
-
-    [Header("Diagnostics - Do Not Modify")]
-    public CanvasController canvasController;
-
-    public void Awake()
+    public class MatchGUI : MonoBehaviour
     {
-        canvasController = FindObjectOfType<CanvasController>();
-        toggleButton.onValueChanged.AddListener(delegate { OnToggleClicked(); });
-    }
+        Guid matchId;
 
-    public void OnToggleClicked()
-    {
-        canvasController.SelectMatch(toggleButton.isOn ? matchId : Guid.Empty);
-        image.color = toggleButton.isOn ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 1f, 1f, 0.2f);
-    }
+        [Header("GUI Elements")]
+        public Image image;
+        public Toggle toggleButton;
+        public Text matchName;
+        public Text playerCount;
 
-    public Guid GetMatchId()
-    {
-        return matchId;
-    }
+        [Header("Diagnostics - Do Not Modify")]
+        public CanvasController canvasController;
 
-    public void SetMatchInfo(MatchMessages.MatchInfo infos)
-    {
-        matchId = infos.matchId;
-        matchName.text = "Match " + infos.matchId.ToString().Substring(0, 8);
-        playerCount.text = infos.players + " / " + infos.maxPlayers;
+        public void Awake()
+        {
+            canvasController = FindObjectOfType<CanvasController>();
+            toggleButton.onValueChanged.AddListener(delegate { OnToggleClicked(); });
+        }
+
+        public void OnToggleClicked()
+        {
+            canvasController.SelectMatch(toggleButton.isOn ? matchId : Guid.Empty);
+            image.color = toggleButton.isOn ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 1f, 1f, 0.2f);
+        }
+
+        public Guid GetMatchId()
+        {
+            return matchId;
+        }
+
+        public void SetMatchInfo(MatchMessages.MatchInfo infos)
+        {
+            matchId = infos.matchId;
+            matchName.text = "Match "        + infos.matchId.ToString().Substring(0, 8);
+            playerCount.text = infos.players + " / " + infos.maxPlayers;
+        }
     }
 }

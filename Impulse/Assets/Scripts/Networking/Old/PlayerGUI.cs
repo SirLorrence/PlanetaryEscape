@@ -1,15 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerGUI : MonoBehaviour
+namespace Networking.Old
 {
-    public Text playerName;
-
-    public void SetPlayerInfo(MatchMessages.PlayerInfo info)
+    public class PlayerGUI : MonoBehaviour
     {
-        playerName.text = "Player " + info.playerIndex;
-        playerName.color = info.ready ? Color.green : Color.red;
+        public Text playerName;
+
+        public void SetPlayerInfo(MatchMessages.PlayerInfo info)
+        {
+            playerName.text = "Player " + info.playerIndex;
+            playerName.color = info.ready ? Color.green : Color.red;
+        }
     }
 }
