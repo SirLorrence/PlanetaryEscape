@@ -35953,6 +35953,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2169841674467785057, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: far clip plane
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 2169841674603091411, guid: 5d7e750f85f84da489cf9b2440079109,
         type: 3}
       propertyPath: m_CastShadows
