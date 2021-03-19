@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Entities.Enemy.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -20,17 +21,17 @@ namespace Entities.Enemy.Enemy_Types
 		[Header("Detection Values")] [Range(0, 360)]
 		public float fieldOfView;
 
-		public Transform targetPlayer;
+		[ReadOnly] public Transform targetPlayer;
 		public float detectionRadius;
 		public float viewDistance = 10;
 		public double attackDist;
 
 		[Header("Aggression")] [Range(0, 100)] public int aggressionLevel;
 		public bool alwaysAggro;
-		public bool inAggroMode;
+		[ReadOnly] [SerializeField] private bool inAggroMode;
 
 		[Header("Damage Value")] public int dealAmount;
-		public AttackHandler attackHandler;
+		[SerializeField] private AttackHandler attackHandler;
 
 		[Header("Speed Values")] public float wonderSpeed;
 		public float followSpeed;
@@ -75,10 +76,13 @@ namespace Entities.Enemy.Enemy_Types
 
 		#endregion
 
-		public virtual void Start() {
+		private void Awake() {
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
 			navAgent = GetComponentInChildren<NavMeshAgent>();
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
+		}
+
+		public virtual void Start() {
 			attackHandler.amount = dealAmount;
 			if (testStateChange) {
 				switch (stateOverride) {
@@ -108,6 +112,8 @@ namespace Entities.Enemy.Enemy_Types
 			// Debug.Log($"Can Attack :{inRange}");
 		}
 
+		#region Push Down Automata
+
 		public void SetState(NpcState aState) => currentState = aState;
 
 		//for push-down automata
@@ -117,6 +123,8 @@ namespace Entities.Enemy.Enemy_Types
 		}
 
 		public void PopState() => currentState = pastState;
+
+		#endregion
 
 
 		public void VisionArea() {
@@ -144,7 +152,8 @@ namespace Entities.Enemy.Enemy_Types
 
 		public int GetRandomAttack() => Random.Range(0, 3);
 
-		public void SpawnItem(GameObject item) => Instantiate(item, transform.position + Vector3.up, transform.rotation);
+		public void SpawnItem(GameObject item) =>
+			Instantiate(item, transform.position + Vector3.up, transform.rotation);
 
 		public void SetAggroLevel() =>
 			aggressionLevel = (alwaysAggro) ? 100 : aggressionLevel = SetRandomLevel();
@@ -179,7 +188,6 @@ namespace Entities.Enemy.Enemy_Types
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-
 // public void ToggleRagdoll() {
 // 	if (rigidbodies != null || rigidbodies.Length != 0) {
 // 		foreach (var rb in rigidbodies) {
@@ -187,8 +195,6 @@ namespace Entities.Enemy.Enemy_Types
 // 		}
 // 	}
 // }
-
-
 		public virtual void OnDrawGizmosSelected() {
 			if (showRadius) {
 				Gizmos.color = Color.green;
