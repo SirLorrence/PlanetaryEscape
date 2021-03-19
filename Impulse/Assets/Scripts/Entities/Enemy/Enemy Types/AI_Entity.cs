@@ -7,10 +7,12 @@ using Random = UnityEngine.Random;
 
 namespace Entities.Enemy.Enemy_Types
 {
+	
 	/// <summary>
 	/// this class works like an black board
 	/// hold all the ai data
 	/// </summary>
+	[RequireComponent(typeof(NavMeshAgent))]
 	public class AIEntity : GameEntity
 	{
 		#region Fields
@@ -76,10 +78,10 @@ namespace Entities.Enemy.Enemy_Types
 
 		#endregion
 
-		private void Awake() {
-			rigidbodies = GetComponentsInChildren<Rigidbody>();
+		protected override void Awake() {
 			navAgent = GetComponentInChildren<NavMeshAgent>();
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
+			base.Awake();;
 		}
 
 		public virtual void Start() {
@@ -121,7 +123,6 @@ namespace Entities.Enemy.Enemy_Types
 			pastState = currentState;
 			SetState(state);
 		}
-
 		public void PopState() => currentState = pastState;
 
 		#endregion

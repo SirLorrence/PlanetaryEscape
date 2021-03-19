@@ -1,5 +1,4 @@
 ﻿using Entities.Enemy;
-using Mirror;
 using UnityEngine;
 using Weapons;
 
@@ -13,16 +12,15 @@ namespace Entities.Player
         public WeaponInformation[] weapons;
         public WeaponSelect weaponSelect;
 
-        [Header("Crosshair Settings")]
-        public Texture2D crosshairImage;
-
+        [Header("Cross-hair Settings")]
+        public Texture2D crossHairImage;
         private float timer;
 
         void OnEnable()
         {
             timer = 0;
         }
-
+        
         public void Shoot(WeaponInformation gun)
         {
             if (timer < Time.realtimeSinceStartup)
@@ -49,6 +47,7 @@ namespace Entities.Player
             }
         }
 
+        
         public void Reload(WeaponInformation gun)
         {
             if (gun.reserveAmmo <= 0)

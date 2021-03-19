@@ -20,7 +20,6 @@ namespace Weapons
 				if (i == weaponSelected) {
 					arms.GetChild(i).gameObject.SetActive(true);
 					body.GetChild(i).gameObject.SetActive(true);
-				
 					// selectedWeapon = arms.GetChild(i);
 				}
 				else {

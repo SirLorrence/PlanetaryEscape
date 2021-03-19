@@ -123,6 +123,32 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: 8ef41f2fbd0d1a04889d37bb2868212f, type: 2}
+--- !u!1 &330056012 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3609770589893232322, guid: 5d7e750f85f84da489cf9b2440079109,
+    type: 3}
+  m_PrefabInstance: {fileID: 4932193293130230695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &330056013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330056012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reserveAmmo: 0
+  currentAmmoInMag: 0
+  isFullAuto: 1
+  maxAmmoInMag: 10
+  maxReserveAmmo: 50
+  bulletSpeed: 10
+  damage: 1
+  firerate: 2
 --- !u!1001 &1328103302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5374,11 +5400,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2169841674467785057, guid: 5d7e750f85f84da489cf9b2440079109,
-        type: 3}
-      propertyPath: m_CullingMask.m_Bits
-      value: 10496
-      objectReference: {fileID: 0}
     - target: {fileID: 2169841675061873703, guid: 5d7e750f85f84da489cf9b2440079109,
         type: 3}
       propertyPath: m_Name
@@ -5438,6 +5459,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169841675100680838, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: m_Name
+      value: Arms_Pistol
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d7e750f85f84da489cf9b2440079109, type: 3}
