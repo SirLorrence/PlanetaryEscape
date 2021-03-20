@@ -48,6 +48,7 @@ namespace Entities.Enemy
 			float animTime = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
 			yield return new WaitForSeconds(animTime);
 			transform.rotation = rotationZero;
+			// transform.position = new Vector3(transform.position.x, 0, transform.position.z);
 		}
 	}
 }

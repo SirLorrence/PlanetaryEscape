@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Entities.Enemy.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,7 +8,6 @@ using Random = UnityEngine.Random;
 
 namespace Entities.Enemy.Enemy_Types
 {
-	
 	/// <summary>
 	/// this class works like an black board
 	/// hold all the ai data
@@ -64,7 +64,7 @@ namespace Entities.Enemy.Enemy_Types
 		[HideInInspector] public ZombieAnimationHandler animationHandler;
 
 
-		protected Rigidbody[] rigidbodies;
+		[SerializeField] protected Rigidbody[] rigidbodies;
 
 		protected NpcState currentState;
 		protected NpcState pastState;
@@ -82,10 +82,13 @@ namespace Entities.Enemy.Enemy_Types
 			navAgent = GetComponentInChildren<NavMeshAgent>();
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
 			attackHandler.amount = dealAmount;
-			base.Awake();;
+			rigidbodies = GetComponentsInChildren<Rigidbody>();
+
+			base.Awake();
 		}
 
 		public virtual void Start() {
+			ToggleRagdoll(true);
 			if (testStateChange) {
 				switch (stateOverride) {
 					case StateOverride.Follow:
@@ -108,7 +111,6 @@ namespace Entities.Enemy.Enemy_Types
 			animationHandler.AnimHandler(vX, vZ, inAggroMode);
 
 			VisionArea();
-			if (health <= 0) SetState(new DeathState(this));
 
 			// Debug.Log($"Player Found :{playerFound}");
 			// Debug.Log($"Can Attack :{inRange}");
@@ -123,6 +125,7 @@ namespace Entities.Enemy.Enemy_Types
 			pastState = currentState;
 			SetState(state);
 		}
+
 		public void PopState() => currentState = pastState;
 
 		#endregion
@@ -189,13 +192,14 @@ namespace Entities.Enemy.Enemy_Types
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-// public void ToggleRagdoll() {
-// 	if (rigidbodies != null || rigidbodies.Length != 0) {
-// 		foreach (var rb in rigidbodies) {
-// 			rb.isKinematic = animator.enabled;
-// 		}
-// 	}
-// }
+		public void ToggleRagdoll(bool value) {
+			if (rigidbodies != null && rigidbodies.Length != 0) {
+				foreach (var rigid in rigidbodies) {
+					rigid.isKinematic = value;
+				}
+			}
+		}
+
 		public virtual void OnDrawGizmosSelected() {
 			if (showRadius) {
 				Gizmos.color = Color.green;

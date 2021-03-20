@@ -1151,7 +1151,7 @@ MonoBehaviour:
   canJump: 0
   isSprinting: 0
   isCrouching: 0
-  isShooting: 0
+  canFire: 0
   ADS: 0
   inputShoot: 0
   isReloading: 0
@@ -1182,7 +1182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0825d213d33821a4b82a676804e5cd32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 2169841674467785062}
   gunTip: {fileID: 0}
   weaponHolders: []
   weapons: []
@@ -1393,7 +1393,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6071454945171343094}
   - component: {fileID: 9188903065773987767}
-  - component: {fileID: 1063921523250528269}
   - component: {fileID: 330056015}
   m_Layer: 12
   m_Name: assault_rifle
@@ -1498,19 +1497,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0985609, y: 0.102185175, z: 0.43579322}
     m_Extent: {x: 0.23571065, y: 0.49090648, z: 0.44585687}
   m_DirtyAABB: 0
---- !u!114 &1063921523250528269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3609770589893232322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponInfo: {fileID: 11400000, guid: 85aa5bb94be1f62478cb7816b9201158, type: 2}
 --- !u!114 &330056015
 MonoBehaviour:
   m_ObjectHideFlags: 0
