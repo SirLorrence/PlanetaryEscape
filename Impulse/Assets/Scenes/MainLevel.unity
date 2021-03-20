@@ -129,7 +129,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4932193293130230695}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &330056013
+--- !u!114 &330056015
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,17 +138,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 330056012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reserveAmmo: 0
-  currentAmmoInMag: 0
-  isFullAuto: 1
-  maxAmmoInMag: 10
-  maxReserveAmmo: 50
-  bulletSpeed: 10
-  damage: 1
-  firerate: 2
+  weaponInfo: {fileID: 11400000, guid: 85aa5bb94be1f62478cb7816b9201158, type: 2}
 --- !u!1001 &1328103302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -180,6 +173,11 @@ PrefabInstance:
         type: 3}
       propertyPath: health
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 588363357676952840, guid: 1d530f369561987438319751a9c9b844,
+        type: 3}
+      propertyPath: attackDist
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 588363357676952840, guid: 1d530f369561987438319751a9c9b844,
         type: 3}
@@ -219,7 +217,7 @@ PrefabInstance:
     - target: {fileID: 588363357676952845, guid: 1d530f369561987438319751a9c9b844,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 28.444046
+      value: 40.6
       objectReference: {fileID: 0}
     - target: {fileID: 588363357676952845, guid: 1d530f369561987438319751a9c9b844,
         type: 3}
@@ -5323,8 +5321,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6769915809615941732, guid: ef4af2dbbfc20ec41a461c5bb6c70b42,
         type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 6769915809615941732, guid: ef4af2dbbfc20ec41a461c5bb6c70b42,
+        type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769915809615941734, guid: ef4af2dbbfc20ec41a461c5bb6c70b42,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 6769915809615941734, guid: ef4af2dbbfc20ec41a461c5bb6c70b42,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 64.14
       objectReference: {fileID: 0}
     - target: {fileID: 6769915809731033476, guid: ef4af2dbbfc20ec41a461c5bb6c70b42,
         type: 3}
@@ -5391,8 +5405,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6769915809615941735, guid: ef4af2dbbfc20ec41a461c5bb6c70b42, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ef4af2dbbfc20ec41a461c5bb6c70b42, type: 3}
+--- !u!1 &1998210912 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2169841674887969584, guid: 5d7e750f85f84da489cf9b2440079109,
+    type: 3}
+  m_PrefabInstance: {fileID: 4932193293130230695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1998210913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998210912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInfo: {fileID: 0}
 --- !u!1001 &4932193293130230695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5400,10 +5434,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 330056013, guid: 5d7e750f85f84da489cf9b2440079109, type: 3}
+      propertyPath: weaponScriptableObject
+      value: 
+      objectReference: {fileID: 11400000, guid: 85aa5bb94be1f62478cb7816b9201158,
+        type: 2}
+    - target: {fileID: 2169841675061873697, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: sensitivity.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169841675061873697, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: sensitivity.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2169841675061873703, guid: 5d7e750f85f84da489cf9b2440079109,
         type: 3}
       propertyPath: m_Name
       value: Player Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 2169841675061873703, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2169841675061873724, guid: 5d7e750f85f84da489cf9b2440079109,
         type: 3}
@@ -5462,8 +5516,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2169841675100680838, guid: 5d7e750f85f84da489cf9b2440079109,
         type: 3}
-      propertyPath: m_Name
-      value: Arms_Pistol
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2169841675100680838, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: m_TagString
+      value: Arms
+      objectReference: {fileID: 0}
+    - target: {fileID: 4932193294465456898, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: weapons.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5238744624226241140, guid: 5d7e750f85f84da489cf9b2440079109,
+        type: 3}
+      propertyPath: m_TagString
+      value: Arms
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4932193293158069576, guid: 5d7e750f85f84da489cf9b2440079109, type: 3}
+    - {fileID: 330056013, guid: 5d7e750f85f84da489cf9b2440079109, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5d7e750f85f84da489cf9b2440079109, type: 3}

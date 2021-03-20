@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Weapons;
@@ -21,19 +22,34 @@ namespace Entities.Player
 		[SerializeField] private LayerMask layerMask;
 		[SerializeField] private bool isGrounded;
 
-		[Header("Speed Settings")] [ReadOnly] [SerializeField]
-		private float currentSpeed;
+		[Header("Speed Settings")] [SerializeField]
+		private float maxWalkSpeed = 10;
 
-		[SerializeField] private float maxWalkSpeed = 10;
 		[SerializeField] private float maxSprintSpeed = 20;
 		[SerializeField] private float maxCrouchSpeed = 10;
+		[ReadOnly] [SerializeField] private float currentSpeed;
+		[ReadOnly] [SerializeField] private MovementAction movementAction;
+
+		private enum MovementAction
+		{
+			Walking,
+			Crouching,
+			Running,
+		}
+
 		private float airSpeed = 0.75f;
 
 		//Input
 		private PlayerActions playerActions;
 		private float pitchRotation, yawRotation, camClamp = -60;
-		[ReadOnly] [SerializeField] private bool canJump, isSprinting, isCrouching, isShooting, ADS, inputShoot;
-		private int wSwitch;
+
+		[ReadOnly] [SerializeField]
+		private bool canJump, isSprinting, isCrouching, isShooting, ADS, inputShoot, isReloading;
+
+		private int _weaponSelected;
+		private int _currentWeapon;
+
+		[SerializeField] private bool reloadEnabled;
 
 		//movement variables
 		private Vector2 inputMovement;
@@ -49,17 +65,8 @@ namespace Entities.Player
 
 		//references 
 		private PlayerShoot _playerShoot;
-		private WeaponSelect _weaponSelect;
 		private PlayerAnimationHandler _animationHandler;
-
-		public enum MovementAction
-		{
-			Walking,
-			Crouching,
-			Running,
-		}
-
-		public MovementAction movementAction;
+		private WaitForSeconds waitTime;
 
 		#endregion
 
@@ -67,6 +74,7 @@ namespace Entities.Player
 
 		protected override void Awake() {
 			_animationHandler = GetComponent<PlayerAnimationHandler>();
+			_playerShoot = GetComponent<PlayerShoot>();
 			_Collider = GetComponent<CapsuleCollider>();
 			playerActions = new PlayerActions();
 			InputActionsCall();
@@ -97,11 +105,14 @@ namespace Entities.Player
 			playerActions.PlayerControls.Sprint.canceled += context => isSprinting = false;
 			playerActions.PlayerControls.Crouch.performed += context => isCrouching = !isCrouching;
 			playerActions.PlayerControls.Jump.performed += context => Jump();
+
 			//Weapon input
 			playerActions.PlayerControls.Shoot.performed += context => inputShoot = true;
 			playerActions.PlayerControls.Shoot.canceled += context => inputShoot = false;
-			//playerActions.PlayerControls.Reload.performed += context => playerShoot.Reload();
-			playerActions.PlayerControls.SwitchWeapon.performed += context => ++wSwitch;
+
+			playerActions.PlayerControls.Reload.performed += context => ReloadHandler();
+			// playerActions.PlayerControls.Reload.performed += context => isReloading = true;
+			playerActions.PlayerControls.SwitchWeapon.performed += context => ++_weaponSelected;
 			playerActions.PlayerControls.Aim.performed += context => ADS = true;
 			playerActions.PlayerControls.Aim.canceled += context => ADS = false;
 		}
@@ -121,28 +132,51 @@ namespace Entities.Player
 		void UpdatePlayer() {
 			Movement();
 			AnimationHandler();
-			//if (inputShoot) playerShoot.Shoot();
+			WeaponHandler();
 		}
 
 		#endregion
 
+		void ReloadHandler() {
+			if (!isReloading && !_playerShoot.AmmoCheck()) {
+				StartCoroutine(ReloadCall());
+			}
+			else if (_playerShoot.AmmoCheck()) {
+				//no ammo 
+			}
+		}
 
-		// void WeaponSwitch() {
-		// 	//for keyboard, can be used along side on the input system key
-		// 	if (Keyboard.current.digit1Key.isPressed) wSwitch = 0;
-		// 	if (Keyboard.current.digit2Key.isPressed) wSwitch = 1;
-		//
-		// 	var weaponSelected = (wSwitch % weaponSelect.weaponCount);
-		//
-		// 	switch (weaponSelected) {
-		// 		case 0:
-		// 			weaponSelect.WeaponSelected = 0;
-		// 			break;
-		// 		case 1:
-		// 			weaponSelect.WeaponSelected = 1;
-		// 			break;
-		// 	}
-		// }
+		IEnumerator ReloadCall() {
+			isReloading = true;
+			_animationHandler.ReloadAnim(out waitTime);
+			print("Reload");
+			yield return waitTime;
+			_playerShoot.Reload();
+			isReloading = false;
+			yield return null;
+		}
+
+		void WeaponHandler() {
+			if (inputShoot) _playerShoot.Shoot();
+
+			//for keyboard, can be used along side on the input system key
+			if (Keyboard.current.digit1Key.isPressed)
+				_weaponSelected = 0;
+			if (Keyboard.current.digit2Key.isPressed) _weaponSelected = 1;
+			var weaponSelected = (_weaponSelected % _playerShoot.weapons.Count);
+			if (weaponSelected != _currentWeapon) {
+				switch (weaponSelected) {
+					case 0:
+						_playerShoot.StartCoroutine(_playerShoot.SetWeapon());
+						break;
+					case 1:
+						_playerShoot.StartCoroutine(_playerShoot.SetWeapon(1));
+						break;
+				}
+
+				_currentWeapon = weaponSelected;
+			}
+		}
 
 		#region Movement & Camera Management
 
@@ -211,8 +245,14 @@ namespace Entities.Player
 		}
 
 		void UpdateCamera() {
-			pitchRotation += inputLook.x * sensitivity.y;
-			yawRotation += inputLook.y   * sensitivity.x;
+			float aimSpeed = (ADS) ? 2 : 1f;
+
+			var sensitivityY = sensitivity.y / aimSpeed;
+			var sensitivityX = sensitivity.x / aimSpeed;
+
+			pitchRotation += inputLook.x * sensitivityY;
+			yawRotation += inputLook.y   * sensitivityX;
+
 			yawRotation = Mathf.Clamp(yawRotation, camClamp, Mathf.Abs(camClamp));
 			gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 			// If inverse positive Y
@@ -248,8 +288,8 @@ namespace Entities.Player
 			GUILayout.Box("Stats");
 			GUILayout.TextField("Armor: " + armor, 50);
 			GUILayout.TextField("Heath: " + health, 50);
-			// GUILayout.TextField("Mag: "   + playerShoot.weapons[0].currentAmmoInMag, 100);
-			// GUILayout.TextField("Ammo: "  + playerShoot.weapons[0].reserveAmmo, 100);
+			GUILayout.TextField("Mag: "   + _playerShoot.currentWeapon.weaponInfo.currentAmmoInMag, 100);
+			GUILayout.TextField("Ammo: "  + _playerShoot.currentWeapon.weaponInfo.reserveAmmo, 100);
 			GUILayout.EndArea();
 		}
 	}

@@ -81,11 +81,11 @@ namespace Entities.Enemy.Enemy_Types
 		protected override void Awake() {
 			navAgent = GetComponentInChildren<NavMeshAgent>();
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
+			attackHandler.amount = dealAmount;
 			base.Awake();;
 		}
 
 		public virtual void Start() {
-			attackHandler.amount = dealAmount;
 			if (testStateChange) {
 				switch (stateOverride) {
 					case StateOverride.Follow:
@@ -151,7 +151,7 @@ namespace Entities.Enemy.Enemy_Types
 
 		public int SetRandomLevel() => Random.Range(0, 100);
 
-		public int GetRandomAttack() => Random.Range(0, 3);
+		public int GetRandomAttack() => Random.Range(0, 2);
 
 		public void SpawnItem(GameObject item) =>
 			Instantiate(item, transform.position + Vector3.up, transform.rotation);

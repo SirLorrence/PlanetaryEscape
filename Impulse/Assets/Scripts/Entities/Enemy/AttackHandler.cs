@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Entities.Enemy.Enemy_Types;
 using UnityEngine;
 
@@ -9,18 +10,26 @@ namespace Entities.Enemy
 	/// </summary>
 	public class AttackHandler : MonoBehaviour
 	{
-		public int amount;
+		[ReadOnly]public int amount;
 		public GameObject leftHitBox;
 		public GameObject rightHitBox;
 
 		private Quaternion rotationZero = new Quaternion(0, 0, 0, 0);
 
+		private DamageBox leftDamageBox;
+		private DamageBox rightDamageBox;
+
+		private void Awake() {
+			leftDamageBox = leftHitBox.GetComponent<DamageBox>();
+			rightDamageBox = rightHitBox.GetComponent<DamageBox>();
+		}
 		private void Start() {
-			leftHitBox.GetComponent<DamageBox>().damageAmount = amount;
-			rightHitBox.GetComponent<DamageBox>().damageAmount = amount;
+			leftDamageBox.damageAmount = amount;
+			rightDamageBox.damageAmount = amount;
 			leftHitBox.SetActive(false);
 			rightHitBox.SetActive(false);
 		}
+
 		public void EnableRightHit() => rightHitBox.SetActive(true);
 
 		public void DisableRightHit() {

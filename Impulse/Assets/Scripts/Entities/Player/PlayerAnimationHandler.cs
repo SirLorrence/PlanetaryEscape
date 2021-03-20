@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Entities.Player
 {
@@ -15,13 +16,16 @@ namespace Entities.Player
 		private void Update() {
 			fpsAnimator = activeAnimator.anim;
 		}
+
 		public void MovementAnim(float x, float y) => fpsAnimator.SetBool(_IsWalking, (x != 0f || y != 0f));
 		public void SprintAnim(bool sprinting) => fpsAnimator.SetBool(_IsRunning, sprinting);
 		public void AimDownAnim(bool aiming) => fpsAnimator.SetBool(_IsAiming, aiming);
-		public void ReloadAnim() => fpsAnimator.SetTrigger(_Reloading);
 
-		// }
-		//
-		//
+		public void ReloadAnim(out WaitForSeconds waitForSeconds) {
+			float timeCovert;
+			fpsAnimator.SetTrigger(_Reloading);
+			timeCovert = fpsAnimator.GetCurrentAnimatorStateInfo(0).length;
+			waitForSeconds = new WaitForSeconds(timeCovert);
+		}
 	}
 }
