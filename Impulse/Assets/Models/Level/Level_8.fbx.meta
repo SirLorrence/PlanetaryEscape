@@ -8,27 +8,32 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Ceiling
-    second: {fileID: 2100000, guid: 9894d2885ec88934e9aa34755caef87c, type: 2}
+    second: {fileID: 3069082147569485441, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Floor_1
-    second: {fileID: 2100000, guid: 0e5510c377276f54f821cdf826a88205, type: 2}
+    second: {fileID: -3234772519958904723, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Pipes_1
-    second: {fileID: 2100000, guid: 7ba0181dd82c5e849bc2c78d49fc75bf, type: 2}
+    second: {fileID: -1269535712726439573, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: WallLight
-    second: {fileID: 2100000, guid: 28af9cf4600500240bf05cc17f0c0210, type: 2}
+    second: {fileID: 1496786340033344714, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wall_1
-    second: {fileID: 2100000, guid: 64adcfa862cd6ee488744b29fbbd0663, type: 2}
+    second: {fileID: 7161048904845965487, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
