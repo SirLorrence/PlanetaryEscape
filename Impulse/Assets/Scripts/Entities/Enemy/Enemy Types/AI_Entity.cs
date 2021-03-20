@@ -83,7 +83,6 @@ namespace Entities.Enemy.Enemy_Types
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
 			attackHandler.amount = dealAmount;
 			rigidbodies = GetComponentsInChildren<Rigidbody>();
-
 			base.Awake();
 		}
 

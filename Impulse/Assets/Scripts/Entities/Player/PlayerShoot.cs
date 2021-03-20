@@ -45,6 +45,8 @@ namespace Entities.Player
 			yield return null;
 		}
 
+		public GameObject bloodEffect;
+
 		public void Shoot(out bool canFireValue) {
 			var gun = currentWeapon.weaponInfo;
 			bool boolValue = false;
@@ -61,11 +63,14 @@ namespace Entities.Player
 					var range = 50f;
 					if (Physics.Raycast(origin, dir, out hit, range)) {
 						if (hit.transform.CompareTag("Enemy")) {
-							hit.transform.GetComponent<DamageableBodyPart>().TakeDamage(gun.damage);
+							var bodyPart = hit.transform.GetComponent<DamageableBodyPart>();
+							StartCoroutine(bodyPart.DealDamage(gun.damage));
 						}
 
 						Debug.Log($"Bullet hit: {hit.transform.name}");
 						Debug.DrawRay(origin, dir * range, Color.blue, 2.5f);
+						var impact = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
+						Destroy(impact, 1.5f);
 					}
 				}
 				else {

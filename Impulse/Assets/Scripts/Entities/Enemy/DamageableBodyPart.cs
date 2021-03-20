@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using Entities.Enemy.Enemy_Types;
+using Entities.Enemy.States;
 using UnityEngine;
 
 namespace Entities.Enemy
@@ -13,11 +15,12 @@ namespace Entities.Enemy
 			Arm,
 			Leg
 		}
+
 		[SerializeField] private BodyParts bodyPart;
 		private AIEntity entity;
 		private void Awake() => entity = GetComponentInParent<AIEntity>();
 
-		public void TakeDamage(float amount) {
+		public IEnumerator DealDamage(float amount) {
 			var multiplier = bodyPart switch {
 				BodyParts.Head => 2f,
 				BodyParts.Body => 1f,
@@ -25,7 +28,9 @@ namespace Entities.Enemy
 				BodyParts.Leg  => .5f,
 				_              => throw new ArgumentOutOfRangeException()
 			};
+			Debug.Log($"Damage: {amount * multiplier}");
 			entity.TakeDamage(Mathf.FloorToInt(amount * multiplier));
+			yield return null;
 		}
 	}
 }

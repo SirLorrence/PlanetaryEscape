@@ -17,8 +17,9 @@ namespace Entities
 
 		protected virtual void Awake() {
 			rb = GetComponent<Rigidbody>();
+			SetHealth(health);
+			SetArmor(armor);
 		}
-
 
 		#region Health System
 
@@ -41,7 +42,10 @@ namespace Entities
 				}
 			}
 			else {
-				if (health != 0) ApplyValueChangeToHealth(-damage);
+				if (health != 0) {
+					print("Damage Taken");
+					ApplyValueChangeToHealth(-damage);
+				}
 				else health = 0;
 			}
 		}

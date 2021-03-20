@@ -82,9 +82,6 @@ namespace Entities.Player
 		}
 
 		void Start() {
-			SetHealth(100);
-			SetArmor(100);
-
 			colliderCenterScale = _Collider.center.y;
 			colliderHeight = _Collider.height;
 		}
