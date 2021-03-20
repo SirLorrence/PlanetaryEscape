@@ -801,7 +801,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2169841674887969585}
   - component: {fileID: 2169841674887969586}
-  - component: {fileID: 4932193293158069576}
+  - component: {fileID: 2697465680708868297}
+  - component: {fileID: 1998210913}
   m_Layer: 12
   m_Name: handgun_01
   m_TagString: Untagged
@@ -910,7 +911,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.040814687, y: 0.4051144, z: 0.31049794}
     m_Extent: {x: 0.085452095, y: 0.09895261, z: 0.11076037}
   m_DirtyAABB: 0
---- !u!114 &4932193293158069576
+--- !u!114 &2697465680708868297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -919,17 +920,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2169841674887969584}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reserveAmmo: 0
-  currentAmmoInMag: 0
-  isFullAuto: 1
-  maxAmmoInMag: 10
-  maxReserveAmmo: 50
-  bulletSpeed: 10
-  damage: 1
-  firerate: 2
+  weaponInfo: {fileID: 0}
+--- !u!114 &1998210913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2169841674887969584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInfo: {fileID: 0}
 --- !u!1 &2169841674930217508
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1134,7 @@ MonoBehaviour:
   health: 100
   armor: 0
   isAlive: 0
-  sensitivity: {x: 2.5, y: 2.5}
+  sensitivity: {x: 0.1, y: 0.1}
   _cameraTransform: {fileID: 2169841674467785062}
   jumpCooldown: 0.25
   jumpForce: 150
@@ -1136,17 +1143,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   isGrounded: 0
-  currentSpeed: 0
   maxWalkSpeed: 5
   maxSprintSpeed: 10
   maxCrouchSpeed: 2.5
+  currentSpeed: 0
+  movementAction: 0
   canJump: 0
   isSprinting: 0
   isCrouching: 0
   isShooting: 0
   ADS: 0
   inputShoot: 0
-  movementAction: 0
+  isReloading: 0
+  reloadEnabled: 0
 --- !u!114 &4932193293919047810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1175,10 +1184,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 0}
   gunTip: {fileID: 0}
-  weapons:
-  - {fileID: 0}
-  - {fileID: 4932193293158069576}
-  weaponSelect: {fileID: 0}
+  weaponHolders: []
+  weapons: []
+  currentWeapon: {fileID: 0}
   crossHairImage: {fileID: 0}
 --- !u!1 &2169841675100680838
 GameObject:
@@ -1192,11 +1200,11 @@ GameObject:
   - component: {fileID: 2169841675100680832}
   m_Layer: 12
   m_Name: Arms_Pistol
-  m_TagString: Untagged
+  m_TagString: Arms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2169841675100680839
 Transform:
   m_ObjectHideFlags: 0
@@ -1385,7 +1393,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6071454945171343094}
   - component: {fileID: 9188903065773987767}
-  - component: {fileID: 330056013}
+  - component: {fileID: 1063921523250528269}
+  - component: {fileID: 330056015}
   m_Layer: 12
   m_Name: assault_rifle
   m_TagString: Untagged
@@ -1489,7 +1498,7 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.0985609, y: 0.102185175, z: 0.43579322}
     m_Extent: {x: 0.23571065, y: 0.49090648, z: 0.44585687}
   m_DirtyAABB: 0
---- !u!114 &330056013
+--- !u!114 &1063921523250528269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1498,17 +1507,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 3609770589893232322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38501adb43d00b4d961b68c7d0dc281, type: 3}
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reserveAmmo: 0
-  currentAmmoInMag: 0
-  isFullAuto: 1
-  maxAmmoInMag: 10
-  maxReserveAmmo: 50
-  bulletSpeed: 10
-  damage: 1
-  firerate: 2
+  weaponInfo: {fileID: 11400000, guid: 85aa5bb94be1f62478cb7816b9201158, type: 2}
+--- !u!114 &330056015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3609770589893232322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab426fb2f29d44608ea5e690406d939a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponInfo: {fileID: 11400000, guid: 85aa5bb94be1f62478cb7816b9201158, type: 2}
 --- !u!1 &3834588742582907748
 GameObject:
   m_ObjectHideFlags: 0
@@ -1780,7 +1795,7 @@ GameObject:
   - component: {fileID: 4932193294868202061}
   m_Layer: 12
   m_Name: Arms_AR
-  m_TagString: Untagged
+  m_TagString: Arms
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
