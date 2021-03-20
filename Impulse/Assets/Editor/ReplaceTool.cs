@@ -8,7 +8,7 @@ using UnityEngine;
 
 		
 		//opens the editor window
-		[MenuItem("Tools/Replace Prefab #r")]
+		[MenuItem("Tools/Replace Prefab")]
 		static void CreateReplaceWindow() => GetWindow<ReplaceTool>(); 
 
 		//draws the elements in the window

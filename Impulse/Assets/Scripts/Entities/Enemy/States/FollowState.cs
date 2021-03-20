@@ -34,13 +34,13 @@ namespace Entities.Enemy.States
 
 			if (aiEntity.InRange)
 				aiEntity.PushState(new AttackState(aiEntity));
+
+			if (aiEntity.health <= 0) aiEntity.SetState(new DeathState(aiEntity));
 		}
 
 		public override IEnumerator WaitForAnimationFinish(AIEntity entity) {
 			aiEntity.navAgent.SetDestination(aiEntity.transform.position);
 			return base.WaitForAnimationFinish(entity);
 		}
-
 	}
 }
-

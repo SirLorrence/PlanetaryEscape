@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFullAuto: 1
   fireRate: 3.5
-  damage: 0
+  damage: 10
   bulletSpeed: 0
   magSize: 25
   maxAmmoCapacity: 240
-  reserveAmmo: 230
-  currentAmmoInMag: 25
+  reserveAmmo: 240
+  currentAmmoInMag: 20

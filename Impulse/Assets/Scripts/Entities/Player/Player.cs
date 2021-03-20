@@ -44,7 +44,7 @@ namespace Entities.Player
 		private float pitchRotation, yawRotation, camClamp = -60;
 
 		[ReadOnly] [SerializeField]
-		private bool canJump, isSprinting, isCrouching, isShooting, ADS, inputShoot, isReloading;
+		private bool canJump, isSprinting, isCrouching, canFire, ADS, inputShoot, isReloading;
 
 		private int _weaponSelected;
 		private int _currentWeapon;
@@ -82,9 +82,6 @@ namespace Entities.Player
 		}
 
 		void Start() {
-			SetHealth(100);
-			SetArmor(100);
-
 			colliderCenterScale = _Collider.center.y;
 			colliderHeight = _Collider.height;
 		}
@@ -136,47 +133,6 @@ namespace Entities.Player
 		}
 
 		#endregion
-
-		void ReloadHandler() {
-			if (!isReloading && !_playerShoot.AmmoCheck()) {
-				StartCoroutine(ReloadCall());
-			}
-			else if (_playerShoot.AmmoCheck()) {
-				//no ammo 
-			}
-		}
-
-		IEnumerator ReloadCall() {
-			isReloading = true;
-			_animationHandler.ReloadAnim(out waitTime);
-			print("Reload");
-			yield return waitTime;
-			_playerShoot.Reload();
-			isReloading = false;
-			yield return null;
-		}
-
-		void WeaponHandler() {
-			if (inputShoot) _playerShoot.Shoot();
-
-			//for keyboard, can be used along side on the input system key
-			if (Keyboard.current.digit1Key.isPressed)
-				_weaponSelected = 0;
-			if (Keyboard.current.digit2Key.isPressed) _weaponSelected = 1;
-			var weaponSelected = (_weaponSelected % _playerShoot.weapons.Count);
-			if (weaponSelected != _currentWeapon) {
-				switch (weaponSelected) {
-					case 0:
-						_playerShoot.StartCoroutine(_playerShoot.SetWeapon());
-						break;
-					case 1:
-						_playerShoot.StartCoroutine(_playerShoot.SetWeapon(1));
-						break;
-				}
-
-				_currentWeapon = weaponSelected;
-			}
-		}
 
 		#region Movement & Camera Management
 
@@ -261,6 +217,57 @@ namespace Entities.Player
 
 		#endregion
 
+		#region Weapon Management
+
+		void ReloadHandler() {
+			if (!isReloading && !_playerShoot.AmmoCheck()) {
+				StartCoroutine(ReloadCall());
+			}
+			else if (_playerShoot.AmmoCheck()) {
+				//no ammo 
+			}
+		}
+
+		IEnumerator ReloadCall() {
+			isReloading = true;
+			_animationHandler.ReloadAnim(out waitTime);
+			print("Reload");
+			yield return waitTime;
+			_playerShoot.Reload();
+			isReloading = false;
+			yield return null;
+		}
+
+		void WeaponHandler() {
+			if (inputShoot) {
+				_playerShoot.Shoot(out canFire);
+				if (canFire) {
+					_animationHandler.ShootingAnim(canFire);
+					canFire = false;
+				}
+			}
+
+			//for keyboard, can be used along side on the input system key
+			if (Keyboard.current.digit1Key.isPressed)
+				_weaponSelected = 0;
+			if (Keyboard.current.digit2Key.isPressed) _weaponSelected = 1;
+			var weaponSelected = (_weaponSelected % _playerShoot.weapons.Count);
+			if (weaponSelected != _currentWeapon) {
+				switch (weaponSelected) {
+					case 0:
+						_playerShoot.StartCoroutine(_playerShoot.SetWeapon());
+						break;
+					case 1:
+						_playerShoot.StartCoroutine(_playerShoot.SetWeapon(1));
+						break;
+				}
+
+				_currentWeapon = weaponSelected;
+			}
+		}
+
+		#endregion
+
 		#region Animation Management
 
 		public void AnimationHandler() {
@@ -269,6 +276,7 @@ namespace Entities.Player
 				? isSprinting
 				: false); //cancels sprint while in air and aiming
 			_animationHandler.AimDownAnim(ADS);
+			// _animationHandler.ShootingAnim(inputShoot);
 		}
 
 		#endregion
