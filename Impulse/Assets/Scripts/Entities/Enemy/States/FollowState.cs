@@ -41,7 +41,6 @@ namespace Entities.Enemy.States
 			return base.WaitForAnimationFinish(entity);
 		}
 
-	
 	}
 }
 

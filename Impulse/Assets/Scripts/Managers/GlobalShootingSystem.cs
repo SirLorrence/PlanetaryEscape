@@ -1,35 +1,35 @@
 ﻿using UnityEngine;
-using Weapons;
+// using Weapons;
 
 namespace Managers
 {
     public class GlobalShootingSystem : MonoBehaviour
     {
-        [Header("Assignable")] 
-        public WeaponObjects[] weaponList;
-        public Transform gunTip;
+        // [Header("Assignable")] 
+        // public WeaponObjectInformation[] weaponList;
+        // public Transform gunTip;
+        //
+        // public enum Guns { Pistol }
+        //
+        // private float timer;
+        //
+        // #region Singleton
+        //
+        // //Singleton Instantiation
+        // public static GlobalShootingSystem Instance { get; private set; }
+        //
+        // private void Awake()
+        // {
+        //     if (Instance != null && Instance != this)
+        //         Destroy(this.gameObject);
+        //     else
+        //         Instance = this;
+        //
+        //     DontDestroyOnLoad(this);
+        //     timer = 0;
+        // }
 
-        public enum Guns { Pistol }
-
-        private float timer;
-
-        #region Singleton
-
-        //Singleton Instantiation
-        public static GlobalShootingSystem Instance { get; private set; }
-
-        private void Awake()
-        {
-            if (Instance != null && Instance != this)
-                Destroy(this.gameObject);
-            else
-                Instance = this;
-
-            DontDestroyOnLoad(this);
-            timer = 0;
-        }
-
-        #endregion
+        // #endregion
 
         //public void Shoot(GameObject gun, Vector3 position, Vector3 direction, bool fromPlayer, bool bulletHasTracer)
         //{

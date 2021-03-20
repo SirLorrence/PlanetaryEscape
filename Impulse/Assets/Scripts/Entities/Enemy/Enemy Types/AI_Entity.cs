@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Entities.Enemy.States;
 using UnityEngine;
 using UnityEngine.AI;
@@ -6,10 +7,12 @@ using Random = UnityEngine.Random;
 
 namespace Entities.Enemy.Enemy_Types
 {
+	
 	/// <summary>
 	/// this class works like an black board
 	/// hold all the ai data
 	/// </summary>
+	[RequireComponent(typeof(NavMeshAgent))]
 	public class AIEntity : GameEntity
 	{
 		#region Fields
@@ -20,17 +23,17 @@ namespace Entities.Enemy.Enemy_Types
 		[Header("Detection Values")] [Range(0, 360)]
 		public float fieldOfView;
 
-		public Transform targetPlayer;
+		[ReadOnly] public Transform targetPlayer;
 		public float detectionRadius;
 		public float viewDistance = 10;
 		public double attackDist;
 
 		[Header("Aggression")] [Range(0, 100)] public int aggressionLevel;
 		public bool alwaysAggro;
-		public bool inAggroMode;
+		[ReadOnly] [SerializeField] private bool inAggroMode;
 
 		[Header("Damage Value")] public int dealAmount;
-		public AttackHandler attackHandler;
+		[SerializeField] private AttackHandler attackHandler;
 
 		[Header("Speed Values")] public float wonderSpeed;
 		public float followSpeed;
@@ -75,11 +78,14 @@ namespace Entities.Enemy.Enemy_Types
 
 		#endregion
 
-		public virtual void Start() {
-			rigidbodies = GetComponentsInChildren<Rigidbody>();
+		protected override void Awake() {
 			navAgent = GetComponentInChildren<NavMeshAgent>();
 			animationHandler = gameObject.AddComponent<ZombieAnimationHandler>();
 			attackHandler.amount = dealAmount;
+			base.Awake();;
+		}
+
+		public virtual void Start() {
 			if (testStateChange) {
 				switch (stateOverride) {
 					case StateOverride.Follow:
@@ -108,6 +114,8 @@ namespace Entities.Enemy.Enemy_Types
 			// Debug.Log($"Can Attack :{inRange}");
 		}
 
+		#region Push Down Automata
+
 		public void SetState(NpcState aState) => currentState = aState;
 
 		//for push-down automata
@@ -115,8 +123,9 @@ namespace Entities.Enemy.Enemy_Types
 			pastState = currentState;
 			SetState(state);
 		}
-
 		public void PopState() => currentState = pastState;
+
+		#endregion
 
 
 		public void VisionArea() {
@@ -142,9 +151,10 @@ namespace Entities.Enemy.Enemy_Types
 
 		public int SetRandomLevel() => Random.Range(0, 100);
 
-		public int GetRandomAttack() => Random.Range(0, 3);
+		public int GetRandomAttack() => Random.Range(0, 2);
 
-		public void SpawnItem(GameObject item) => Instantiate(item, transform.position + Vector3.up, transform.rotation);
+		public void SpawnItem(GameObject item) =>
+			Instantiate(item, transform.position + Vector3.up, transform.rotation);
 
 		public void SetAggroLevel() =>
 			aggressionLevel = (alwaysAggro) ? 100 : aggressionLevel = SetRandomLevel();
@@ -179,7 +189,6 @@ namespace Entities.Enemy.Enemy_Types
 				Mathf.Cos(angleInDegrees                * Mathf.Deg2Rad));
 		}
 
-
 // public void ToggleRagdoll() {
 // 	if (rigidbodies != null || rigidbodies.Length != 0) {
 // 		foreach (var rb in rigidbodies) {
@@ -187,8 +196,6 @@ namespace Entities.Enemy.Enemy_Types
 // 		}
 // 	}
 // }
-
-
 		public virtual void OnDrawGizmosSelected() {
 			if (showRadius) {
 				Gizmos.color = Color.green;
