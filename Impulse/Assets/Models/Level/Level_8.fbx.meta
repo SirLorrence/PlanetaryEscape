@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a5ecc54db05ef44d87244344e7856e3
+guid: 47f4ae72ecc5faf448908ec36d90b1d6
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,20 +7,35 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Table1
-    second: {fileID: 2100000, guid: ced9f655bbab80f4e954f09418d67c0d, type: 2}
+      name: Ceiling
+    second: {fileID: 3069082147569485441, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TableWood
-    second: {fileID: 2800000, guid: 057efcc045c554441b5e6fec6e53ea69, type: 3}
+      name: Floor_1
+    second: {fileID: -3234772519958904723, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   - first:
-      type: UnityEngine:Texture2D
+      type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: TableWoodBump
-    second: {fileID: 2800000, guid: 0173d1edebc1c1147b1066ff3d6c3405, type: 3}
+      name: Pipes_1
+    second: {fileID: -1269535712726439573, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WallLight
+    second: {fileID: 1496786340033344714, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall_1
+    second: {fileID: 7161048904845965487, guid: da1a458cca7489144a080c8049937d94,
+      type: 3}
   materials:
-    materialImportMode: 1
+    materialImportMode: 2
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -81,10 +96,10 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    normalImportMode: 0
+    normalImportMode: 1
     tangentImportMode: 3
     normalCalculationMode: 4
-    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
   referencedClips: []
@@ -110,7 +125,7 @@ ModelImporter:
   animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
-  addHumanoidExtraRootOnlyWhenUsingAvatar: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   additionalBone: 0
   userData: 
   assetBundleName: 
