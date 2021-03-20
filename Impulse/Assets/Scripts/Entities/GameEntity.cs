@@ -1,8 +1,9 @@
-﻿using Mirror;
+﻿using System;
 using UnityEngine;
 
 namespace Entities
 {
+	[RequireComponent(typeof(Rigidbody))]
 	public class GameEntity : MonoBehaviour
 	{
 		[Header("Health Values")] public int health;
@@ -10,6 +11,13 @@ namespace Entities
 		public bool isAlive;
 		protected int maxHealth;
 		protected int maxArmor;
+		protected Rigidbody rb;
+		protected Vector3 entityPosition;
+
+
+		protected virtual void Awake() {
+			rb = GetComponent<Rigidbody>();
+		}
 
 
 		#region Health System
