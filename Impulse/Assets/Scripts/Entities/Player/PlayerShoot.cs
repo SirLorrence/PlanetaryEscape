@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Entities.Enemy;
 using UnityEngine;
 using Weapons;
+using Managers;
 
 namespace Entities.Player
 {
@@ -53,6 +54,7 @@ namespace Entities.Player
 			if (timer < Time.realtimeSinceStartup) {
 				boolValue = true;
 				if (gun.currentAmmoInMag > 0) {
+					SoundManager.Instance.PlayAudio(AudioTypes.SFX_RIFLE_SHOOT);
 					currentWeapon.muzzleFlash.Play();
 					gun.currentAmmoInMag--;
 
@@ -90,6 +92,7 @@ namespace Entities.Player
 
 		public void Reload() {
 			var gun = currentWeapon.weaponInfo;
+			if (gun.currentAmmoInMag == gun.magSize) return;
 
 			if (gun.reserveAmmo > gun.magSize) {
 				gun.reserveAmmo += gun.currentAmmoInMag;

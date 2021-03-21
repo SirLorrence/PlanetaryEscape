@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
+using Managers;
 
 namespace Entities.Player
 {
@@ -72,6 +74,8 @@ namespace Entities.Player
 			set => _playerShoot = value;
 		}
 
+		//Sound Garbage
+		private float footstepTimer = 0;
 		#endregion
 
 		#region On Start Up
@@ -164,6 +168,18 @@ namespace Entities.Player
 			var movement = (inputMovement.x * transform.right + inputMovement.y * transform.forward).normalized;
 
 			rb.MovePosition(entityPosition + (movement * (currentSpeed * Time.deltaTime)));
+
+			if (footstepTimer > 0)
+				footstepTimer -= Time.deltaTime;
+			else if (Mathf.Abs(inputMovement.x) + Mathf.Abs(inputMovement.y) > 0.1)
+			{
+				SoundManager.Instance.PlayAudio(AudioTypes.SFX_FOOTSTEP1);
+				footstepTimer = 0.5f;
+			}
+            else
+            {
+				SoundManager.Instance.StopAudio(AudioTypes.SFX_FOOTSTEP1);
+			}
 		}
 
 		private void AddGravity() => rb.AddForce(Vector3.down * (Time.deltaTime * gravityForce));
@@ -225,6 +241,7 @@ namespace Entities.Player
 
 		void ReloadHandler() {
 			if (!isReloading && !_playerShoot.AmmoCheck()) {
+				SoundManager.Instance.PlayAudio(AudioTypes.SFX_RIFLE_RELOAD);
 				StartCoroutine(ReloadCall());
 			}
 			else if (_playerShoot.AmmoCheck()) {
@@ -284,9 +301,9 @@ namespace Entities.Player
 			// _animationHandler.ShootingAnim(inputShoot);
 		}
 
-		#endregion
+        #endregion
 
-		private void OnDisable() {
+        private void OnDisable() {
 			playerActions.PlayerControls.Disable();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;

@@ -229,15 +229,16 @@ namespace Managers
         None,
         MENU_TRACK,
         GAME_TRACK,
-        SFX_ZOMBIE_GROAN,
-        SFX_ZOMBIE_GROAN2,
-        SFX_ZOMBIE_GROAN3,
+        SFX_COMMON_ZOMBIE_GROAN,
+        SFX_COMMON_ZOMBIE_ATTACK,
+        SFX_COMMON_ZOMBIE_DEATH,
         SFX_RIFLE_SHOOT,
         SFX_RIFLE_RELOAD,
         SFX_PISTOL_SHOOT,
         SFX_PISTOL_RELOAD,
         SFX_FOOTSTEP1,
-        SFX_FOOTSTEP2
+        SFX_PLAYER_TAKING_DAMAGE,
+        SFX_WAVE_COMPLETED
     }
     #endregion
 }
