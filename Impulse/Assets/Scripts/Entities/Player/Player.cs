@@ -144,7 +144,6 @@ namespace Entities.Player
 
 		#endregion
 
-
 		#region Update Information
 
 		private void FixedUpdate() {

@@ -16,7 +16,8 @@ namespace Managers
             Waiting,
             StartWave,
             Transition,
-            EndWave
+            EndWave,
+            Pause
         }
         #endregion
         public bool debug = false;
@@ -29,12 +30,12 @@ namespace Managers
         private const int _TimeBetweenWaves = 5;
 
         [ReadOnly] [SerializeField] private WaveStates _waveState = WaveStates.StartWave;
-        [ReadOnly] [SerializeField] private float _timer = 0;
+        private float _timer = 0;
 
         private readonly int[] _constZombieWaves = { 8, 12, 18, 24, 30 };
         private int _zombiesLeftToSpawn = 0;
         private int _maxActiveZombies = 0;
-        private int _currentWave = 0;
+        [ReadOnly] [SerializeField] private int _currentWave = 0;
         [ReadOnly] public int currentZombieCount = 0;
         #endregion
 
@@ -78,6 +79,8 @@ namespace Managers
                 case WaveStates.EndWave:
                     EndLastWave();
                     break;
+                case WaveStates.Pause:
+                    break;
             }
         }
         #endregion
@@ -87,6 +90,7 @@ namespace Managers
         private bool RoomForMoreZombies() => currentZombieCount < _maxActiveZombies;
         private void InitializeNextWave()
         {
+            StopCoroutine(DelayTransition());
             _currentWave++;
             if (_currentWave <= _constZombieWaves.Length)
             {
@@ -112,13 +116,15 @@ namespace Managers
         {
             _waveState = newState;
         }
-        private void Delay() => StartCoroutine(DelayTransition());
-
+        private void Delay()
+        {
+            StartCoroutine(DelayTransition());
+            ChangeState(newState: WaveStates.Pause);
+        }
         private IEnumerator DelayTransition()
         {
             yield return new WaitForSeconds(_TimeBetweenWaves);
             ChangeState(WaveStates.StartWave);
-            yield break;
         }
         #endregion
 
@@ -134,9 +140,9 @@ namespace Managers
 
             if (spawnPoints.Count == 0) { LogWarning("No availible SpawnPoints"); return; }
 
-            if (_timer > Time.realtimeSinceStartup) return;
+            if (_timer > Time.time) return;
 
-            _timer = Time.realtimeSinceStartup + 1;
+            _timer = Time.time + 1;
             int randPos = UnityEngine.Random.Range(0, spawnPoints.Count - 1);
 
             _zombiesLeftToSpawn--;
