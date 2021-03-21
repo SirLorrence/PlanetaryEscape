@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Weapons;
+using Managers;
 
 namespace Entities.Player
 {
@@ -220,6 +222,7 @@ namespace Entities.Player
 
 		void ReloadHandler() {
 			if (!isReloading && !_playerShoot.AmmoCheck()) {
+				SoundManager.Instance.PlayAudio(AudioTypes.SFX_RIFLE_RELOAD);
 				StartCoroutine(ReloadCall());
 			}
 			else if (_playerShoot.AmmoCheck()) {
