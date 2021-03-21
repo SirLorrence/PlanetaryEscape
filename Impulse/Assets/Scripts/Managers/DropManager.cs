@@ -24,6 +24,7 @@ namespace Managers
 
 		private void Awake() {
 			if (instance != null) Destroy(this);
+			else instance = this;
 		}
 
 		#endregion
