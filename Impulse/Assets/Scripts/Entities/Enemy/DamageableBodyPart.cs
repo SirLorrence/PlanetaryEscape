@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using Entities.Enemy.Enemy_Types;
-using Entities.Enemy.States;
 using UnityEngine;
 
 namespace Entities.Enemy

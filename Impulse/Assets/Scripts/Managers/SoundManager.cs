@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -30,7 +29,6 @@ namespace Managers
                 Instance = this;
             }
 
-            DontDestroyOnLoad(this);
         }
         #endregion
 

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Entities.Enemy.Enemy_Types;
 using UnityEngine;
 

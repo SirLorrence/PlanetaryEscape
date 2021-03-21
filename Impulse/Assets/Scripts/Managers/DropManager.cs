@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using Random = UnityEngine.Random;
-
 
 namespace Managers
 {
@@ -26,7 +24,6 @@ namespace Managers
 
 		private void Awake() {
 			if (instance != null) Destroy(this);
-			DontDestroyOnLoad(this);
 		}
 
 		#endregion
