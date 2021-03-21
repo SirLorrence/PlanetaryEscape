@@ -20,10 +20,9 @@ namespace Managers
 		[SerializeField] private GameObject optionsMenu;
 		[SerializeField] private GameObject resultsMenu;
 		[SerializeField] private GameObject creditsMenu;
-		
+
 
 		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
-		private bool isPaused;
 
 		#endregion
 
@@ -46,8 +45,7 @@ namespace Managers
 
 		private void Awake() {
 			if (_instance != null) Destroy(this);
-			_instance = this;
-			isPaused = false;
+			else _instance = this;
 			SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive);
 		}
 
@@ -60,6 +58,7 @@ namespace Managers
 		#region Level Management
 
 		public void LoadMenu() {
+			TogglePauseMenu(false);
 			loadingScreen.gameObject.SetActive(true);
 			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
 			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive));
@@ -67,6 +66,7 @@ namespace Managers
 		}
 
 		public void LoadGame() {
+			TogglePauseMenu(false);
 			loadingScreen.gameObject.SetActive(true);
 			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.MAIN_MENU));
 			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
@@ -88,6 +88,11 @@ namespace Managers
 				}
 			}
 
+			while (!ObjectPooler.Instance.isInitialized) {
+				ObjectPooler.Instance.Initialize();
+				yield return null;
+			}
+
 			loadingScreen.SetActive(false);
 		}
 
@@ -100,7 +105,6 @@ namespace Managers
 		}
 
 		private void Start() {
-			ObjectPooler.Instance.Initialize();
 			WaveManager.Instance.EndOfWave += OnEndOfWave;
 		}
 
@@ -131,13 +135,14 @@ namespace Managers
 
 		public void ToggleOptions() => optionsMenu.SetActive(true);
 		public void ToggleCredits() => creditsMenu.SetActive(true);
-		
+
 
 		public void ToggleBack() {
 			optionsMenu.SetActive(false);
 			creditsMenu.SetActive(false);
 		}
 	}
+
 	public enum SceneIndex
 	{
 		MANAGER,
