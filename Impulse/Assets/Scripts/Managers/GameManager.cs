@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,6 +25,7 @@ namespace Managers
 
 		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
 
+		public Action playerDeath;
 		#endregion
 
 		#region Singleton
@@ -106,19 +108,25 @@ namespace Managers
 
 		private void Start() {
 			WaveManager.Instance.EndOfWave += OnEndOfWave;
+			playerDeath += OnPlayerDeath;
 		}
 
 		private void OnDisable() {
 			WaveManager.Instance.EndOfWave -= OnEndOfWave;
+			playerDeath -= OnPlayerDeath;
 		}
 
 		#endregion
 
 		#region Callbacks
-
 		private void OnEndOfWave() {
 			//SoundManager.Instance.PlayAudio(AudioTypes.CompletedWave);
 			wavesSurvived++;
+		}
+		private void OnPlayerDeath()
+        {
+			//SoundManager.Instance.PlayAudio(AudioTypes.Death);
+
 		}
 
 		#endregion

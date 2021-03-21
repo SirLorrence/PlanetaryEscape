@@ -32,7 +32,7 @@ namespace Managers
 		public GameObject[] items;
 
 		public GameObject GetRandomItem() {
-			int randomValue = Random.Range(0, items.Length + 1);
+			int randomValue = Random.Range(0, items.Length - 1);
 			return items[randomValue];
 		}
 	}

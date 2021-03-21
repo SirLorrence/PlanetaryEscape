@@ -354,6 +354,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6825060565045257157, guid: a5134fd7158983b489ee097dd7a5438c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6849916969217196951, guid: a5134fd7158983b489ee097dd7a5438c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -459,10 +464,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8230210045229433768, guid: a5134fd7158983b489ee097dd7a5438c,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9156552575023027024, guid: a5134fd7158983b489ee097dd7a5438c,
         type: 3}
       propertyPath: m_Name
       value: Options Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 9156552575023027024, guid: a5134fd7158983b489ee097dd7a5438c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5134fd7158983b489ee097dd7a5438c, type: 3}
@@ -667,6 +682,11 @@ PrefabInstance:
     - target: {fileID: 5636244222828275032, guid: 58f1edb86dda9f84486a5dc0da24bee9,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6930625477317714230, guid: 58f1edb86dda9f84486a5dc0da24bee9,
+        type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7914941943736570148, guid: 58f1edb86dda9f84486a5dc0da24bee9,

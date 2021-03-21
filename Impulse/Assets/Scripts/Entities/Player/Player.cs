@@ -319,9 +319,19 @@ namespace Entities.Player
 			// _animationHandler.ShootingAnim(inputShoot);
 		}
 
-		#endregion
+        #endregion
 
-		private void OnDisable() {
+        #region Health 
+        public override void TakeDamage(int damage)
+        {
+            base.TakeDamage(damage);
+
+            if (health <= 0)
+				GameManager.Instance.playerDeath?.Invoke();
+        }
+        #endregion
+
+        private void OnDisable() {
 			playerActions.PlayerControls.Disable();
 			playerActions.UI.Disable();
 			Cursor.lockState = CursorLockMode.None;
