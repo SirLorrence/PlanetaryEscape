@@ -67,6 +67,11 @@ namespace Entities.Player
 		private PlayerAnimationHandler _animationHandler;
 		private WaitForSeconds waitTime;
 
+		public PlayerShoot PlayerShoot {
+			get => _playerShoot;
+			set => _playerShoot = value;
+		}
+
 		#endregion
 
 		#region On Start Up
@@ -227,6 +232,7 @@ namespace Entities.Player
 			}
 		}
 
+		
 		IEnumerator ReloadCall() {
 			isReloading = true;
 			_animationHandler.ReloadAnim(out waitTime);

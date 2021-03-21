@@ -49,7 +49,7 @@ namespace Entities
 			}
 		}
 
-		public virtual void Health(int value) => ApplyValueChangeToHealth(value);
+		public virtual void AddHealth(int value) => ApplyValueChangeToHealth(value);
 		public virtual void AddArmor(int value) => ApplyValueChangeToArmor(value);
 
 		#endregion

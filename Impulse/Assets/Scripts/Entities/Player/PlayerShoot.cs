@@ -86,6 +86,7 @@ namespace Entities.Player
 		}
 
 		public bool AmmoCheck() => currentWeapon.weaponInfo.reserveAmmo <= 0;
+		public void AddToReserve(int value) => currentWeapon.weaponInfo.reserveAmmo += value; 
 
 		public void Reload() {
 			var gun = currentWeapon.weaponInfo;
