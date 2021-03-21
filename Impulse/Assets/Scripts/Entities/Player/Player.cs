@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using Weapons;
 using Managers;
 
 namespace Entities.Player

@@ -323,6 +323,76 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938462832}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PerformButtonAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ButtonHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6252656226004471317, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938462834}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PerformButtonAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ButtonHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8028015706254973165, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8350612770887473370, guid: 40ce198677f41c54d933f51fd2f99c2f,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -368,6 +438,41 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1938462833}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PerformButtonAction
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UI.ButtonHandler, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613737813542642058, guid: 40ce198677f41c54d933f51fd2f99c2f,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 40ce198677f41c54d933f51fd2f99c2f, type: 3}
 --- !u!1 &1938462828 stripped
@@ -406,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04904ce9679f09946a299a9fe545eb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAction: 0
+  buttonAction: 3
 --- !u!114 &1938462833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04904ce9679f09946a299a9fe545eb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAction: 0
+  buttonAction: 2
 --- !u!114 &1938462834
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -432,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04904ce9679f09946a299a9fe545eb73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonAction: 0
+  buttonAction: 1
 --- !u!114 &1938462835
 MonoBehaviour:
   m_ObjectHideFlags: 0

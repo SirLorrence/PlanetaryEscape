@@ -17,10 +17,13 @@ namespace Managers
 		public int wavesSurvived = 0;
 		[SerializeField] private GameObject loadingScreen;
 		[SerializeField] private GameObject pauseMenu;
+		[SerializeField] private GameObject optionsMenu;
 		[SerializeField] private GameObject resultsMenu;
+		[SerializeField] private GameObject creditsMenu;
+		
 
 		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
-		private bool isPaused ;
+		private bool isPaused;
 
 		#endregion
 
@@ -56,16 +59,24 @@ namespace Managers
 
 		#region Level Management
 
-		// public void LoadMenu() {
-		// 	loadingScreen.gameObject.SetActive(true);
-		// 	sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
-		// 	sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive));
-		// 	StartCoroutine(GetLoadProgress());
-		// }
+		public void LoadMenu() {
+			loadingScreen.gameObject.SetActive(true);
+			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
+			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive));
+			StartCoroutine(GetLoadProgress());
+		}
 
 		public void LoadGame() {
 			loadingScreen.gameObject.SetActive(true);
 			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.MAIN_MENU));
+			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
+			StartCoroutine(GetLoadProgress());
+		}
+
+		public void ResetGame() {
+			TogglePauseMenu(false);
+			loadingScreen.gameObject.SetActive(true);
+			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
 			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
 			StartCoroutine(GetLoadProgress());
 		}
@@ -114,11 +125,19 @@ namespace Managers
 		}
 
 		public void TogglePauseMenu(bool value) {
-				pauseMenu.SetActive(value);
-				Time.timeScale = (value) ? 0 : 1f;
+			pauseMenu.SetActive(value);
+			Time.timeScale = (value) ? 0 : 1f;
+		}
+
+		public void ToggleOptions() => optionsMenu.SetActive(true);
+		public void ToggleCredits() => creditsMenu.SetActive(true);
+		
+
+		public void ToggleBack() {
+			optionsMenu.SetActive(false);
+			creditsMenu.SetActive(false);
 		}
 	}
-
 	public enum SceneIndex
 	{
 		MANAGER,
