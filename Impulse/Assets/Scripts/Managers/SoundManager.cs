@@ -5,6 +5,7 @@ namespace Managers
 {
     public class SoundManager : MonoBehaviour
     {
+        #region Variables
         [Header("Settings")]
         public bool debug = false;
 
@@ -13,6 +14,7 @@ namespace Managers
 
         private Hashtable _audioTable; //Relation between Audio Types (Key) and Audio Tracks (Value)
         private Hashtable _jobTable;   //Relation between Audio Types (Key) and Jobs (Value)
+        #endregion
 
         #region Singleton
         //Singleton Instantiation
@@ -25,17 +27,22 @@ namespace Managers
             else
             {
                 Instance = this;
-                Configure();
             }
 
         }
         #endregion
 
+        #region Unity Messages
+        private void OnEnable()
+        {
+            Configure();
+        }
 
         private void OnDisable()
         {
-            Dispose();
+            //Dispose();
         }
+        #endregion
 
         #region Public Functions
         public void PlayAudio(AudioTypes audioType)
@@ -180,8 +187,6 @@ namespace Managers
         }
         private void LogWarning(string msg)
         {
-            if (!debug) return;
-
             Debug.LogWarning("[SOUNDMANAGER]: " + msg);
         }
         #endregion

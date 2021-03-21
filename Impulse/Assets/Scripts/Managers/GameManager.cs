@@ -10,9 +10,18 @@ namespace Managers
 	[RequireComponent(typeof(SoundManager), typeof(WaveManager))]
 	public class GameManager : MonoBehaviour
 	{
-		#region Singleton
+		#region Variables
+		public int zombiesKilled = 0;
+		public float timeSurvived = 0;
+		public int wavesSurvived = 0;
+        #endregion
 
-		private static GameManager _instance;
+        #region Mutators
+        #endregion
+
+        #region Singleton
+
+        private static GameManager _instance;
 
 		public static GameManager Instance {
 			get {
@@ -66,6 +75,41 @@ namespace Managers
 		}
 
 		#endregion
+		
+		#region Unity Messages
+		private void Update()
+		{
+			WaveManager.Instance.UpdateWaves();
+		}
+
+		private void Start()
+        {
+			ObjectPooler.Instance.Initialize();
+			WaveManager.Instance.EndOfWave += OnEndOfWave;
+
+		}
+		private void OnDisable()
+        {
+			WaveManager.Instance.EndOfWave -= OnEndOfWave;
+
+		}
+
+        #endregion
+
+        #region Callbacks
+        private void OnEndOfWave()
+        {
+			//SoundManager.Instance.PlayAudio(AudioTypes.CompletedWave);
+			wavesSurvived++;
+		}
+		#endregion
+
+		public void ZombieKilled()
+        {
+			zombiesKilled++;
+			WaveManager.Instance.currentZombieCount--;
+
+		}
 	}
 
 	public enum SceneIndex
@@ -74,4 +118,5 @@ namespace Managers
 		MAIN_MENU,
 		GAME,
 	}
+	
 }
