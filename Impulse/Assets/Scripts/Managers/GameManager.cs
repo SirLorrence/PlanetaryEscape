@@ -108,7 +108,6 @@ namespace Managers
         {
 			zombiesKilled++;
 			WaveManager.Instance.currentZombieCount--;
-
 		}
 	}
 

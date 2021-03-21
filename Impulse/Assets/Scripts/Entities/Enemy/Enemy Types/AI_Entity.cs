@@ -87,6 +87,7 @@ namespace Entities.Enemy.Enemy_Types
 		}
 
 		public virtual void Start() {
+			dropPercent = Random.Range(0, 100);
 			ToggleRagdoll(true);
 			if (testStateChange) {
 				switch (stateOverride) {
