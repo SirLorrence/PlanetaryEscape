@@ -139,6 +139,7 @@ namespace Managers
             _timer = Time.realtimeSinceStartup + 1;
             int randPos = UnityEngine.Random.Range(0, spawnPoints.Count - 1);
 
+            _zombiesLeftToSpawn--;
             currentZombieCount++;
 
             GameObject go = ObjectPooler.Instance.GetGameObject(0);
@@ -146,13 +147,11 @@ namespace Managers
             go.SetActive(true);
         }
 
-        //----------------------------------------------------------------------
         private void WaitingForEndOfWave()
         {
-            if (_zombiesLeftToSpawn == 0) //Active Zombies in Game, NOT LEFT TO BE SPAWNED
-                ChangeState(WaveStates.Transition);
+            if (currentZombieCount == 0)
+                ChangeState(WaveStates.EndWave);
         }
-        //----------------------------------------------------------------------
         public void AddSpawnPoint(GameObject spawnpoint)
         {
             spawnPoints.Add(spawnpoint);
