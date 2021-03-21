@@ -15,6 +15,7 @@ namespace Entities.Enemy.States
 			animTriggered = false;
 			deathTriggered = false;
 			Debug.Log(randomValue);
+			GameManager.Instance.ZombieKilled();
 		}
 
 		public override void DoActions() {

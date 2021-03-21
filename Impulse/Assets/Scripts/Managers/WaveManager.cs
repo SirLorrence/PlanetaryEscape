@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 
 namespace Managers
@@ -16,17 +19,23 @@ namespace Managers
             EndWave
         }
         #endregion
+        public bool debug = false;
+        public Action EndOfWave;
 
+        public int spawnPointRangeMin = 10;
+        public int spawnPointRangeMax = 25;
+
+        [HideInInspector] public List<GameObject> spawnPoints;
         private const int _TimeBetweenWaves = 5;
-    
-    
-    
-    
-        private WaveStates _waveState = WaveStates.StartWave;
-        private readonly int[] _constZombieWaves = {8, 12, 18, 24, 30};
+
+        [ReadOnly] [SerializeField] private WaveStates _waveState = WaveStates.StartWave;
+        [ReadOnly] [SerializeField] private float _timer = 0;
+
+        private readonly int[] _constZombieWaves = { 8, 12, 18, 24, 30 };
         private int _zombiesLeftToSpawn = 0;
         private int _maxActiveZombies = 0;
         private int _currentWave = 0;
+        [ReadOnly] public int currentZombieCount = 0;
         #endregion
 
         #region Mutators
@@ -36,8 +45,22 @@ namespace Managers
         }
         #endregion
 
+        #region Singleton
+        public static WaveManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+                Destroy(this.gameObject);
+            else
+                Instance = this;
+
+            DontDestroyOnLoad(this);
+        }
+        #endregion
+
         #region Update
-        private void Update()
+        public void UpdateWaves()
         {
             switch (_waveState)
             {
@@ -62,6 +85,7 @@ namespace Managers
 
         #region Wave Calculation
         private bool AreZombiesLeftToBeSpawned() => _zombiesLeftToSpawn > 0;
+        private bool RoomForMoreZombies() => currentZombieCount < _maxActiveZombies;
         private void InitializeNextWave()
         {
             _currentWave++;
@@ -79,6 +103,7 @@ namespace Managers
         }
         private void EndLastWave()
         {
+            EndOfWave?.Invoke();
             ChangeState(newState: WaveStates.Transition);
         }
         #endregion
@@ -106,10 +131,20 @@ namespace Managers
                 ChangeState(WaveStates.Waiting);
                 return;
             }
+            if (!RoomForMoreZombies()) return;
 
-            //--------------------------------------------
-            //Spawning Zombies happens here
-            //--------------------------------------------
+            if (spawnPoints.Count == 0) { LogWarning("No availible SpawnPoints"); return; }
+
+            if (_timer > Time.realtimeSinceStartup) return;
+
+            _timer = Time.realtimeSinceStartup + 1;
+            int randPos = UnityEngine.Random.Range(0, spawnPoints.Count - 1);
+
+            currentZombieCount++;
+
+            GameObject go = ObjectPooler.Instance.GetGameObject(0);
+            go.transform.position = spawnPoints[randPos].transform.position;
+            go.SetActive(true);
         }
 
         //----------------------------------------------------------------------
@@ -119,6 +154,29 @@ namespace Managers
                 ChangeState(WaveStates.Transition);
         }
         //----------------------------------------------------------------------
+        public void AddSpawnPoint(GameObject spawnpoint)
+        {
+            spawnPoints.Add(spawnpoint);
+            Log("Spawnpoint added");
+        }
+        public void RemoveSpawnPoint(GameObject spawnpoint)
+        {
+            spawnPoints.Remove(this.gameObject);
+            Log("Spawnpoint removed");
+        }
+        #endregion
+
+        #region Logging Functions
+        private void Log(string msg)
+        {
+            if (!debug) return;
+
+            Debug.Log("[WAVEMANAGER]: " + msg);
+        }
+        private void LogWarning(string msg)
+        {
+            Debug.LogWarning("[WAVEMANAGER]: " + msg);
+        }
         #endregion
     }
 }
