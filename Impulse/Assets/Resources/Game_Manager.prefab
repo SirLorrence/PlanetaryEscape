@@ -60,8 +60,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3569bbea4e955438886abb6358bc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  gameObjectsToBePooled: []
+  debug: 1
+  gameObjectsToBePooled:
+  - name: Zombies
+    amountToBePooled: 100
+    gameObjectToBePooled: {fileID: 588363357676952841, guid: 1d530f369561987438319751a9c9b844,
+      type: 3}
+    loadMoreIfNoneLeft: 1
 --- !u!114 &8798666932888412432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88,6 +93,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0937afa818a0a004591ded36d083aa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
+  spawnPointRangeMin: 10
+  spawnPointRangeMax: 25
+  spawnPoints: []
+  _waveState: 2
+  _timer: 0
+  currentZombieCount: 0
 --- !u!114 &8798666932888412438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,6 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc014da143346ab9b406fd14a33cc66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  zombiesKilled: 0
+  timeSurvived: 0
+  wavesSurvived: 0
   pauseMenu: {fileID: 6763759322108450005, guid: 8fe7424584d356a4ab21368ec320e0b7,
     type: 3}
   resultsMenu: {fileID: 5049804865632236839, guid: 45a66f2ca2e7dd64d88c743e2a7c2b38,
