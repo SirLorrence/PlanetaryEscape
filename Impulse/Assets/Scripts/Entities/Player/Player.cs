@@ -69,6 +69,11 @@ namespace Entities.Player
 		private PlayerAnimationHandler _animationHandler;
 		private WaitForSeconds waitTime;
 
+		public PlayerShoot PlayerShoot {
+			get => _playerShoot;
+			set => _playerShoot = value;
+		}
+
 		//Sound Garbage
 		private float footstepTimer = 0;
 		#endregion
@@ -244,6 +249,7 @@ namespace Entities.Player
 			}
 		}
 
+		
 		IEnumerator ReloadCall() {
 			isReloading = true;
 			_animationHandler.ReloadAnim(out waitTime);
