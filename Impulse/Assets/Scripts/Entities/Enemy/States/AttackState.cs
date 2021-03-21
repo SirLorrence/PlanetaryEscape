@@ -15,9 +15,12 @@ namespace Entities.Enemy.States
 		}
 
 		public override void DoActions() {
-			if (!aiEntity.InRange && !_attacking) aiEntity.PopState();
-			else if (aiEntity.InRange && !_attacking) Attack();
+			if (!aiEntity.InRange     && !_attacking) aiEntity.PopState();
+			else if (aiEntity.InRange && !_attacking) Attack(); 
+			
+			if (aiEntity.health <= 0) aiEntity.SetState(new DeathState(aiEntity));
 		}
+
 		public void Attack() {
 			_attacking = true;
 			int choice = aiEntity.GetRandomAttack();

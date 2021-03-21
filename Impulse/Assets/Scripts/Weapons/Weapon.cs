@@ -8,5 +8,6 @@ namespace Weapons
 	public class Weapon : MonoBehaviour
 	{
 		public WeaponObjectInformation weaponInfo;
+		public ParticleSystem muzzleFlash;
 	}
 }

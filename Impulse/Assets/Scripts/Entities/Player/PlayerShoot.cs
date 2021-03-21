@@ -10,7 +10,6 @@ namespace Entities.Player
 	public class PlayerShoot : MonoBehaviour
 	{
 		[Header("Assignable")] public Transform cameraTransform;
-		public Transform gunTip;
 		public GameObject[] weaponHolders;
 		public List<Weapon> weapons;
 		[ReadOnly] public Weapon currentWeapon;
@@ -45,26 +44,46 @@ namespace Entities.Player
 			yield return null;
 		}
 
-		public void Shoot() {
+		[SerializeField] private GameObject bloodEffect;
+		[SerializeField] private GameObject impactEffect;
+
+		public void Shoot(out bool canFireValue) {
 			var gun = currentWeapon.weaponInfo;
+			bool boolValue = false;
 
 			if (timer < Time.realtimeSinceStartup) {
+				boolValue = true;
 				if (gun.currentAmmoInMag > 0) {
+					currentWeapon.muzzleFlash.Play();
 					gun.currentAmmoInMag--;
 
 					timer = Time.realtimeSinceStartup + (1 / gun.fireRate);
-
 					RaycastHit hit;
-					if (Physics.Raycast(transform.position, transform.forward, out hit, 100)) {
+					var origin = cameraTransform.position;
+					var dir = cameraTransform.forward;
+					var range = 50f;
+					GameObject impact;
+					if (Physics.Raycast(origin, dir, out hit, range)) {
 						if (hit.transform.CompareTag("Enemy")) {
-							hit.transform.GetComponent<DamageableBodyPart>().TakeDamage(gun.damage);
+							var bodyPart = hit.transform.GetComponent<DamageableBodyPart>();
+							StartCoroutine(bodyPart.DealDamage(gun.damage));
+							impact = Instantiate(bloodEffect, hit.point, Quaternion.LookRotation(hit.normal));
 						}
+						else impact = Instantiate(impactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+
+						Debug.Log($"Bullet hit: {hit.transform.name}");
+						Debug.DrawRay(origin, dir * range, Color.blue, 2.5f);
+						Destroy(impact, 1.5f);
 					}
 				}
 				else {
+					boolValue = false;
 					//Play Click Sound Effect
 				}
 			}
+
+
+			canFireValue = boolValue;
 		}
 
 		public bool AmmoCheck() => currentWeapon.weaponInfo.reserveAmmo <= 0;
