@@ -319,19 +319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1852986221, guid: 17ac810e83ac35b43888cc6f7092be66, type: 3}
-      propertyPath: sceneId
-      value: 3695940600
-      objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253449, guid: 17ac810e83ac35b43888cc6f7092be66,
         type: 3}
       propertyPath: m_Name
       value: Player GameObject (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516277836305253449, guid: 17ac810e83ac35b43888cc6f7092be66,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6516277836305253458, guid: 17ac810e83ac35b43888cc6f7092be66,
         type: 3}

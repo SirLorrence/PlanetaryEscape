@@ -1,24 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class TutorialQuit : MonoBehaviour
+namespace Level.EndOfLevel
 {
-    public float timeToQuit = 3f;
-    private float currentTime;
-
-    private void OnTriggerEnter(Collider other)
+    public class TutorialQuit : MonoBehaviour
     {
-        currentTime = Time.realtimeSinceStartup + timeToQuit;
-    }
+        public float timeToQuit = 3f;
+        private float currentTime;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (currentTime < Time.realtimeSinceStartup)
+        private void OnTriggerEnter(Collider other)
         {
-            Application.Quit();
+            currentTime = Time.realtimeSinceStartup + timeToQuit;
         }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (currentTime < Time.realtimeSinceStartup)
+            {
+                Application.Quit();
+            }
+        }
+
+
     }
-
-
 }
