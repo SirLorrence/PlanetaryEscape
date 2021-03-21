@@ -7,9 +7,8 @@ TagManager:
   - Enemy
   - Killbox
   - GunTip
-  - Cover
   - Arms
-  - NetworkedBody
+  - LoadScreen
   layers:
   - Default
   - TransparentFX

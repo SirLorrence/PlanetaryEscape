@@ -29,7 +29,6 @@ namespace Managers
                 Configure();
             }
 
-            DontDestroyOnLoad(this);
         }
         #endregion
 
