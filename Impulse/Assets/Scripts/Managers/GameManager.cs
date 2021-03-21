@@ -11,17 +11,25 @@ namespace Managers
 	public class GameManager : MonoBehaviour
 	{
 		#region Variables
+
 		public int zombiesKilled = 0;
 		public float timeSurvived = 0;
 		public int wavesSurvived = 0;
-        #endregion
+		[SerializeField] private GameObject loadingScreen;
+		[SerializeField] private GameObject pauseMenu;
+		[SerializeField] private GameObject optionsMenu;
+		[SerializeField] private GameObject resultsMenu;
+		[SerializeField] private GameObject creditsMenu;
+		
 
-        #region Mutators
-        #endregion
+		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
+		private bool isPaused;
 
-        #region Singleton
+		#endregion
 
-        private static GameManager _instance;
+		#region Singleton
+
+		private static GameManager _instance;
 
 		public static GameManager Instance {
 			get {
@@ -39,25 +47,24 @@ namespace Managers
 		private void Awake() {
 			if (_instance != null) Destroy(this);
 			_instance = this;
+			isPaused = false;
 			SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive);
 		}
 
 		#endregion
 
-		[SerializeField] private GameObject pauseMenu;
-		[SerializeField] private GameObject resultsMenu;
-		public GameObject loadingScreen;
+		#region Mutators
 
-		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
+		#endregion
 
 		#region Level Management
 
-		// public void LoadMenu() {
-		// 	loadingScreen.gameObject.SetActive(true);
-		// 	sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
-		// 	sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive));
-		// 	StartCoroutine(GetLoadProgress());
-		// }
+		public void LoadMenu() {
+			loadingScreen.gameObject.SetActive(true);
+			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
+			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.MAIN_MENU, LoadSceneMode.Additive));
+			StartCoroutine(GetLoadProgress());
+		}
 
 		public void LoadGame() {
 			loadingScreen.gameObject.SetActive(true);
@@ -65,57 +72,76 @@ namespace Managers
 			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
 			StartCoroutine(GetLoadProgress());
 		}
+
+		public void ResetGame() {
+			TogglePauseMenu(false);
+			loadingScreen.gameObject.SetActive(true);
+			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
+			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
+			StartCoroutine(GetLoadProgress());
+		}
+
 		private IEnumerator GetLoadProgress() {
 			for (int i = 0; i < sceneLoading.Count; i++) {
 				while (!sceneLoading[i].isDone) {
 					yield return null;
 				}
 			}
+
 			loadingScreen.SetActive(false);
 		}
 
 		#endregion
-		
+
 		#region Unity Messages
-		private void Update()
-		{
+
+		private void Update() {
 			WaveManager.Instance.UpdateWaves();
 		}
 
-		private void Start()
-        {
+		private void Start() {
 			ObjectPooler.Instance.Initialize();
 			WaveManager.Instance.EndOfWave += OnEndOfWave;
-
 		}
-		private void OnDisable()
-        {
+
+		private void OnDisable() {
 			WaveManager.Instance.EndOfWave -= OnEndOfWave;
-
 		}
 
-        #endregion
+		#endregion
 
-        #region Callbacks
-        private void OnEndOfWave()
-        {
+		#region Callbacks
+
+		private void OnEndOfWave() {
 			//SoundManager.Instance.PlayAudio(AudioTypes.CompletedWave);
 			wavesSurvived++;
 		}
+
 		#endregion
 
-		public void ZombieKilled()
-        {
+		public void ZombieKilled() {
 			zombiesKilled++;
 			WaveManager.Instance.currentZombieCount--;
 		}
-	}
 
+		public void TogglePauseMenu(bool value) {
+			pauseMenu.SetActive(value);
+			Time.timeScale = (value) ? 0 : 1f;
+		}
+
+		public void ToggleOptions() => optionsMenu.SetActive(true);
+		public void ToggleCredits() => creditsMenu.SetActive(true);
+		
+
+		public void ToggleBack() {
+			optionsMenu.SetActive(false);
+			creditsMenu.SetActive(false);
+		}
+	}
 	public enum SceneIndex
 	{
 		MANAGER,
 		MAIN_MENU,
 		GAME,
 	}
-	
 }

@@ -11,7 +11,10 @@ namespace UI
 			Play,
 			Options,
 			Credits,
-			Quit,
+			QuitGame,
+			QuitToMenu,
+			Restart,
+			Back,
 		}
 
 		[SerializeField] private ButtonActions buttonAction;
@@ -22,10 +25,22 @@ namespace UI
 					GameManager.Instance.LoadGame();
 					break;
 				case ButtonActions.Options:
+					GameManager.Instance.ToggleOptions();
 					break;
 				case ButtonActions.Credits:
+					GameManager.Instance.ToggleCredits();
 					break;
-				case ButtonActions.Quit:
+				case ButtonActions.QuitGame:
+					Application.Quit(0);
+					break;
+				case ButtonActions.QuitToMenu:
+					GameManager.Instance.LoadMenu();
+					break;
+				case ButtonActions.Restart:
+					GameManager.Instance.ResetGame();
+					break;
+				case ButtonActions.Back:
+					GameManager.Instance.ToggleBack();
 					break;
 				default:
 					throw new ArgumentOutOfRangeException();

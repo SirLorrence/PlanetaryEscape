@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.AI;
-
+﻿
 namespace Entities.Enemy.Enemy_Types
 {
 	public class ZombieCommon : AIEntity

@@ -42,7 +42,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -169,7 +169,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -296,7 +296,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -423,7 +423,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -539,8 +539,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 262.96622, y: 202.3118, z: -57.442863}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: [{fileID: 2034705191267621835}, {fileID: 3735097253150613568}, {fileID: 5844739474784590940},
-    {fileID: 5184298594722336661}]
+  m_Children:
+  - {fileID: 2034705191267621835}
+  - {fileID: 3735097253150613568}
+  - {fileID: 5844739474784590940}
+  - {fileID: 5184298594722336661}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -556,9 +559,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54991639844d412f8e48aa9fac7f3dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: [{fileID: 1342536329627408861, guid: 0187a3fa2cf46c74f88f67b491520058, type: 3},
-    {fileID: 5286296337892803742, guid: 26df47b5214da4749be8121caa2b1b9e, type: 3},
-    {fileID: 1643510143028483943, guid: 8bd93614602941c498a4608bba810119, type: 3}]
+  items:
+  - {fileID: 1342536329627408861, guid: 0187a3fa2cf46c74f88f67b491520058, type: 3}
+  - {fileID: 5286296337892803742, guid: 26df47b5214da4749be8121caa2b1b9e, type: 3}
+  - {fileID: 1643510143028483943, guid: 8bd93614602941c498a4608bba810119, type: 3}
 --- !u!114 &8798666932888412433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -591,19 +595,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: 0
-  tracks: [{source: {fileID: 7269422455683070003}, audio: [{type: 1, clip: {fileID: 8300000,
-            guid: 4262074fa0ddd2842b0a652087369197, type: 3}}, {type: 2, clip: {fileID: 8300000,
-            guid: 4c2eafed754ff9049932230944902026, type: 3}}]}, {source: {fileID: 414052311189757524},
-      audio: [{type: 3, clip: {fileID: 8300000, guid: 4c5839dc178c3f44a949817b4d5dae2b,
-            type: 3}}, {type: 4, clip: {fileID: 8300000, guid: bfcbcf8fd3044a342997642f3fd0e4eb,
-            type: 3}}, {type: 5, clip: {fileID: 8300000, guid: 30de7b94528c4f24997f627008a599b4,
-            type: 3}}]}, {source: {fileID: 6370086152901035535}, audio: [{type: 10,
-          clip: {fileID: 8300000, guid: 02f2b142d0083be44a54a5c4d4361f6b, type: 3}},
-        {type: 11, clip: {fileID: 8300000, guid: 7ecc0b218c416a149a0be18850cfc7be,
-            type: 3}}]}, {source: {fileID: 5769553385066891381}, audio: [{type: 6,
-          clip: {fileID: 8300000, guid: 4cfc5494124830d4ebd9494c5eb69f13, type: 3}},
-        {type: 7, clip: {fileID: 8300000, guid: 32247d7d6f085ad469e957018083e274,
-            type: 3}}]}]
+  tracks:
+  - source: {fileID: 7269422455683070003}
+    audio:
+    - type: 1
+      clip: {fileID: 8300000, guid: 4262074fa0ddd2842b0a652087369197, type: 3}
+    - type: 2
+      clip: {fileID: 8300000, guid: 4c2eafed754ff9049932230944902026, type: 3}
+  - source: {fileID: 414052311189757524}
+    audio:
+    - type: 3
+      clip: {fileID: 8300000, guid: 4c5839dc178c3f44a949817b4d5dae2b, type: 3}
+    - type: 4
+      clip: {fileID: 8300000, guid: bfcbcf8fd3044a342997642f3fd0e4eb, type: 3}
+    - type: 5
+      clip: {fileID: 8300000, guid: 30de7b94528c4f24997f627008a599b4, type: 3}
+  - source: {fileID: 6370086152901035535}
+    audio:
+    - type: 10
+      clip: {fileID: 8300000, guid: 02f2b142d0083be44a54a5c4d4361f6b, type: 3}
+    - type: 11
+      clip: {fileID: 8300000, guid: 7ecc0b218c416a149a0be18850cfc7be, type: 3}
+  - source: {fileID: 5769553385066891381}
+    audio:
+    - type: 6
+      clip: {fileID: 8300000, guid: 4cfc5494124830d4ebd9494c5eb69f13, type: 3}
+    - type: 7
+      clip: {fileID: 8300000, guid: 32247d7d6f085ad469e957018083e274, type: 3}
 --- !u!114 &8798666932888412439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -638,8 +656,8 @@ MonoBehaviour:
   zombiesKilled: 0
   timeSurvived: 0
   wavesSurvived: 0
-  pauseMenu: {fileID: 6763759322108450005, guid: 8fe7424584d356a4ab21368ec320e0b7,
-    type: 3}
+  loadingScreen: {fileID: 0}
+  pauseMenu: {fileID: 0}
+  optionsMenu: {fileID: 0}
   resultsMenu: {fileID: 5049804865632236839, guid: 45a66f2ca2e7dd64d88c743e2a7c2b38,
     type: 3}
-  loadingScreen: {fileID: 0}
