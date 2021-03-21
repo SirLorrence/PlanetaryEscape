@@ -76,6 +76,7 @@ namespace Entities.Player
 
 		//Sound Garbage
 		private float footstepTimer = 0;
+
 		#endregion
 
 		#region On Start Up
@@ -96,6 +97,7 @@ namespace Entities.Player
 
 		private void OnEnable() {
 			playerActions.PlayerControls.Enable();
+			playerActions.UI.Disable();
 			Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
 		}
@@ -117,12 +119,33 @@ namespace Entities.Player
 
 			playerActions.PlayerControls.Reload.performed += context => ReloadHandler();
 			// playerActions.PlayerControls.Reload.performed += context => isReloading = true;
-			playerActions.PlayerControls.SwitchWeapon.performed += context => ++_weaponSelected;
+			// playerActions.PlayerControls.SwitchWeapon.performed += context => ++_weaponSelected;
 			playerActions.PlayerControls.Aim.performed += context => ADS = true;
 			playerActions.PlayerControls.Aim.canceled += context => ADS = false;
+
+			playerActions.PlayerControls.TogglePause.performed += context => EnablePauseMenuControls();
+			playerActions.UI.TogglePause.performed += context => EnableGameplayControls();
+		}
+
+		void EnableGameplayControls() {
+			GameManager.Instance.TogglePauseMenu(false);
+			playerActions.PlayerControls.Enable();
+			playerActions.UI.Disable();
+			Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+		}
+
+		void EnablePauseMenuControls() {
+			print("Pause Triggered");
+			GameManager.Instance.TogglePauseMenu(true);
+			playerActions.PlayerControls.Disable();
+			playerActions.UI.Enable();
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 		}
 
 		#endregion
+
 
 		#region Update Information
 
@@ -171,13 +194,11 @@ namespace Entities.Player
 
 			if (footstepTimer > 0)
 				footstepTimer -= Time.deltaTime;
-			else if (Mathf.Abs(inputMovement.x) + Mathf.Abs(inputMovement.y) > 0.1)
-			{
+			else if (Mathf.Abs(inputMovement.x) + Mathf.Abs(inputMovement.y) > 0.1) {
 				SoundManager.Instance.PlayAudio(AudioTypes.SFX_FOOTSTEP1);
 				footstepTimer = 0.5f;
 			}
-            else
-            {
+			else {
 				SoundManager.Instance.StopAudio(AudioTypes.SFX_FOOTSTEP1);
 			}
 		}
@@ -249,7 +270,7 @@ namespace Entities.Player
 			}
 		}
 
-		
+
 		IEnumerator ReloadCall() {
 			isReloading = true;
 			_animationHandler.ReloadAnim(out waitTime);
@@ -269,23 +290,23 @@ namespace Entities.Player
 				}
 			}
 
-			//for keyboard, can be used along side on the input system key
-			if (Keyboard.current.digit1Key.isPressed)
-				_weaponSelected = 0;
-			if (Keyboard.current.digit2Key.isPressed) _weaponSelected = 1;
-			var weaponSelected = (_weaponSelected % _playerShoot.weapons.Count);
-			if (weaponSelected != _currentWeapon) {
-				switch (weaponSelected) {
-					case 0:
-						_playerShoot.StartCoroutine(_playerShoot.SetWeapon());
-						break;
-					case 1:
-						_playerShoot.StartCoroutine(_playerShoot.SetWeapon(1));
-						break;
-				}
-
-				_currentWeapon = weaponSelected;
-			}
+			// //for keyboard, can be used along side on the input system key
+			// if (Keyboard.current.digit1Key.isPressed)
+			// 	_weaponSelected = 0;
+			// if (Keyboard.current.digit2Key.isPressed) _weaponSelected = 1;
+			// var weaponSelected = (_weaponSelected % _playerShoot.weapons.Count);
+			// if (weaponSelected != _currentWeapon) {
+			// 	switch (weaponSelected) {
+			// 		case 0:
+			// 			_playerShoot.StartCoroutine(_playerShoot.SetWeapon());
+			// 			break;
+			// 		case 1:
+			// 			_playerShoot.StartCoroutine(_playerShoot.SetWeapon(1));
+			// 			break;
+			// 	}
+			//
+			// 	_currentWeapon = weaponSelected;
+			// }
 		}
 
 		#endregion
@@ -301,10 +322,11 @@ namespace Entities.Player
 			// _animationHandler.ShootingAnim(inputShoot);
 		}
 
-        #endregion
+		#endregion
 
-        private void OnDisable() {
+		private void OnDisable() {
 			playerActions.PlayerControls.Disable();
+			playerActions.UI.Disable();
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
 		}
