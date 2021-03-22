@@ -568,7 +568,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3776810729658021912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12196,7 +12196,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Bonus: 0
+  m_Text: 'Waves Completed: 0
 
 '
 --- !u!1 &3717164572660605362
@@ -12297,7 +12297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &247046505264883287
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12542,7 +12542,7 @@ GameObject:
   - component: {fileID: 1761278424574341971}
   - component: {fileID: 1761278424852857851}
   m_Layer: 9
-  m_Name: Main Player 1
+  m_Name: Main Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12681,6 +12681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextWaveUi: {fileID: 2543103416293590935}
   resultsScreen: {fileID: 4641145063448881193}
+  uipart1: {fileID: 8317484823846503075}
+  uipart2: {fileID: 4211023876795766286}
 --- !u!1 &4764572352517278325
 GameObject:
   m_ObjectHideFlags: 0

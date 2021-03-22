@@ -98,6 +98,9 @@ namespace Managers
 				yield return null;
 			}
 
+			zombiesKilled = 0;
+			wavesSurvived = 0;
+
 			Time.timeScale = 1;
 			loadingScreen.SetActive(false);
 		}

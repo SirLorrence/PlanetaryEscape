@@ -9,6 +9,8 @@ public class PlayerEventHandler : MonoBehaviour
     [Header("Assignables")]
     public Text nextWaveUi;
     public GameObject resultsScreen;
+    public Text uipart1;
+    public Text uipart2;
     private void Start()
     {
         WaveManager.Instance.EndOfWave += OnWaveEnd;
@@ -28,6 +30,8 @@ public class PlayerEventHandler : MonoBehaviour
 
     private void OnPlayerDeath()
     {
+        uipart1.text = "Kills: " + GameManager.Instance.zombiesKilled;
+        uipart2.text = "Waves Completed: " + GameManager.Instance.wavesSurvived;
         resultsScreen.gameObject.SetActive(true);
         Time.timeScale = .05f;
         //StartCoroutine(Appear(resultsScreen, 4));

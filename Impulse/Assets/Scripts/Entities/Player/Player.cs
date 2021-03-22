@@ -380,6 +380,7 @@ namespace Entities.Player
 			GUILayout.TextField("Heath: " + health, 50);
 			GUILayout.TextField("Mag: "   + _playerShoot.currentWeapon.weaponInfo.currentAmmoInMag, 100);
 			GUILayout.TextField("Ammo: "  + _playerShoot.currentWeapon.weaponInfo.reserveAmmo, 100);
+			GUILayout.TextField("Zombies Killed: "  + GameManager.Instance.zombiesKilled, 100);
 			GUILayout.EndArea();
 		}
 	}
