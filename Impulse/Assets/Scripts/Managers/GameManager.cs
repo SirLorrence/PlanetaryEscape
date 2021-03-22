@@ -26,6 +26,7 @@ namespace Managers
 		private List<AsyncOperation> sceneLoading = new List<AsyncOperation>();
 
 		public Action playerDeath;
+
 		#endregion
 
 		#region Singleton
@@ -76,7 +77,9 @@ namespace Managers
 		}
 
 		public void ResetGame() {
+			ObjectPooler.Instance.ResetPool();
 			TogglePauseMenu(false);
+			WaveManager.Instance.Restart();
 			loadingScreen.gameObject.SetActive(true);
 			sceneLoading.Add(SceneManager.UnloadSceneAsync((int) SceneIndex.GAME));
 			sceneLoading.Add(SceneManager.LoadSceneAsync((int) SceneIndex.GAME, LoadSceneMode.Additive));
@@ -95,6 +98,7 @@ namespace Managers
 				yield return null;
 			}
 
+			Time.timeScale = 1;
 			loadingScreen.SetActive(false);
 		}
 
@@ -119,14 +123,14 @@ namespace Managers
 		#endregion
 
 		#region Callbacks
+
 		private void OnEndOfWave() {
 			//SoundManager.Instance.PlayAudio(AudioTypes.CompletedWave);
 			wavesSurvived++;
 		}
-		private void OnPlayerDeath()
-        {
-			//SoundManager.Instance.PlayAudio(AudioTypes.Death);
 
+		private void OnPlayerDeath() {
+			//SoundManager.Instance.PlayAudio(AudioTypes.Death);
 		}
 
 		#endregion

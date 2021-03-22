@@ -23,6 +23,7 @@ namespace Entities
 		#region Health System
 
 		public virtual void SetHealth(int value) {
+			isAlive = true;
 			health = value;
 			maxHealth = value;
 		}
@@ -47,6 +48,8 @@ namespace Entities
 				}
 				else health = 0;
 			}
+
+			if (health <= 0) isAlive = false;
 		}
 
 		public virtual void AddHealth(int value) => ApplyValueChangeToHealth(value);

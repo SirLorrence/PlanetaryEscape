@@ -10,8 +10,16 @@ namespace Entities.Player
 	{
 		#region Fields
 
-		[Header("Player Information")] public Vector2 sensitivity;
-		[SerializeField] private Transform _cameraTransform;
+		[Header("Player Information")] [SerializeField]
+		private Vector2 sensitivity;
+
+		[Header("Camera Settings")] [SerializeField]
+		private Transform _cameraTransform;
+
+		[SerializeField] private float frequency = 10f;
+		[SerializeField] private float recoverySpeed = 1.5f;
+		private float trauma;
+
 
 		[Header("Jump Settings")] [SerializeField]
 		private float jumpCooldown = 0.25f;
@@ -126,6 +134,7 @@ namespace Entities.Player
 		}
 
 		void EnableGameplayControls() {
+			if (!isAlive) return;
 			GameManager.Instance.TogglePauseMenu(false);
 			playerActions.PlayerControls.Enable();
 			playerActions.UI.Disable();
@@ -134,6 +143,7 @@ namespace Entities.Player
 		}
 
 		void EnablePauseMenuControls() {
+			if (!isAlive) return;
 			print("Pause Triggered");
 			GameManager.Instance.TogglePauseMenu(true);
 			playerActions.PlayerControls.Disable();
@@ -171,6 +181,11 @@ namespace Entities.Player
 			isGrounded = GroundCheck();
 			entityPosition = transform.position;
 
+			if (!isAlive) {
+				playerActions.PlayerControls.Disable();
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+			}
 			// Reduce Movement in air
 			if (!isGrounded) currentSpeed *= airSpeed;
 
@@ -239,6 +254,8 @@ namespace Entities.Player
 		}
 
 		void UpdateCamera() {
+			if(!isAlive) return;
+			CameraShake();
 			float aimSpeed = (ADS) ? 2 : 1f;
 
 			var sensitivityY = sensitivity.y / aimSpeed;
@@ -251,6 +268,17 @@ namespace Entities.Player
 			gameObject.transform.localEulerAngles = new Vector3(0, pitchRotation, 0);
 			// If inverse positive Y
 			_cameraTransform.transform.localEulerAngles = new Vector3(-yawRotation, 0, 0);
+		}
+
+		void CameraShake() {
+			if (trauma > .1f) {
+				_cameraTransform.localPosition = new Vector3(
+					Mathf.PerlinNoise(0, Time.time * frequency) * 2 - 1,
+					Mathf.PerlinNoise(1, Time.time * frequency) * 2 - 1,
+					Mathf.PerlinNoise(2, Time.time * frequency) * 2 - 1) * trauma;
+			}
+
+			trauma = Mathf.Clamp01(trauma - recoverySpeed * Time.deltaTime);
 		}
 
 		#endregion
@@ -319,20 +347,22 @@ namespace Entities.Player
 			// _animationHandler.ShootingAnim(inputShoot);
 		}
 
-        #endregion
+		#endregion
 
-        #region Health 
-        public override void TakeDamage(int damage)
-        {
+		#region Health
+
+		public override void TakeDamage(int damage) {
 			SoundManager.Instance.PlayAudio(AudioTypes.SFX_PLAYER_TAKING_DAMAGE);
+			trauma = 1;
 			base.TakeDamage(damage);
 
-            if (health <= 0)
+			if (health <= 0)
 				GameManager.Instance.playerDeath?.Invoke();
-        }
-        #endregion
+		}
 
-        private void OnDisable() {
+		#endregion
+
+		private void OnDisable() {
 			playerActions.PlayerControls.Disable();
 			playerActions.UI.Disable();
 			Cursor.lockState = CursorLockMode.None;

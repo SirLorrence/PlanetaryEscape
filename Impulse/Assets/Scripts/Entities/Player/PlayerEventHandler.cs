@@ -29,6 +29,7 @@ public class PlayerEventHandler : MonoBehaviour
     private void OnPlayerDeath()
     {
         resultsScreen.gameObject.SetActive(true);
+        Time.timeScale = .05f;
         //StartCoroutine(Appear(resultsScreen, 4));
     }
 
