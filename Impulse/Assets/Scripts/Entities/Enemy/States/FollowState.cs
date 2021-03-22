@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Entities.Enemy.Enemy_Types;
+using Managers;
 
 namespace Entities.Enemy.States
 {
@@ -40,6 +41,7 @@ namespace Entities.Enemy.States
 
 		public override IEnumerator WaitForAnimationFinish(AIEntity entity) {
 			aiEntity.navAgent.SetDestination(aiEntity.transform.position);
+			SoundManager.Instance.PlayAudio(AudioTypes.SFX_COMMON_ZOMBIE_GROAN);
 			return base.WaitForAnimationFinish(entity);
 		}
 	}

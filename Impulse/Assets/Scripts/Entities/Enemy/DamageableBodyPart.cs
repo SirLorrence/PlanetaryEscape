@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using Entities.Enemy.Enemy_Types;
+using Managers;
 using UnityEngine;
 
 namespace Entities.Enemy
@@ -28,6 +29,7 @@ namespace Entities.Enemy
 				_              => throw new ArgumentOutOfRangeException()
 			};
 			Debug.Log($"Damage: {amount * multiplier}");
+			SoundManager.Instance.PlayAudio(AudioTypes.SFX_COMMON_ZOMBIE_GROAN);
 			entity.TakeDamage(Mathf.FloorToInt(amount * multiplier));
 			yield return null;
 		}

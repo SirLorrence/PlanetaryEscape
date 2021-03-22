@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Entities.Enemy.Enemy_Types;
+using Managers;
 using UnityEngine;
 
 namespace Entities.Enemy.States
@@ -30,6 +31,7 @@ namespace Entities.Enemy.States
 		}
 
 		public override IEnumerator WaitForAnimationFinish(AIEntity entity) {
+			SoundManager.Instance.PlayAudio(AudioTypes.SFX_COMMON_ZOMBIE_ATTACK);
 			float animationTime = entity.animationHandler.animator.GetCurrentAnimatorStateInfo(0).length;
 			yield return new WaitForSeconds(animationTime);
 			_attacking = false;

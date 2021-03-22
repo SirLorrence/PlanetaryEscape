@@ -324,6 +324,7 @@ namespace Entities.Player
         #region Health 
         public override void TakeDamage(int damage)
         {
+	        SoundManager.Instance.PlayAudio(AudioTypes.SFX_PLAYER_TAKING_DAMAGE);
             base.TakeDamage(damage);
 
             if (health <= 0)

@@ -23,8 +23,10 @@ namespace Entities.Enemy.States
 		}
 
 		public void DropItem() {
+			SoundManager.Instance.PlayAudio(AudioTypes.SFX_COMMON_ZOMBIE_DEATH);
 			if (!animTriggered) {
 				aiEntity.animationHandler.animator.SetTrigger(ZombieAnimationHandler.DeathTrigger);
+
 				animTriggered = !animTriggered;
 			}
 
