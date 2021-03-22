@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Killbox
   - GunTip
+  - Arms
+  - LoadScreen
   layers:
   - Default
   - TransparentFX
@@ -19,9 +21,9 @@ TagManager:
   - PostProcessing
   - PlayerLayer
   - Ground
-  - 
-  - 
-  - 
+  - Environment
+  - Weapon
+  - Zombies
   - 
   - 
   - 

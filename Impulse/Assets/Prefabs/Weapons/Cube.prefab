@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6113536484246270814}
   - component: {fileID: 8418958942981374716}
   - component: {fileID: 9085689970044366652}
-  - component: {fileID: 8879652586504901732}
   - component: {fileID: 1321018988821243825}
   - component: {fileID: -5418330711204871141}
   m_Layer: 0
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,22 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8879652586504901732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7909223726156106770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!114 &1321018988821243825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -124,10 +107,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b905218b6f661e645a9e8e6c38bc3722, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  damage: 1
   lifetime: 4
-  lifetimeTimer: 0
+  tracerDelay: 0.2
   layerMask:
     serializedVersion: 2
     m_Bits: 4294967295
