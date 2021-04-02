@@ -22,7 +22,9 @@ MonoBehaviour:
   - Assets/Models/Props/Books01.fbx
   - Assets/Models/Props/MopBucket.fbx
   - Assets/Models/Props/Books.fbx
-  uvOverlapAssetList: 01010000010100000101000001010000
+  - Assets/Models/Level/LevelBeta4.0.fbx
+  - Assets/Models/Level/LevelBeta4.0 1.fbx
+  uvOverlapAssetList: 010100000101000001010000010100000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 0
   gpuName: 
