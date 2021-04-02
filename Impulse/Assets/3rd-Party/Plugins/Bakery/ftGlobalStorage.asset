@@ -17,8 +17,12 @@ MonoBehaviour:
   modifiedMeshList: []
   modifiedMeshPaddingList: 
   modifiedAssets: []
-  assetList: []
-  uvOverlapAssetList: 
+  assetList:
+  - Assets/Models/Level/LevelBeta3.0.fbx
+  - Assets/Models/Props/Books01.fbx
+  - Assets/Models/Props/MopBucket.fbx
+  - Assets/Models/Props/Books.fbx
+  uvOverlapAssetList: 01010000010100000101000001010000
   xatlasWarningShown: 0
   foundCompatibleSetup: 0
   gpuName: 
